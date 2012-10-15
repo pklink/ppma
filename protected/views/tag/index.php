@@ -20,29 +20,36 @@
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<a class="search-button">Advanced Search</a>
+<?php if (Yii::app()->user->hasFlash('success')) : ?>
+    <div class="alert-box success">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+        <a href="" class="close">&times;</a>
+    </div>
+<?php endif; ?>
+
+<p><a class="search-button">Advanced Search</a></p>
 <div class="search-form">
     <?php $this->renderPartial('_search',array(
 	   'model' => $model,
     )); ?>
 </div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('GridView', array(
     'dataProvider' => $model->search(),
-    'filter'       => $model,
     'cssFile'      => Yii::app()->baseUrl . '/css/grid.css',
 	'columns'      => array(
         'name',
         array(
-            'class'           => 'CLinkColumn',
-            'labelExpression' => '$data->entryCounter',
-            'urlExpression'   => 'array("entry/index", "Entry[tagList]" => $data->name)',
-            'header'          => 'Used',
+            'value'  => '$data->entryCounter',
+            'header' => 'Used',
         ),
         array(
-            'class'               => 'CButtonColumn',
-            'template'            => '{update} {delete}',
-            'updateButtonOptions' => array('rel' => 'fancy'),
+            'class' => 'ButtonColumn',
+            'buttons' => array(
+                'view' => array(
+                    'url' => 'array("entry/index", "Entry[tagList]" => $data->name)',
+                )
+            )
         ),
 	),
 )); ?>

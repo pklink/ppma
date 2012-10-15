@@ -31,23 +31,9 @@
     )); ?>
 </div>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('GridView', array(
     'dataProvider' => $model->search(),
     'cssFile'      => false,
-    'pager'        => array(
-        'cssFile'              => false,
-        'header'               => false,
-        'htmlOptions'          => array('class' => 'pagination'),
-        'prevPageLabel'        => '&laquo;',
-        'previousPageCssClass' => 'arrow',
-        'nextPageLabel'        => '&raquo;',
-        'nextPageCssClass'     => 'arrow',
-        'firstPageLabel'       => false,
-        'firstPageCssClass'    => 'hide',
-        'lastPageLabel'        => false,
-        'lastPageCssClass'     => 'hide',
-        'selectedPageCssClass' => 'current',
-    ),
 	'columns'      => array(
         'name',
         'username',

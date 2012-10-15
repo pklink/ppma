@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = array(
         'Tags'         => array('index'),
-        $form->model->name,
+        $model->name,
         'Update',
     );
 
@@ -14,6 +14,6 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/form.js');
 ?>
 
-<h1>Update "<?php echo CHtml::encode($form->model->name); ?>"</h1>
+<h1>Update "<?php echo CHtml::encode($model->name); ?>"</h1>
 
-<?php echo $this->renderPartial('_form', array('form' => $form)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

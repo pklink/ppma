@@ -1,17 +1,13 @@
-<div class="wide form">
-    <?php $form=$this->beginWidget('CActiveForm', array(
-        'action' => Yii::app()->createUrl($this->route),
-        'method'=>'get',
-    )); ?>
+<?php $form=$this->beginWidget('ActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method'=>'get',
+)); ?>
 
-        <div class="row">
-            <?php echo $form->label($model, 'name'); ?>
-            <?php echo $form->textField($model, 'name', array('size' => 50, 'maxlength' => 255)); ?>
-        </div>
-    
-        <div class="row buttons">
-            <?php echo CHtml::submitButton('Search'); ?>
-        </div>
+    <?php echo $form->label($model, 'name'); ?>
+    <?php echo $form->textField($model, 'name', array('size' => 50, 'maxlength' => 255)); ?>
 
-    <?php $this->endWidget(); ?>
-</div>
+    <?php echo CHtml::submitButton('Search', array('class' => 'secondary button radius')) ?>
+
+    <hr />
+
+<?php $this->endWidget(); ?>

@@ -41,7 +41,8 @@ footer {
 }
 
 .button-column {
-    width: 90px;
+    width: 85px;
+    float: none !important;
 }
 
 .button-column a {

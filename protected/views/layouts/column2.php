@@ -9,15 +9,20 @@
             <ul class="left">
                 <li class="has-dropdown">
                     <?php echo CHtml::link('Entries', array('entry/index')) ?>
-
                     <ul class="dropdown">
                         <li><?php echo CHtml::link('Overview', array('entry/index')) ?></li>
                         <li><?php echo CHtml::link('Create', array('entry/create')) ?></li>
                     </ul>
                 </li>
                 <li class="has-dropdown">
+                    <?php echo CHtml::link('Tags', array('tag/index')) ?>
+                    <ul class="dropdown">
+                        <li><?php echo CHtml::link('Overview', array('tag/index')) ?></li>
+                        <li><?php echo CHtml::link('Create', array('tag/create')) ?></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
                     <a href="#">Profile</a>
-
                     <ul class="dropdown">
                         <li><?php echo CHtml::link('Logout', array('/user/logout')) ?></li>
                     </ul>

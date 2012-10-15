@@ -11,9 +11,9 @@ class TagController extends Controller
 
 
     /**
-     *
      * @param int $id
-     * @return void
+     * @return CActiveRecord
+     * @throws CHttpException
      */
     protected function _loadModel($id)
     {
@@ -33,7 +33,6 @@ class TagController extends Controller
 
 
     /**
-     *
      * @return array
      */
     public function accessRules()
@@ -53,40 +52,37 @@ class TagController extends Controller
     
     
     /**
-     *
      * @return void
      */
     public function actionCreate()
     {
-        // create form
-        $form = new CForm('application.views.tag.forms.form', new Tag('create'));
+        // create model
+        $model = new Tag('create');
 
         // form is submitted
-        if($form->submitted('create') && $form->validate())
+        if(isset($_POST['Tag']))
         {
+            $model->attributes = $_POST['Tag'];
+
             // save model & redirect to list
-            if($form->model->save(false))
+            if($model->save())
             {
+                // set flash
+                Yii::app()->user->setFlash('success', 'The tag was created successfully.');
+
+                // redirect to index
                 $this->redirect(array('index'));
             }
         }
 
         // render view
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $this->renderPartial('create', array('form' => $form));
-        }
-        else
-        {
-            $this->render('create', array('form' => $form));
-        }
+        $this->render('create', array('model' => $model));
     }
     
     
     /**
-     *
-     * @paramt int $id
-     * @return void
+     * @param int $id
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
@@ -111,7 +107,6 @@ class TagController extends Controller
     
     
     /**
-     * 
      * @return void
      */
     public function actionIndex()
@@ -124,7 +119,7 @@ class TagController extends Controller
             $model->attributes = $_GET['Tag'];
         }
 
-        $this->render('list', array(
+        $this->render('index', array(
             'model' => $model,
         ));
         
@@ -132,38 +127,32 @@ class TagController extends Controller
 
     
     /**
-     *
      * @param int $id
      * @return void
      */
     public function actionUpdate($id)
     {
-        // create form
-        $form = new CForm('application.views.tag.forms.form', $this->_loadModel($id));
-
-        // set scenario
-        $form->model->scenario = 'update';
+        // get model
+        $model = $this->_loadModel($id);
 
         // check if form submitted and valid
-        if($form->submitted('update') && $form->validate())
+        if(isset($_POST['Tag']))
         {
+            $model->attributes = $_POST['Tag'];
+
             // save entry
-            if($form->model->save(false))
+            if($model->save())
             {
+                // set flash
+                Yii::app()->user->setFlash('success', 'The tag was updated successfully.');
+
                 // redirect to index
                 $this->redirect(array('index'));
             }
         }
 
         // render view
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $this->renderPartial('update', array('form' => $form));
-        }
-        else
-        {
-            $this->render('update', array('form' => $form));
-        }
+        $this->render('update', array('model' => $model));
     }
     
 
