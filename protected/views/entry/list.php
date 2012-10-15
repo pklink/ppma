@@ -34,22 +34,20 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $model->search(),
     'cssFile'      => false,
-    /*
     'pager'        => array(
         'cssFile'              => false,
         'header'               => false,
         'htmlOptions'          => array('class' => 'pagination'),
         'prevPageLabel'        => '&laquo;',
-        //'prevPageCssClass' => 'arrow',
+        'previousPageCssClass' => 'arrow',
         'nextPageLabel'        => '&raquo;',
-        //'nextPageCssClass'     => 'arrow',
+        'nextPageCssClass'     => 'arrow',
         'firstPageLabel'       => false,
-        //'firstPageCssClass'    => 'hide',
+        'firstPageCssClass'    => 'hide',
         'lastPageLabel'        => false,
-        //'lastPageCssClass'     => 'hide',
-        //'selectedPageCssClass' => 'current',
+        'lastPageCssClass'     => 'hide',
+        'selectedPageCssClass' => 'current',
     ),
-    */
 	'columns'      => array(
         'name',
         'username',
