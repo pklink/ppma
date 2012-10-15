@@ -177,7 +177,7 @@ class EntryController extends Controller
             $model->attributes = $_GET['Entry'];
         }
 
-        $this->render('list', array(
+        $this->render('index', array(
             'model' => $model,
         ));
     }
