@@ -8,7 +8,7 @@
         <section>
             <ul class="left">
                 <li class="has-dropdown">
-                    <a href="#">Entries</a>
+                    <?php echo CHtml::link('Entries', array('entry/index')) ?>
 
                     <ul class="dropdown">
                         <li><?php echo CHtml::link('Overview', array('entry/index')) ?></li>
