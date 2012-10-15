@@ -1,0 +1,68 @@
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-size: 14px !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+hr {
+    border-color: #eee;
+}
+
+footer {
+    padding: 20px 0;
+}
+
+#content, #login {
+    -webkit-box-shadow: #eee 0 0 20px;
+    -moz-box-shadow: #eee 0 0 20px;
+    box-shadow: #eee 0 0 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#login {
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.button-column {
+    width: 90px;
+}
+
+.button-column a {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    font-size: 18px;
+    color: #000;
+}
+
+.button-column a:last-child {
+    margin-right: 0;
+}
+
+.grid-view .summary {
+    padding-bottom: 5px;
+    text-align: right;
+}
+
+.panel {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}

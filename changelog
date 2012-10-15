@@ -1,0 +1,7 @@
+PHP Password Manager (ppma) Change Log
+======================================
+
+Version 0.3.0
+-------------
+- New: Added link to saved website (index.php?r=entries/index)
+- Chg: Improved design (using foundation)

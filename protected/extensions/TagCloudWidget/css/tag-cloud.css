@@ -1,0 +1,11 @@
+.tag-cloud { word-wrap: break-word; }
+.tag-cloud span.weight-1 { font-size: 1.0em; }
+.tag-cloud span.weight-2 { font-size: 1.3em; }
+.tag-cloud span.weight-3 { font-size: 1.6em; }
+.tag-cloud span.weight-4 { font-size: 1.9em; }
+.tag-cloud span.weight-5 { font-size: 2.2em; }
+.tag-cloud span.weight-6 { font-size: 2.5em; }
+.tag-cloud span.weight-7 { font-size: 2.8em; }
+.tag-cloud span.weight-8 { font-size: 3.1em; }
+.tag-cloud span.weight-9 { font-size: 3.4em; }
+.tag-cloud span.weight-10 { font-size: 3.7em; }
