@@ -43,7 +43,7 @@
             'type'  => 'raw',
         ),
         array(
-            'class' => 'ButtonColumn',
+            'class' => 'EntryButtonColumn',
         ),
 	),
 )); ?>
