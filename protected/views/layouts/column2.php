@@ -24,7 +24,7 @@
                 <li class="has-dropdown">
                     <a>Settings</a>
                     <ul class="dropdown">
-                        <li><?php echo CHtml::link('General', array('settings/password')) ?></li>
+                        <li><?php echo CHtml::link('General', array('settings/application')) ?></li>
 
                         <li><?php echo CHtml::link('Create', array('tag/create')) ?></li>
                     </ul>
@@ -67,7 +67,8 @@
     <footer class="row">
         <div class="twelve columns">
             * <a href="http://sourceforge.net/projects/ppma/">ppma</a> (version <?php echo Yii::app()->params['version'] ?>)
-            powered by <a href="http://www.yiiframework.com/" target="_blank">yii framework</a> (version <?php echo Yii::getVersion() ?>)
+            powered by <a href="http://www.yiiframework.com/" target="_blank">yii framework</a> (version <?php echo Yii::getVersion() ?>) and
+            <a href="http://foundation.zurb.com/" target="_blank">Foundation 3</a> (version 3.1)
         </div>
     </footer>
 
