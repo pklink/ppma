@@ -22,8 +22,17 @@
                     </ul>
                 </li>
                 <li class="has-dropdown">
-                    <a href="#">Profile</a>
+                    <a>Settings</a>
                     <ul class="dropdown">
+                        <li><?php echo CHtml::link('General', array('settings/password')) ?></li>
+
+                        <li><?php echo CHtml::link('Create', array('tag/create')) ?></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a>Profile</a>
+                    <ul class="dropdown">
+                        <li><?php echo CHtml::link('Change Password', array('settings/password')) ?></li>
                         <li><?php echo CHtml::link('Logout', array('/user/logout')) ?></li>
                     </ul>
                 </li>

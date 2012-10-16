@@ -42,31 +42,36 @@ class SettingsController extends Controller
      */
     public function actionPassword()
     {
-        $form = new CForm('application.views.settings.forms.password', new PasswordForm());
+        $model = new PasswordForm();
 
-        if ($form->submitted('save') && $form->validate())
+        if (isset($_POST['PasswordForm']))
         {
-            // get user from db
-            $user = User::model()->findByPk(Yii::app()->user->id);
+            $model->attributes = $_POST['PasswordForm'];
 
-            // set new password
-            $user->password = Yii::app()->securityManager->padUserPassword($form->model->newPassword);
+            if ($model->validate())
+            {
+                // get user from db
+                $user = User::model()->findByPk(Yii::app()->user->id);
 
-            // encrypt encryptionKey with new password
-            $user->encryptionKey = Yii::app()->securityManager->encrypt(Yii::app()->user->encryptionKey, $user->password);
+                // set new password
+                $user->password = Yii::app()->securityManager->padUserPassword($model->newPassword);
 
-            // salt password
-            $user->saltPassword(new CEvent());
+                // encrypt encryptionKey with new password
+                $user->encryptionKey = Yii::app()->securityManager->encrypt(Yii::app()->user->encryptionKey, $user->password);
 
-            // save user record
-            $user->save(false);
+                // salt password
+                $user->saltPassword(new CEvent());
 
-            // set success-flash & refresh page
-            Yii::app()->user->setFlash('success', true);
-            $this->refresh();
+                // save user record
+                $user->save(false);
+
+                // set success-flash & refresh page
+                Yii::app()->user->setFlash('success', 'Your password was changed successfully.');
+                $this->refresh();
+            }
         }
 
-        $this->render('password', array('form' => $form));
+        $this->render('password', array('model' => $model));
     }
 
     
@@ -124,16 +129,6 @@ class SettingsController extends Controller
         $this->render('application', array('form' => $form));
     }
     
-
-    /**
-     *
-     * @return void
-     */
-    public function actionIndex()
-    {
-        $this->render('index');
-    }
-
 
     /**
      * (non-PHPdoc)
