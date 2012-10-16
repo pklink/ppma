@@ -1,6 +1,6 @@
 <?php
 
-class EntryButtonColumn extends CButtonColumn
+class EntryButtonColumn extends ButtonColumn
 {
 
     /**
@@ -29,14 +29,6 @@ class EntryButtonColumn extends CButtonColumn
                 'class'          => 'update-entry',
             ),
             'url'     => 'array("entry/update", "id" => $data->id)',
-        );
-
-        // delete button
-        $this->buttons['delete'] = array(
-            'label'   => '<i class="foundicon-remove"></i>',
-            'options' => array('title' => 'Delete'),
-            'url'     => 'array("entry/delete", "id" => $data->id)',
-            //'click'   => '',
         );
     }
 
