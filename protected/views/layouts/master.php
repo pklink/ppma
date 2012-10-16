@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/general_enclosed_foundicons.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/accessibility_foundicons.css">
+        <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" />
 
         <!--[if lt IE 8]>
             <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/general_enclosed_foundicons_ie7.css">
