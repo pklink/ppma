@@ -3,6 +3,7 @@ PHP Password Manager (ppma) Change Log
 
 Version 0.3.0
 -------------
-- New: Added link to saved website (index.php?r=entries/index)
+- New: Added link to the saved URL of an entry (index.php?r=entries/index)
 - New: Added favicon
 - Chg: Improved design (using foundation)
+- Chg: Removed registration functionality

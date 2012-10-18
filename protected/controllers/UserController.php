@@ -21,12 +21,6 @@ class UserController extends Controller
                 'users'   => array('?'),
             ),
             array(
-                'allow',
-                'actions'    => array('register'),
-                'users'      => array('?'),
-                'expression' => 'Yii::app()->settings->getAsBool(Setting::REGISTRATION_ENABLED)', 
-            ),
-            array(
                 'deny',
                 'users'   => array('*'),
             ),
@@ -66,39 +60,6 @@ class UserController extends Controller
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
-    }
-
-
-    /**
-     *
-     * @return void
-     */
-    public function actionRegister()
-    {
-        // create form
-        $form = new CForm('application.views.user.forms.register', new User());
-
-        // form is submitted
-        if ($form->submitted('register'))
-        {
-            // attach eventhandler for padding password, generating encryption key and salting password
-            $form->model->onBeforeValidate[] = array($form->model, 'padPassword');
-            $form->model->onBeforeValidate[] = array($form->model, 'generateEncryptionKey');
-            $form->model->onBeforeValidate[] = array($form->model, 'saltPassword');
-
-            // validate form
-            if ($form->validate())
-            {
-                // save user
-                $form->model->save(false);
-
-                // set flash and refresh page
-                Yii::app()->user->setFlash('success', true);
-                $this->refresh();
-            }
-        }
-
-        $this->render('register', array('form' => $form));
     }
 
 
