@@ -8,6 +8,6 @@ return array (
     'password' => 'password',
     'name' => 'ppma',
   ),
-  'isInstalled' => true,
+  'isInstalled' => false,
   'version' => '0.3.0',
 );
