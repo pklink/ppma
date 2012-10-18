@@ -24,6 +24,7 @@ return array(
         'create' => array(
             'type'  => 'submit',
             'label' => 'Create Config',
+            'class' => 'button radius',
         ),
     ),
 );

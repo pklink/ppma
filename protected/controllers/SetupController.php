@@ -120,7 +120,7 @@ class SetupController extends Controller
     protected function _actionStep3()
     {
         // create form
-        $form = new CForm('application.views.user.forms.register', new User());
+        $form = new CForm('application.views.setup.forms.register', new User());
 
         // form is submitted
         if ($form->submitted('register'))

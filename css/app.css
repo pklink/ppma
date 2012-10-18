@@ -78,3 +78,15 @@ footer {
     padding-left: 20px;
     width: 75%;
 }
+
+.true, .false {
+    font-weight: bold;
+}
+
+.true {
+    color: green;
+}
+
+.false {
+    color: red;
+}

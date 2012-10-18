@@ -9,7 +9,7 @@
 
 <h1>Installation complete</h1>
 
-<div class="flash-success">
+<p>
     Congratulations!
     Go to <?php echo CHtml::link('login', array('user/login')) ?>.
-</div>
+</p>
