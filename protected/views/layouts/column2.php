@@ -25,8 +25,6 @@
                     <a>Settings</a>
                     <ul class="dropdown">
                         <li><?php echo CHtml::link('General', array('settings/application')) ?></li>
-
-                        <li><?php echo CHtml::link('Create', array('tag/create')) ?></li>
                     </ul>
                 </li>
                 <li class="has-dropdown">
