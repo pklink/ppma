@@ -18,7 +18,7 @@ class UserController extends Controller
             array(
                 'allow',
                 'actions' => array('login'),
-                'users'   => array('?'),
+                'users'   => array('*'),
             ),
             array(
                 'deny',
@@ -34,6 +34,12 @@ class UserController extends Controller
      */
     public function actionLogin()
     {
+        // check if user is logged in
+        if (!Yii::app()->user->isGuest)
+        {
+            $this->redirect(array('/entry/index'));
+        }
+
         $this->layout = 'login';
 
         $model = new LoginForm();
