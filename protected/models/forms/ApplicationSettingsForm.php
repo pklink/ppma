@@ -9,12 +9,6 @@ class ApplicationSettingsForm extends CFormModel
      */
     public $forceSSL;
 
-    /**
-     *
-     * @var boolean
-     */
-    public $registrationEnabled;
-    
 
     /**
      * (non-PHPdoc)
@@ -25,9 +19,6 @@ class ApplicationSettingsForm extends CFormModel
         return array(
             array('forceSSL', 'required'),
             array('forceSSL', 'boolean', 'skipOnError' => true),
-        
-            array('registrationEnabled', 'required'),
-            array('registrationEnabled', 'boolean', 'skipOnError' => true),
         );
     }
     
@@ -38,7 +29,6 @@ class ApplicationSettingsForm extends CFormModel
      */
     protected function afterConstruct()
     {
-        $this->registrationEnabled = Yii::app()->settings->get( Setting::REGISTRATION_ENABLED );
         $this->forceSSL            = Yii::app()->settings->get( Setting::FORCE_SSL );
         
         return parent::afterConstruct();
@@ -53,7 +43,6 @@ class ApplicationSettingsForm extends CFormModel
     {
         return array(
             'forceSSL'            => 'Force SSL/HTTPS using',
-            'registrationEnabled' => 'Registration is enabled',
         );
     }
 
