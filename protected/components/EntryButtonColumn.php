@@ -53,5 +53,15 @@ class EntryButtonColumn extends ButtonColumn
         }
     }
 
+    protected function renderDataCellContent($row, $data)
+    {
+        if (strlen($data->url) == 0)
+        {
+            echo '<div class="placeholder"></div>';
+        }
+
+        parent::renderDataCellContent($row, $data);
+    }
+
 
 }

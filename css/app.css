@@ -57,6 +57,12 @@ footer {
     color: #000;
 }
 
+.button-column .placeholder {
+    float: left;
+    width: 23px;
+    height: 18px;
+}
+
 .button-column a:last-child {
     margin-right: 0;
 }
