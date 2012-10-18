@@ -77,6 +77,6 @@ return array(
     'params' => array(
         'adminEmail'  => 'webmaster@example.com',
         'isInstalled' => $ppma['isInstalled'],
-        'version'     => '0.3.0',
+        'version'     => $ppma['version']
     ),
 );

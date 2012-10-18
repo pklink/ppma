@@ -83,8 +83,16 @@ class UpgradeController extends Controller
             Yii::app()->end();
         }
 
+        // remove registration-setting
         Setting::model()->deleteAllByAttributes(array('name' => 'registration_enabled'));
         Yii::app()->user->setFlash('version', '0.3.0');
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.0';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
         $this->redirect(array('/upgrade/success'));
     }
 
