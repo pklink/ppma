@@ -1,3 +1,3 @@
-<h1>Congratulations!</h1>
+<h5>Congratulations!</h5>
 
-<p>Upgrade to version <?php echo $version ?> complete... </p>
+<p>Upgrade to version <?php echo $version ?> is complete... </p>

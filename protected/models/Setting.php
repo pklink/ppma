@@ -8,8 +8,6 @@
  */
 class Setting extends CActiveRecord
 {
-
-    const REGISTRATION_ENABLED = 'registration_enabled';
     
     const FORCE_SSL = 'force_ssl';
     

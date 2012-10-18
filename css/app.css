@@ -26,6 +26,10 @@ footer {
     padding: 20px 0;
 }
 
+#upgrade {
+    margin-top: 50px;
+}
+
 #content, #login {
     -webkit-box-shadow: #eee 0 0 20px;
     -moz-box-shadow: #eee 0 0 20px;
