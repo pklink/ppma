@@ -2,6 +2,6 @@ UPGRADE INSTRUCTIONS
 --------------------
 
 1. Back up your database
-2. Unpack downloaded ppma-archive & copy files to your ppma directory
+2. Unpack the downloaded ppma-archive & copy the files to your ppma directory
 3. Run upgrade routine in your browser (<ppma-URL>/index.php?index.php?r=upgrade
    e.g. http://example.com/index.php?r=upgrade)
