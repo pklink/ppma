@@ -217,12 +217,6 @@ class SetupController extends Controller
             'value' => 'string NOT NULL',
         ));
         
-        // create "registration enabled" default value
-        $registrationEnabled = new Setting();
-        $registrationEnabled->name  = Setting::REGISTRATION_ENABLED;
-        $registrationEnabled->value = 0;
-        $registrationEnabled->save();
-        
         // create "force ssl" default value
         $forceSsl = new Setting();
         $forceSsl->name  = Setting::FORCE_SSL;
