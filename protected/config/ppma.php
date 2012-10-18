@@ -6,7 +6,7 @@ return array (
     'server' => 'localhost',
     'username' => 'root',
     'password' => 'password',
-    'name' => 'ppma2',
+    'name' => 'ppma',
   ),
   'isInstalled' => true,
   'version' => '0.3.0',

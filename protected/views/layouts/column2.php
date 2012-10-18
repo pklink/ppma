@@ -39,8 +39,8 @@
             <ul class="right">
 
                 <li class="search">
-                    <form action="<?php echo CHtml::normalizeUrl(array('entry/index')) ?>" method="get">
-                        <input type="search" name="q" />
+                    <form action="<?php echo CHtml::normalizeUrl(array('entry/index')) ?>" method="post">
+                        <input type="search" name="q" value="<?php echo Yii::app()->request->getParam('q') ?>" />
                     </form>
                 </li>
             </ul>

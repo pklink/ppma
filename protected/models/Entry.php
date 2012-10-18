@@ -237,22 +237,39 @@ class Entry extends CActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria();
-        $criteria->compare('t.id', $this->id);
-        $criteria->compare('t.name', $this->name,true);
-        $criteria->compare('t.url', $this->url,true);
-        $criteria->compare('t.comment', $this->comment,true);
-        $criteria->compare('t.userId', $this->userId);
-        $criteria->compare('t.username', $this->username);
 
-        if (strlen($this->tagList) > 0)
+        // by search term
+        if (Yii::app()->request->getParam('q') != null)
         {
-            $c = new CDbCriteria();
-            $c->join = 'INNER JOIN EntryHasTag AS eht ON eht.entryId=t.id '
-                     . 'INNER JOIN Tag ON Tag.id=eht.tagId';
-            $c->compare('Tag.name', $this->tagList);
-            $criteria->mergeWith($c);
+            $term = Yii::app()->request->getParam('q');
+
+            $criteria->join = 'INNER JOIN EntryHasTag AS eht ON eht.entryId=t.id '
+                            . 'INNER JOIN Tag ON Tag.id=eht.tagId';
+
+            $criteria->compare('t.name', $term, true, 'OR');
+            $criteria->compare('t.url', $term, true, 'OR');
+            $criteria->compare('t.comment', $term, true, 'OR');
+            $criteria->compare('t.username', $term, true, 'OR');
+            $criteria->compare('Tag.name', $term, true, 'OR');
         }
 
+        // by detail search
+        else
+        {
+            $criteria->compare('t.name', $this->name, true);
+            $criteria->compare('t.url', $this->url, true);
+            $criteria->compare('t.comment', $this->comment);
+            $criteria->compare('t.username', $this->username);
+
+            if (strlen($this->tagList) > 0)
+            {
+                $c = new CDbCriteria();
+                $c->join = 'INNER JOIN EntryHasTag AS eht ON eht.entryId=t.id '
+                         . 'INNER JOIN Tag ON Tag.id=eht.tagId';
+                $c->compare('Tag.name', $this->tagList);
+                $criteria->mergeWith($c);
+            }
+        }
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
