@@ -106,27 +106,27 @@ class SettingsController extends Controller
      */
     public function actionApplication()
     {
-        $form = new CForm('application.views.settings.forms.application', new ApplicationSettingsForm());
+        $model = new ApplicationSettingsForm();
 
         // form is submitted and valid
-        if ($form->submitted('save') && $form->validate())
+        if (isset($_POST['ApplicationSettingsForm']))
         {
-            // save registration-setting
-            $model = Setting::model()->name( Setting::REGISTRATION_ENABLED )->find();
-            $model->value = $form->model->registrationEnabled;
-            $model->save(false);
-            
-            // save ssl-setting
-            $model = Setting::model()->name( Setting::FORCE_SSL )->find();
-            $model->value = $form->model->forceSSL;
-            $model->save(false);
-            
-            // set flash an refresh
-            Yii::app()->user->setFlash('success', true);
-            $this->refresh();
-        }        
+            $model->attributes = $_POST['ApplicationSettingsForm'];
+
+            if ($model->validate())
+            {
+                // save ssl-setting
+                $setting = Setting::model()->name( Setting::FORCE_SSL )->find();
+                $setting->value = $model->forceSSL;
+                $setting->save(false);
+
+                // set flash an refresh
+                Yii::app()->user->setFlash('success', 'Settings were updated successfully.');
+                $this->refresh();
+            }
+        }
         
-        $this->render('application', array('form' => $form));
+        $this->render('application', array('model' => $model));
     }
     
 

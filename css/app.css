@@ -67,3 +67,10 @@ footer {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+.hint {
+    font-size: 0.9em;
+    color: #AAA;
+    padding-left: 20px;
+    width: 75%;
+}
