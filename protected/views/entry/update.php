@@ -13,9 +13,6 @@
         array('label' => 'Manage Entry', 'url' => array('index')),
         array('label' => 'Create Entry', 'url' => array('create'), 'linkOptions' => array('rel' => 'fancy')),
     );
-    
-    // register scripts
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/form.js');
 ?>
 
 <h1>Update "<?php echo CHtml::encode($model->identifier); ?>"</h1>
