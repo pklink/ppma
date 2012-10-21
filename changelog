@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.1
+-------------
+- Bug: Update-modal on entry/index didn't work
+
 Version 0.3.0
 -------------
 - New: Added link to the saved URL of an entry (index.php?r=entries/index)

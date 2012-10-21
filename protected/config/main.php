@@ -34,7 +34,8 @@ return array(
     'components' => array(
         'clientScript' => array(
             'scriptMap' => array(
-                'jquery.js' => 'js/foundation.min.js',
+                'jquery.js'     => 'js/foundation.min.js',
+                'jquery.min.js' => 'js/foundation.min.js',
             ),
         ),
 

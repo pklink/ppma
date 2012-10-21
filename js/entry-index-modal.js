@@ -10,6 +10,8 @@ $(function() {
                 });
             }
         });
+
+        return false
     });
 
 });
