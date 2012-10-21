@@ -15,11 +15,23 @@ class UpgradeController extends Controller
 
 
     /**
-     * @return bool
+     * @return boolean
      */
     protected function _is0_3_0Installed()
     {
         return Setting::model()->countByAttributes(array('name' => 'registration_enabled')) == 0;
+    }
+
+
+    /**
+     * @return boolean
+     */
+    protected function _is0_3_1Installed()
+    {
+        $version = str_replace('.', '', Yii::app()->params['version']);
+        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
+
+        return $version >= '310000000';
     }
 
     
@@ -66,8 +78,7 @@ class UpgradeController extends Controller
             $model->delete();
         }
         
-        Yii::app()->user->setFlash('version', 0.2);
-        $this->redirect(array('/upgrade/success'));
+        $this->redirect(array('index', 'version' => '0.3.0'));
     }
 
     /**
@@ -77,15 +88,12 @@ class UpgradeController extends Controller
     {
         if ($this->_is0_3_0Installed())
         {
-
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
+            $this->redirect(array('index', 'version' => '0.3.1'));
             Yii::app()->end();
         }
 
         // remove registration-setting
         Setting::model()->deleteAllByAttributes(array('name' => 'registration_enabled'));
-        Yii::app()->user->setFlash('version', '0.3.0');
 
         // update config
         $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
@@ -93,6 +101,29 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.0';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
+        $this->redirect(array('index', 'version' => '0.3.1'));
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function _upgradeTo0_3_1()
+    {
+        if ($this->_is0_3_1Installed())
+        {
+            Yii::app()->user->setFlash('failure', true);
+            $this->redirect(array('index'));
+            Yii::app()->end();
+        }
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.1';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+        Yii::app()->user->setFlash('version', '0.3.1');
         $this->redirect(array('/upgrade/success'));
     }
 
