@@ -1,8 +1,8 @@
 <?php $this->beginContent('application.views.layouts.main'); ?>
 
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/custom-theme/jquery-ui-1.9.1.custom.min.css') ?>
-    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . 'js/jquery-ui-1.9.1.custom.min.js') ?>
-    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . 'js/typeahead.js') ?>
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui-1.9.1.custom.min.js') ?>
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/typeahead.js') ?>
 
     <nav class="top-bar">
         <ul>
