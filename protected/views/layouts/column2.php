@@ -1,5 +1,9 @@
 <?php $this->beginContent('application.views.layouts.main'); ?>
 
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/custom-theme/jquery-ui-1.9.1.custom.min.css') ?>
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . 'js/jquery-ui-1.9.1.custom.min.js') ?>
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . 'js/typeahead.js') ?>
+
     <nav class="top-bar">
         <ul>
             <li class="name"><h1><a href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a></h1></li>
@@ -40,7 +44,7 @@
 
                 <li class="search">
                     <form action="<?php echo CHtml::normalizeUrl(array('entry/index')) ?>" method="post">
-                        <input type="search" name="q" value="<?php echo Yii::app()->request->getParam('q') ?>" />
+                        <input type="search" name="q" value="<?php echo Yii::app()->request->getParam('q') ?>" rel="<?php echo Yii::app()->createAbsoluteUrl('entry/searchName') ?>" />
                     </form>
                 </li>
             </ul>

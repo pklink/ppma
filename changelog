@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.2
+-------------
+- New: Added typeahead to search field in the navigation
+
 Version 0.3.1
 -------------
 - Bug: Update-modal on entry/index didn't work

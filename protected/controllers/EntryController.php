@@ -39,7 +39,7 @@ class EntryController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array('create', 'delete', 'getData', 'index', 'update'),
+                'actions' => array('create', 'delete', 'getData', 'index', 'update', 'searchName'),
                 'users'   => array('@'),
             ),
             array(
@@ -47,6 +47,33 @@ class EntryController extends Controller
                 'users'   => array('*'),
             ),
         );
+    }
+
+
+    /**
+     * @param string $term
+     */
+    public function actionSearchName($term)
+    {
+        // escape $term
+        $term = CPropertyValue::ensureString($term);
+
+        // create criteria
+        $c = new CDbCriteria();
+        $c->distinct = true;
+        $c->addSearchCondition('name', $term);
+        $c->limit = 5;
+
+        // save results
+        $result = array();
+        foreach (Entry::model()->findAll($c) as $model)
+        {
+            /* @var Entry $model */
+            $result[] = $model->name;
+        }
+
+        // output result as JSON
+        echo CJSON::encode($result);
     }
 
 
