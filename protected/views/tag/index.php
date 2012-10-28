@@ -10,7 +10,6 @@
 
     // register scripts
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/toggle-search.js');
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/form.js');
 ?>
 
 <h1>Manage Tags</h1>
@@ -36,7 +35,7 @@
 
 <?php $this->widget('GridView', array(
     'dataProvider' => $model->search(),
-    'cssFile'      => Yii::app()->baseUrl . '/css/grid.css',
+    'cssFile'      => false,
 	'columns'      => array(
         'name',
         array(
