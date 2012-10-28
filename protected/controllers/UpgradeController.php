@@ -34,6 +34,17 @@ class UpgradeController extends Controller
         return $version >= '310000000';
     }
 
+
+    /**
+     * @return boolean
+     */
+    protected function _is0_3_2Installed()
+    {
+        $version = str_replace('.', '', Yii::app()->params['version']);
+        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
+
+        return $version >= '320000000';
+    }
     
     /**
      * @return void
@@ -106,14 +117,13 @@ class UpgradeController extends Controller
 
 
     /**
-     * @return void
-     */
+ * @return void
+ */
     protected function _upgradeTo0_3_1()
     {
         if ($this->_is0_3_1Installed())
         {
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
+            $this->redirect(array('index', 'version' => '0.3.2'));
             Yii::app()->end();
         }
 
@@ -123,7 +133,28 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.1';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        Yii::app()->user->setFlash('version', '0.3.1');
+        $this->redirect(array('index', 'version' => '0.3.2'));
+    }
+
+    /**
+     * @return void
+     */
+    protected function _upgradeTo0_3_2()
+    {
+        if ($this->_is0_3_2Installed())
+        {
+            Yii::app()->user->setFlash('failure', true);
+            $this->redirect(array('index'));
+            Yii::app()->end();
+        }
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.2';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+        Yii::app()->user->setFlash('version', '0.3.2');
         $this->redirect(array('/upgrade/success'));
     }
 
