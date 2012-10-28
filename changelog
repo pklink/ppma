@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.3.2
 -------------
 - New: Added typeahead to search field in the navigation
+- Chg: Removed some usages of non existing JS and CSS files
 
 Version 0.3.1
 -------------
