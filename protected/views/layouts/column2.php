@@ -63,6 +63,10 @@
                 <?php $this->widget('ext.TagCloudWidget.TagCloudWidget') ?>
             <?php endif; ?>
 
+            <?php if (!Yii::app()->user->isGuest) : ?>
+                <?php $this->widget('ext.RecentEntriesWidget.RecentEntriesWidget') ?>
+            <?php endif; ?>
+
         </aside>
     </div>
 
@@ -73,5 +77,11 @@
             <a href="http://foundation.zurb.com/" target="_blank">Foundation 3</a> (version 3.1)
         </div>
     </footer>
+
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/update-entry.js'); ?>
+    <?php $this->beginWidget('ext.EModal.EModal', array('id' => 'entry-form-modal')); ?>
+        <h2>Update entry</h2>
+        <?php $this->renderPartial('/entry/_form', array('model' => new Entry())); ?>
+    <?php $this->endWidget(); ?>
 
 <?php $this->endContent(); ?>

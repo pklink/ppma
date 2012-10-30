@@ -241,15 +241,7 @@ class EntryController extends Controller
             }
         }
 
-        // render view
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $this->renderPartial('update', array('model' => $form));
-        }
-        else
-        {
-            $this->render('update', array('model' => $model));
-        }
+        $this->render('update', array('model' => $model));
     }
 
 

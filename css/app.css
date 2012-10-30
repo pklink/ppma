@@ -78,6 +78,10 @@ footer {
     border-radius: 3px;
 }
 
+.panel ul {
+    list-style-type: none;
+}
+
 .hint {
     font-size: 0.9em;
     color: #AAA;

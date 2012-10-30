@@ -7,7 +7,6 @@
 
     // register scripts
     Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/toggle-search.js');
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/entry-index-modal.js');
 ?>
 
 <h1>Manage Entries</h1>
@@ -47,8 +46,3 @@
         ),
 	),
 )); ?>
-
-<?php $this->beginWidget('ext.EModal.EModal', array('id' => 'entry-form-modal')); ?>
-    <h2>Update entry</h2>
-    <?php $this->renderPartial('_form', array('model' => new Entry())); ?>
-<?php $this->endWidget(); ?>
