@@ -19,7 +19,7 @@ class RecentEntriesWidget extends CWidget
         // criteria for last entries
         $c = new CDbCriteria();
         $c->order = 't.id DESC';
-        $c->limit = 10;
+        $c->limit = Setting::model()->name(Setting::RECENT_ENTRIES_WIDGET_COUNT)->find()->value;
 
         // get entries
         $models = Entry::model()->findAll($c);

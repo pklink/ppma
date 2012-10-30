@@ -21,15 +21,30 @@
 )); ?>
 
 
-
     <label for="<?php echo CHtml::activeId($model, 'forceSSL') ?>">
         <?php echo $form->checkBox($model, 'forceSSL', array('class' => 'hide')); ?>
         <span class="custom checkbox <?php echo ($model->forceSSL ? 'checked' : '') ?>"></span> Force using SSL
-        <?php echo $form->error($model, 'forceSSL'); ?>
     </label>
     <p class="hint">
         Activate this option to force using SSL/HTTPS. Every HTTP-request will be redirected to the same page by using SSL.
     </p>
+
+
+    <label for="<?php echo CHtml::activeId($model, 'recentEntryWidgetEnabled') ?>">
+        <?php echo $form->checkBox($model, 'recentEntryWidgetEnabled', array('class' => 'hide')); ?>
+        <span class="custom checkbox <?php echo ($model->recentEntryWidgetEnabled ? 'checked' : '') ?>"></span> Show "Recent Entries" widget
+    </label>
+    <p class="hint">
+        Disable this option to hide the "Recent Entries" widget in the sidebar.
+    </p>
+
+    <div class="row">
+        <div class="seven columns">
+            <?php echo $form->labelEx($model, 'recentEntryWidgetCount'); ?>
+            <?php echo $form->textField($model, 'recentEntryWidgetCount'); ?>
+            <?php echo $form->error($model, 'recentEntryWidgetCount'); ?>
+        </div>
+    </div>
 
 
     <br />

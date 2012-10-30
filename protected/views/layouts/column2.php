@@ -63,7 +63,7 @@
                 <?php $this->widget('ext.TagCloudWidget.TagCloudWidget') ?>
             <?php endif; ?>
 
-            <?php if (!Yii::app()->user->isGuest) : ?>
+            <?php if (!Yii::app()->user->isGuest && Setting::model()->name(Setting::RECENT_ENTRIES_WIDGET_ENABLED)->find()->value) : ?>
                 <?php $this->widget('ext.RecentEntriesWidget.RecentEntriesWidget') ?>
             <?php endif; ?>
 

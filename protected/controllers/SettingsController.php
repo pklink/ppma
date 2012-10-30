@@ -19,7 +19,7 @@ class SettingsController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array('password', 'index'),
+                'actions' => array('password'),
                 'users'   => array('@'),
             ),
             array(
@@ -74,32 +74,7 @@ class SettingsController extends Controller
         $this->render('password', array('model' => $model));
     }
 
-    
-    /**
-     * 
-     * @return void
-     */
-    public function actionRegistration()
-    {
-        $form = new CForm('application.views.settings.forms.registration', new RegistrationSettingsForm());
 
-        // form is submitted and valid
-        if ($form->submitted('save') && $form->validate())
-        {
-            // save settings
-            $model = Setting::model()->name( Setting::REGISTRATION_ENABLED )->find();
-            $model->value = $form->model->registrationEnabled;
-            $model->save(false);
-            
-            // set flash an refresh
-            Yii::app()->user->setFlash('success', true);
-            $this->refresh();
-        }        
-        
-        $this->render('registration', array('form' => $form));
-    }
-
-    
     /**
      * 
      * @return void
@@ -115,9 +90,17 @@ class SettingsController extends Controller
 
             if ($model->validate())
             {
-                // save ssl-setting
+                // save settings
                 $setting = Setting::model()->name( Setting::FORCE_SSL )->find();
                 $setting->value = $model->forceSSL;
+                $setting->save(false);
+
+                $setting = Setting::model()->name( Setting::RECENT_ENTRIES_WIDGET_ENABLED )->find();
+                $setting->value = $model->recentEntryWidgetEnabled;
+                $setting->save(false);
+
+                $setting = Setting::model()->name( Setting::RECENT_ENTRIES_WIDGET_COUNT )->find();
+                $setting->value = $model->recentEntryWidgetCount;
                 $setting->save(false);
 
                 // set flash an refresh

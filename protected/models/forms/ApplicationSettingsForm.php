@@ -4,10 +4,19 @@ class ApplicationSettingsForm extends CFormModel
 {
     
     /**
-     * 
      * @var boolean
      */
     public $forceSSL;
+
+    /**
+     * @var boolean
+     */
+    public $recentEntryWidgetEnabled;
+
+    /**
+     * @var boolean
+     */
+    public $recentEntryWidgetCount;
 
 
     /**
@@ -17,8 +26,10 @@ class ApplicationSettingsForm extends CFormModel
     public function rules()
     {
         return array(
-            array('forceSSL', 'required'),
-            array('forceSSL', 'boolean', 'skipOnError' => true),
+            array('forceSSL', 'boolean'),
+            array('recentEntryWidgetEnabled', 'boolean'),
+            array('recentEntryWidgetCount', 'required', 'message' => 'Field cannot be blank.'),
+            array('recentEntryWidgetCount', 'numerical', 'min' => 1, 'skipOnError' => true, 'tooSmall' => 'Number is too small.'),
         );
     }
     
@@ -29,7 +40,9 @@ class ApplicationSettingsForm extends CFormModel
      */
     protected function afterConstruct()
     {
-        $this->forceSSL            = Yii::app()->settings->get( Setting::FORCE_SSL );
+        $this->forceSSL                 = Yii::app()->settings->get( Setting::FORCE_SSL );
+        $this->recentEntryWidgetEnabled = Yii::app()->settings->get( Setting::RECENT_ENTRIES_WIDGET_ENABLED );
+        $this->recentEntryWidgetCount   = Yii::app()->settings->get( Setting::RECENT_ENTRIES_WIDGET_COUNT );
         
         return parent::afterConstruct();
     }
@@ -42,7 +55,9 @@ class ApplicationSettingsForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'forceSSL'            => 'Force SSL/HTTPS using',
+            'forceSSL'                 => 'Force SSL/HTTPS using',
+            'recentEntryWidgetEnabled' => 'Enabled recent-entry-widget',
+            'recentEntryWidgetCount'   => 'Number of entries in the "Recent Entries" widget',
         );
     }
 
