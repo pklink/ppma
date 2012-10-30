@@ -10,6 +10,10 @@ class Setting extends CActiveRecord
 {
     
     const FORCE_SSL = 'force_ssl';
+
+    const RECENT_ENTRIES_WIDGET_ENABLED = 'recent_entries_widget_enabled';
+
+    const RECENT_ENTRIES_WIDGET_COUNT = 'recent_entries_widget_count';
     
     
     /**
