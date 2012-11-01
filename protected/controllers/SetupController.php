@@ -176,7 +176,10 @@ class SetupController extends Controller
         $command = Yii::app()->db->createCommand();
 
         // create Entry-table
-        $command->dropTable('Entry');
+        try {
+            $command->dropTable('Entry');
+        } catch (Exception $e) { }
+
         $command->createTable('Entry', array(
             'id'                => 'pk',
             'userId'            => 'integer NOT NULL',
@@ -188,7 +191,10 @@ class SetupController extends Controller
         ));
 
         // create EntryHasTag-table
-        $command->dropTable('EntryHasTag');
+        try {
+            $command->dropTable('EntryHasTag');
+        } catch (Exception $e) { }
+
         $command->createTable('EntryHasTag', array(
             'entryId' => 'integer NOT NULL',
             'tagId'   => 'integer NOT NULL',
@@ -196,7 +202,10 @@ class SetupController extends Controller
         ));
         
         // create Tag-table
-        $command->dropTable('Tag');
+        try {
+            $command->dropTable('Tag');
+        } catch (Exception $e) { }
+
         $command->createTable('Tag', array(
             'id'     => 'pk',
             'name'   => 'string',
@@ -204,7 +213,10 @@ class SetupController extends Controller
         ));
         
         // create User-table
-        $command->dropTable('User');
+        try {
+            $command->dropTable('User');
+        } catch (Exception $e) { }
+
         $command->createTable('User', array(
             'id'            => 'pk',
             'username'      => 'string',
@@ -215,7 +227,10 @@ class SetupController extends Controller
         ));
         
         // create Setting-table
-        $command->dropTable('Setting');
+        try {
+            $command->dropTable('Setting');
+        } catch (Exception $e) { }
+
         $command->createTable('Setting', array(
             'id'    => 'pk',
             'name'  => 'string NOT NULL',
