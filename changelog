@@ -6,6 +6,7 @@ Version 0.3.3
 - New: Added widget to sidebar that shows the recent entries
 - Chg: Removed unused files
 - Chg: Cleaned up code
+- Bug: #3 can't install, won't create database tables
 
 Version 0.3.2
 -------------

@@ -77,13 +77,13 @@ class SetupController extends Controller
             // save config
             $config = new CConfiguration($config);
             file_put_contents($configPath, "<?php\n\nreturn " . $config->saveAsString() . ';');
-            
+
             // create tables
             $this->_createTables();
 
             // set step in session and redirect
             Yii::app()->user->setState('step', 3);
-            $this->redirect(array('setup/', 'step' => 3));
+            $this->redirect(array('/setup/index', 'step' => 3));
         }
 
         // form is submitted & invalid
@@ -174,8 +174,9 @@ class SetupController extends Controller
     protected function _createTables()
     {
         $command = Yii::app()->db->createCommand();
-        
+
         // create Entry-table
+        $command->dropTable('Entry');
         $command->createTable('Entry', array(
             'id'                => 'pk',
             'userId'            => 'integer NOT NULL',
@@ -185,8 +186,9 @@ class SetupController extends Controller
             'username'          => 'string',
             'encryptedPassword' => 'binary',
         ));
-        
+
         // create EntryHasTag-table
+        $command->dropTable('EntryHasTag');
         $command->createTable('EntryHasTag', array(
             'entryId' => 'integer NOT NULL',
             'tagId'   => 'integer NOT NULL',
@@ -194,6 +196,7 @@ class SetupController extends Controller
         ));
         
         // create Tag-table
+        $command->dropTable('Tag');
         $command->createTable('Tag', array(
             'id'     => 'pk',
             'name'   => 'string',
@@ -201,6 +204,7 @@ class SetupController extends Controller
         ));
         
         // create User-table
+        $command->dropTable('User');
         $command->createTable('User', array(
             'id'            => 'pk',
             'username'      => 'string',
@@ -211,6 +215,7 @@ class SetupController extends Controller
         ));
         
         // create Setting-table
+        $command->dropTable('Setting');
         $command->createTable('Setting', array(
             'id'    => 'pk',
             'name'  => 'string NOT NULL',
@@ -222,6 +227,17 @@ class SetupController extends Controller
         $forceSsl->name  = Setting::FORCE_SSL;
         $forceSsl->value = 0;
         $forceSsl->save();
+
+        // add settings for recenent-entries-widget
+        $model = new Setting();
+        $model->name  = Setting::RECENT_ENTRIES_WIDGET_COUNT;
+        $model->value = 10;
+        $model->save();
+
+        $model = new Setting();
+        $model->name  = Setting::RECENT_ENTRIES_WIDGET_ENABLED;
+        $model->value = true;
+        $model->save();
     }
     
 
@@ -236,7 +252,7 @@ class SetupController extends Controller
 
         if ($step > Yii::app()->user->getState('step', 1))
         {
-            $this->redirect(array('setup/', 'step' => Yii::app()->user->getState('step', 1)));
+            $this->redirect(array('setup/index', 'step' => Yii::app()->user->getState('step')));
         }
 
         switch ($step)
