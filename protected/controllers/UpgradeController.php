@@ -125,8 +125,8 @@ class UpgradeController extends Controller
             // Remove tag
             $model->delete();
         }
-        
-        $this->redirect(array('index', 'version' => '0.3.0'));
+
+        $this->refresh();
     }
 
     /**
@@ -149,7 +149,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.0';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        $this->redirect(array('index', 'version' => '0.3.1'));
+        $this->refresh();
     }
 
 
@@ -170,7 +170,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.1';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        $this->redirect(array('index', 'version' => '0.3.2'));
+        $this->refresh();
     }
 
     /**
@@ -190,8 +190,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.2';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        Yii::app()->user->setFlash('version', '0.3.2');
-        $this->redirect(array('/upgrade/success'));
+        $this->refresh();
     }
 
 
@@ -223,8 +222,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.3';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        Yii::app()->user->setFlash('version', '0.3.3');
-        $this->redirect(array('/upgrade/success'));
+        $this->refresh();
     }
 
 
@@ -245,8 +243,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.3.1';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        Yii::app()->user->setFlash('version', '0.3.3.1');
-        $this->redirect(array('/upgrade/success'));
+        $this->refresh();
     }
 
 
@@ -283,7 +280,7 @@ class UpgradeController extends Controller
         $config['version'] = '0.3.4';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
-        Yii::app()->user->setFlash('version', '0.3.4');
+        Yii::app()->user->setFlash('version', $config['version']);
         $this->redirect(array('/upgrade/success'));
     }
 
