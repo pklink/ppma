@@ -78,7 +78,7 @@
         <div class="twelve columns">
             * <a href="http://sourceforge.net/projects/ppma/">ppma</a> (version <?php echo Yii::app()->params['version'] ?>)
             powered by <a href="http://www.yiiframework.com/" target="_blank">yii framework</a> (version <?php echo Yii::getVersion() ?>) and
-            <a href="http://foundation.zurb.com/" target="_blank">Foundation 3</a> (version 3.1)
+            <a href="http://foundation.zurb.com/" target="_blank">Foundation 3</a> (version 3.2)
         </div>
     </footer>
 

@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.3.4
 -------------
 - New: Added widget to sidebar that shows the most viewed entries
+- Chg: Upgraded Foundation to version 3.2
 
 Version 0.3.3
 -------------
