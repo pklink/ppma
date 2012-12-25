@@ -14,6 +14,7 @@
  * @property User    $user
  * @property integer $userId
  * @property string  $username
+ * @property int     $viewCount
  */
 class Entry extends CActiveRecord
 {
@@ -25,14 +26,15 @@ class Entry extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'comment'  => 'Comment',
-            'id'       => 'ID',
-            'name'     => 'Name',
-            'password' => 'Password',
-            'tagList'  => 'Tags',
-            'url'      => 'URL',
-            'userId'   => 'User',
-            'username' => 'Username',
+            'comment'   => 'Comment',
+            'id'        => 'ID',
+            'name'      => 'Name',
+            'password'  => 'Password',
+            'tagList'   => 'Tags',
+            'url'       => 'URL',
+            'userId'    => 'User',
+            'username'  => 'Username',
+            'viewCount' => 'View Count'
         );
     }
 
@@ -177,8 +179,8 @@ class Entry extends CActiveRecord
 
 
     /**
-     *
-     * @return Entry
+     * @param string $className
+     * @return CActiveRecord
      */
     public static function model($className = __CLASS__)
     {
@@ -226,6 +228,10 @@ class Entry extends CActiveRecord
 
             array('username', 'default', 'value' => NULL),
             array('username', 'length', 'max' => 255, 'skipOnError' => true),
+
+            array('viewCount', 'default', 'value' => 0),
+            array('viewCount', 'numerical', 'integerOnly' => true),
+            array('viewCount', 'unsafe'),
         );
     }
 
@@ -319,6 +325,16 @@ class Entry extends CActiveRecord
         }
 
         $this->tags = $tags;
+    }
+
+
+    /**
+     * @return void
+     */
+    public function incrementViewCounter()
+    {
+        $this->viewCount++;
+        $this->save(true, array('viewCount'));
     }
 
 }

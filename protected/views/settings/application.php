@@ -30,6 +30,9 @@
     </p>
 
 
+    <hr />
+
+
     <label for="<?php echo CHtml::activeId($model, 'recentEntryWidgetEnabled') ?>">
         <?php echo $form->checkBox($model, 'recentEntryWidgetEnabled', array('class' => 'hide')); ?>
         <span class="custom checkbox <?php echo ($model->recentEntryWidgetEnabled ? 'checked' : '') ?>"></span> Show "Recent Entries" widget
@@ -47,7 +50,29 @@
     </div>
 
 
-    <br />
+    <hr />
+
+
+    <label for="<?php echo CHtml::activeId($model, 'mostViewedEntriesWidgetEnabled') ?>">
+        <?php echo $form->checkBox($model, 'mostViewedEntriesWidgetEnabled', array('class' => 'hide')); ?>
+        <span class="custom checkbox <?php echo ($model->mostViewedEntriesWidgetEnabled ? 'checked' : '') ?>"></span> Show "Most Viewed" widget
+    </label>
+    <p class="hint">
+        Disable this option to hide the "Most Viewed" widget in the sidebar.
+    </p>
+
+    <div class="row">
+        <div class="seven columns">
+            <?php echo $form->labelEx($model, 'mostViewedEntriesWidgetCount'); ?>
+            <?php echo $form->textField($model, 'mostViewedEntriesWidgetCount'); ?>
+            <?php echo $form->error($model, 'mostViewedEntriesWidgetCount'); ?>
+        </div>
+    </div>
+
+
+    <hr />
+
+
     <?php echo CHtml::submitButton('Save', array('class' => 'button radius'))?>
 
 <?php $this->endWidget(); ?>

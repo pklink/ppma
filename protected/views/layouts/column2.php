@@ -63,7 +63,11 @@
                 <?php $this->widget('ext.TagCloudWidget.TagCloudWidget') ?>
             <?php endif; ?>
 
-            <?php if (!Yii::app()->user->isGuest && Setting::model()->name(Setting::RECENT_ENTRIES_WIDGET_ENABLED)->find()->value) : ?>
+            <?php if (!Yii::app()->user->isGuest && Yii::app()->settings->getAsBool(Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED)) : ?>
+                <?php $this->widget('ext.MostViewedEntriesWidget.MostViewedEntriesWidget') ?>
+            <?php endif; ?>
+
+            <?php if (!Yii::app()->user->isGuest && Yii::app()->settings->getAsBool(Setting::RECENT_ENTRIES_WIDGET_ENABLED)) : ?>
                 <?php $this->widget('ext.RecentEntriesWidget.RecentEntriesWidget') ?>
             <?php endif; ?>
 

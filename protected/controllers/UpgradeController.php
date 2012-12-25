@@ -70,6 +70,18 @@ class UpgradeController extends Controller
         return $version >= '331000000';
     }
 
+
+    /**
+     * @return boolean
+     */
+    protected function _is0_3_4Installed()
+    {
+        $version = str_replace('.', '', Yii::app()->params['version']);
+        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
+
+        return $version >= '340000000';
+    }
+
     
     /**
      * @return void
@@ -223,8 +235,7 @@ class UpgradeController extends Controller
     {
         if ($this->_is0_3_3_1Installed())
         {
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
+            $this->redirect(array('index', 'version' => '0.3.4'));
             Yii::app()->end();
         }
 
@@ -235,6 +246,44 @@ class UpgradeController extends Controller
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
         Yii::app()->user->setFlash('version', '0.3.3.1');
+        $this->redirect(array('/upgrade/success'));
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function _upgradeTo0_3_4()
+    {
+        if ($this->_is0_3_4Installed())
+        {
+            Yii::app()->user->setFlash('failure', true);
+            $this->redirect(array('index'));
+            Yii::app()->end();
+        }
+
+        // add view counter
+        $cmd = Yii::app()->db->createCommand();
+        $cmd->addColumn('Entry', 'viewCount', 'int NOT NULL DEFAULT 0');
+
+        // add settings for "Most Viewed" widget
+        $model = new Setting();
+        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT;
+        $model->value = 10;
+        $model->save();
+
+        $model = new Setting();
+        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
+        $model->value = true;
+        $model->save();
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.4';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+        Yii::app()->user->setFlash('version', '0.3.4');
         $this->redirect(array('/upgrade/success'));
     }
 

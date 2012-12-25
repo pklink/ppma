@@ -13,7 +13,11 @@ class Setting extends CActiveRecord
 
     const RECENT_ENTRIES_WIDGET_ENABLED = 'recent_entries_widget_enabled';
 
-    const RECENT_ENTRIES_WIDGET_COUNT = 'recent_entries_widget_count';
+    const RECENT_ENTRIES_WIDGET_COUNT   = 'recent_entries_widget_count';
+
+    const MOST_VIEWED_ENTRIES_WIDGET_ENABLED = 'most_viewed_entries_widget_enabled';
+
+    const MOST_VIEWED_ENTRIES_WIDGET_COUNT   = 'most_viewed_entries_widget_count';
     
     
     /**

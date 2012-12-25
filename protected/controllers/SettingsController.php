@@ -103,7 +103,15 @@ class SettingsController extends Controller
                 $setting->value = $model->recentEntryWidgetCount;
                 $setting->save(false);
 
-                // set flash an refresh
+                $setting = Setting::model()->name( Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED )->find();
+                $setting->value = $model->mostViewedEntriesWidgetEnabled;
+                $setting->save(false);
+
+                $setting = Setting::model()->name( Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT )->find();
+                $setting->value = $model->mostViewedEntriesWidgetCount;
+                $setting->save(false);
+
+                // set flash and refresh
                 Yii::app()->user->setFlash('success', 'Settings were updated successfully.');
                 $this->refresh();
             }

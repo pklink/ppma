@@ -102,6 +102,7 @@ class EntryController extends Controller
         }
         
         // render view
+        /*
         if (Yii::app()->request->isAjaxRequest)
         {
             $this->renderPartial('create', array('form' => $form));
@@ -110,6 +111,8 @@ class EntryController extends Controller
         {
             $this->render('create', array('model' => $model));
         }
+        */
+        $this->render('create', array('model' => $model));
     }
 
 
@@ -183,6 +186,9 @@ class EntryController extends Controller
         {
             $id = CHtml::activeId($model, 'password');
             $return[$id] = $model->getPassword();
+
+            // increment view counter
+            $model->incrementViewCounter();
         }
 
         header('Content-type: application/json');
@@ -239,6 +245,10 @@ class EntryController extends Controller
                 // redirect to index
                 $this->redirect(array('index'));
             }
+        }
+        else
+        {
+            $model->incrementViewCounter();
         }
 
         $this->render('update', array('model' => $model));

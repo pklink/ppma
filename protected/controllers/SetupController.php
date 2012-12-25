@@ -188,6 +188,7 @@ class SetupController extends Controller
             'comment'           => 'text',
             'username'          => 'string',
             'encryptedPassword' => 'binary',
+            'viewCount'         => 'int NOT NULL DEFAULT 0'
         ));
 
         // create EntryHasTag-table
@@ -253,6 +254,18 @@ class SetupController extends Controller
         $model->name  = Setting::RECENT_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
+
+        // add settings for "Most Viewed" widget
+        $model = new Setting();
+        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT;
+        $model->value = 10;
+        $model->save();
+
+        $model = new Setting();
+        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
+        $model->value = true;
+        $model->save();
+
     }
     
 
