@@ -255,6 +255,11 @@ class SetupController extends Controller
         $model->value = true;
         $model->save();
 
+        $model = new Setting();
+        $model->name = Setting::RECENT_ENTRIES_WIDGET_POSITION;
+        $model->value = 2;
+        $model->save(false);
+
         // add settings for "Most Viewed" widget
         $model = new Setting();
         $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT;
@@ -265,6 +270,21 @@ class SetupController extends Controller
         $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
+
+        $model = new Setting();
+        $model->name = Setting::MOST_VIEWED_ENTRIES_WIDGET_POSITION;
+        $model->value = 1;
+        $model->save(false);
+
+        // add settings for "Tag Cloud" widget
+        $model = new Setting();
+        $model->name = Setting::TAG_CLOUD_WIDGET_POSITION;
+        $model->value = 0;
+        $model->save(false);
+
+
+
+
 
     }
     
