@@ -64,7 +64,7 @@ class Entry extends CActiveRecord
         {
             // try to receive tag from db
             $model = Tag::model()->name( $tag->name )->userId( Yii::app()->user->id )->find();
-            
+
             if (!is_object($model))
             {
                 $model = $tag;

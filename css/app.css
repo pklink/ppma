@@ -57,6 +57,14 @@ footer {
     color: #000;
 }
 
+.import-button-column a  {
+    display: block;
+    margin-right: 5px;
+    padding-top: 7px;
+    font-size: 18px;
+    color: #000;
+}
+
 .button-column .placeholder {
     float: left;
     width: 23px;
@@ -107,4 +115,8 @@ footer {
 
 .false {
     color: red;
+}
+
+.errorSummary  ul {
+    margin-bottom: 0;
 }
