@@ -1,6 +1,11 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.5
+-------------
+- Chg: Upgraded jQuery UI to version 1.9.2
+- Bug: Quicksearch doesn't work with entries which have no tags
+
 Version 0.3.4
 -------------
 - New #1: Added widget to sidebar that shows the most viewed entries
