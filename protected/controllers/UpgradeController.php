@@ -93,6 +93,17 @@ class UpgradeController extends Controller
         return $version >= '341000000';
     }
 
+    /**
+     * @return boolean
+     */
+    protected function _is0_3_5Installed()
+    {
+        $version = str_replace('.', '', Yii::app()->params['version']);
+        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
+
+        return $version >= '350000000';
+    }
+
     
     /**
      * @return void
@@ -301,8 +312,7 @@ class UpgradeController extends Controller
     {
         if ($this->_is0_3_4_1Installed())
         {
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
+            $this->redirect(array('index', 'version' => '0.3.5'));
             Yii::app()->end();
         }
 
@@ -310,6 +320,44 @@ class UpgradeController extends Controller
         $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
         $config = new CConfiguration(require($path));
         $config['version'] = '0.3.4.1';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+        $this->refresh();
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function _upgradeTo0_3_5()
+    {
+        if ($this->_is0_3_5Installed())
+        {
+            Yii::app()->user->setFlash('failure', true);
+            $this->redirect(array('index'));
+            Yii::app()->end();
+        }
+
+        // create new settings
+        $model = new Setting();
+        $model->name = Setting::TAG_CLOUD_WIDGET_POSITION;
+        $model->value = 0;
+        $model->save(false);
+
+        $model = new Setting();
+        $model->name = Setting::MOST_VIEWED_ENTRIES_WIDGET_POSITION;
+        $model->value = 1;
+        $model->save(false);
+
+        $model = new Setting();
+        $model->name = Setting::RECENT_ENTRIES_WIDGET_POSITION;
+        $model->value = 2;
+        $model->save(false);
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.5';
         file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
 
         Yii::app()->user->setFlash('version', $config['version']);

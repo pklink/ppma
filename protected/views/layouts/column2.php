@@ -3,6 +3,7 @@
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/custom-theme/jquery-ui-1.9.2.custom.min.css') ?>
     <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui-1.9.2.custom.min.js') ?>
     <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/typeahead.js') ?>
+    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/sidebar.js') ?>
 
     <nav class="top-bar">
         <ul>
@@ -56,22 +57,8 @@
             <?php echo $content; ?>
         </div>
 
+        <?php $this->renderPartial('//layouts/_sidebar'); ?>
 
-        <aside class="three columns">
-
-            <?php if (!Yii::app()->user->isGuest) : ?>
-                <?php $this->widget('ext.TagCloudWidget.TagCloudWidget') ?>
-            <?php endif; ?>
-
-            <?php if (!Yii::app()->user->isGuest && Yii::app()->settings->getAsBool(Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED)) : ?>
-                <?php $this->widget('ext.MostViewedEntriesWidget.MostViewedEntriesWidget') ?>
-            <?php endif; ?>
-
-            <?php if (!Yii::app()->user->isGuest && Yii::app()->settings->getAsBool(Setting::RECENT_ENTRIES_WIDGET_ENABLED)) : ?>
-                <?php $this->widget('ext.RecentEntriesWidget.RecentEntriesWidget') ?>
-            <?php endif; ?>
-
-        </aside>
     </div>
 
     <footer class="row">

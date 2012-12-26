@@ -78,6 +78,14 @@ footer {
     border-radius: 3px;
 }
 
+.panel div.settings {
+    position: relative;
+    top: -45px;
+    left: 161px;
+    width: 16px;
+    cursor: move;
+}
+
 .panel ul {
     list-style-type: none;
 }

@@ -1,6 +1,7 @@
-<div class="tag-cloud panel">
+<div id="tag-cloud" class="panel">
 
     <h5><?php echo $this->title ?></h5>
+    <div class="settings"><i class="foundicon-settings"></i></div>
 
     <?php if (count($tags) == 0) : ?>
         <i>no tags found</i>

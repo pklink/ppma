@@ -1,8 +1,9 @@
 <?php /* @var Entry[] $models */ ?>
 
-<div class="recent-entries panel">
+<div id="recent-entries" class="panel">
 
     <h5><?php echo $this->title ?></h5>
+    <div class="settings"><i class="foundicon-settings"></i></div>
 
     <?php if (count($models) == 0) : ?>
         <i>no entries found</i>

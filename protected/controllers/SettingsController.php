@@ -24,7 +24,7 @@ class SettingsController extends Controller
             ),
             array(
                 'allow',
-                'actions'    => array('application'),
+                'actions'    => array('application', 'setSidebarPositions'),
                 'users'      => array('@'),
                 'expression' => 'Yii::app()->user->isAdmin',
             ),
@@ -76,7 +76,47 @@ class SettingsController extends Controller
 
 
     /**
-     * 
+     * @throws CHttpException
+     * @return void
+     */
+    public function actionSetSidebarPositions()
+    {
+        // only ajax-request are allowed
+        if (!Yii::app()->request->isAjaxRequest)
+        {
+            throw new CHttpException(400);
+        }
+
+        $neededParams = array(
+            Setting::MOST_VIEWED_ENTRIES_WIDGET_POSITION,
+            Setting::RECENT_ENTRIES_WIDGET_POSITION,
+            Setting::TAG_CLOUD_WIDGET_POSITION,
+        );
+
+        // check if all needed params exist
+        foreach ($neededParams as $paramName)
+        {
+            if (!isset($_POST[$paramName]))
+            {
+                throw new CHttpException(401);
+            }
+        }
+
+        // save settings
+        foreach ($neededParams as $paramName)
+        {
+            /* @var Setting $model */
+            $param = CPropertyValue::ensureInteger($_POST[$paramName]);
+            $model = Setting::model()->findByAttributes(array('name' => $paramName));
+            $model->value = $param;
+            $model->save();
+        }
+
+        echo '1';
+    }
+
+
+    /**
      * @return void
      */
     public function actionApplication()

@@ -15,9 +15,15 @@ class Setting extends CActiveRecord
 
     const RECENT_ENTRIES_WIDGET_COUNT   = 'recent_entries_widget_count';
 
+    const RECENT_ENTRIES_WIDGET_POSITION = 'recent_entries_widget_position';
+
     const MOST_VIEWED_ENTRIES_WIDGET_ENABLED = 'most_viewed_entries_widget_enabled';
 
     const MOST_VIEWED_ENTRIES_WIDGET_COUNT   = 'most_viewed_entries_widget_count';
+
+    const MOST_VIEWED_ENTRIES_WIDGET_POSITION   = 'most_viewed_entries_widget_position';
+
+    const TAG_CLOUD_WIDGET_POSITION   = 'tag_cloud_widget_position';
     
     
     /**
@@ -71,6 +77,25 @@ class Setting extends CActiveRecord
         return array(
             array('name', 'required'),
             array('value', 'required'),
+        );
+    }
+
+
+    /**
+     * @return array
+     */
+    public function scopes()
+    {
+        return array(
+            'sidebar' => array(
+                'condition' => 't.name=:tag_widget OR t.name=:recent_widget OR t.name=:most_viewed',
+                'params'    => array(
+                    ':tag_widget'    => Setting::TAG_CLOUD_WIDGET_POSITION,
+                    ':recent_widget' => Setting::RECENT_ENTRIES_WIDGET_POSITION,
+                    ':most_viewed'   => Setting::MOST_VIEWED_ENTRIES_WIDGET_POSITION,
+                ),
+                'order' => 't.value ASC',
+            ),
         );
     }
 
