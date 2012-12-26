@@ -17,6 +17,9 @@
                     <ul class="dropdown">
                         <li><?php echo CHtml::link('Overview', array('entry/index')) ?></li>
                         <li><?php echo CHtml::link('Create', array('entry/create')) ?></li>
+                        <li class="divider"></li>
+                        <li><?php echo CHtml::link('Export to CSV', array('export/csv')) ?></li>
+                        <li><?php echo CHtml::link('Import from CSV', array('import/csv')) ?></li>
                     </ul>
                 </li>
                 <li class="has-dropdown">
