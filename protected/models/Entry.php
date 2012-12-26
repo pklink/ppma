@@ -250,8 +250,8 @@ class Entry extends CActiveRecord
             $term = Yii::app()->request->getParam('q');
 
             $criteria->distinct = true;
-            $criteria->join = 'INNER JOIN EntryHasTag AS eht ON eht.entryId=t.id '
-                            . 'INNER JOIN Tag ON Tag.id=eht.tagId';
+            $criteria->join = 'LEFT JOIN EntryHasTag AS eht ON eht.entryId=t.id '
+                            . 'LEFT JOIN Tag ON Tag.id=eht.tagId';
 
             $criteria->compare('t.name', $term, true, 'OR');
             $criteria->compare('t.url', $term, true, 'OR');
