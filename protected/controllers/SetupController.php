@@ -40,15 +40,25 @@ class SetupController extends Controller
             $continue = false;
         }
 
+        // check for mcrypt
+        $isMcryptLoaded = extension_loaded('mcrypt');
+
+        if (!$isMcryptLoaded)
+        {
+            $continue = false;
+        }
+
+
         if ($continue)
         {
             Yii::app()->user->setState('step', 2);
         }
 
         $this->render('step1', array(
-            'permissions' => $permissions,
-            'phpVersion'  => $phpVersion,
-            'continue'    => $continue,
+            'permissions'    => $permissions,
+            'phpVersion'     => $phpVersion,
+            'isMcryptLoaded' => $isMcryptLoaded,
+            'continue'       => $continue,
         ));
     }
 

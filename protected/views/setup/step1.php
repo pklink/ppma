@@ -12,6 +12,11 @@
                 <?php $value = $phpVersion ? 'true' : 'false'; ?>
                 <td class="<?php echo $value ?>"><?php echo $value ?></td>
             </tr>
+            <tr>
+                <td>php5-mcrypt</td>
+                <?php $value = $isMcryptLoaded ? 'true' : 'false'; ?>
+                <td class="<?php echo $value ?>"><?php echo $value ?></td>
+            </tr>
         </table>
 
         <h2>Permissions</h2>
