@@ -1,6 +1,13 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.5.2
+---------------
+- Bug #9: Improved requirement check in setup routine to prevent "setup loop"
+- New: Added robots.txt
+- Chg: Removed donations file
+- Chg: Removed index-test.php
+
 Version 0.3.5
 -------------
 - Chg: Upgraded jQuery UI to version 1.9.2
