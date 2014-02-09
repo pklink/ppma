@@ -1,8 +1,8 @@
 <?php
 
 // change the following paths if necessary
-$yii=dirname(__FILE__).'/yii/yii.php';
-$config=dirname(__FILE__).'/protected/config/main.php';
+$yii    = dirname(__FILE__) . '/vendor/yiisoft/yii/framework/yii.php';
+$config = dirname(__FILE__) . '/protected/config/main.php';
 // $config=dirname(__FILE__).'/protected/config/test.php'; // for testing
 
 // remove the following lines when in production mode

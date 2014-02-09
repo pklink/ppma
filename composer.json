@@ -1,0 +1,12 @@
+{
+    "name": "pierre/ppma",
+    "authors": [
+        {
+            "name": "Pierre Klink",
+            "email": "dev@klinks.info"
+        }
+    ],
+    "require": {
+        "yiisoft/yii": "1.1.14"
+    }
+}
