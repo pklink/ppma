@@ -30,7 +30,7 @@ For debugging uncomment the following lines in the index.php
     //defined('YII_DEBUG') or define('YII_DEBUG',true);
     //defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
-Please report founded bugs on https://sourceforge.net/p/ppma/tickets/
+Please report founded bugs on https://github.com/pklink/ppma/issues
 
 ## Upgrading
 
