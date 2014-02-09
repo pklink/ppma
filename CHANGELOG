@@ -1,0 +1,53 @@
+PHP Password Manager (ppma) Change Log
+======================================
+
+Version 0.3.6
+---------------
+- Bug: #14: Tags getting erased
+# Enh: Added placeholder to tag list of Entry-form
+
+Version 0.3.5.2
+---------------
+- Bug #9: Improved requirement check in setup routine to prevent "setup loop"
+- New: Added robots.txt
+- Chg: Removed donations file
+- Chg: Removed index-test.php
+- Chg: Upgraded to Yii 1.1.4
+
+Version 0.3.5
+-------------
+- Chg: Upgraded jQuery UI to version 1.9.2
+- Bug: Quicksearch doesn't work with entries which have no tags
+- New: Added drag-and-drop feature for sidebar
+- New: Added export to CSV
+- New: Added import from CSV
+
+Version 0.3.4
+-------------
+- New #1: Added widget to sidebar that shows the most viewed entries
+- Chg: Upgraded Foundation to version 3.2
+- Enh: Optimized the upgrade routine
+
+Version 0.3.3
+-------------
+- New: Added widget to sidebar that shows the recent entries
+- Chg: Removed unused files
+- Chg: Cleaned up code
+- Bug: #3 can't install, won't create database tables
+
+Version 0.3.2
+-------------
+- New: Added typeahead to search field in the navigation
+- Chg: Removed some usages of non existing JS and CSS files
+
+Version 0.3.1
+-------------
+- Bug: Update-modal on entry/index didn't work
+- Bug: Fresh installations didn't work, because assets/ & protected/runtime/ were missing
+
+Version 0.3.0
+-------------
+- New: Added link to the saved URL of an entry (index.php?r=entries/index)
+- New: Added favicon
+- Chg: Improved design (using foundation)
+- Chg: Removed registration functionality
