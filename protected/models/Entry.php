@@ -60,13 +60,11 @@ class Entry extends CActiveRecord
         $this->deleteTags();
 
         // save tags and tag relations
-        foreach ($this->tags as $tag)
-        {
+        foreach ($this->tags as $tag) {
             // try to receive tag from db
-            $model = Tag::model()->name( $tag->name )->userId( Yii::app()->user->id )->find();
+            $model = Tag::model()->name($tag->name)->userId(Yii::app()->user->id)->find();
 
-            if (!is_object($model))
-            {
+            if (!is_object($model)) {
                 $model = $tag;
             }
 
@@ -77,7 +75,7 @@ class Entry extends CActiveRecord
             // save relation
             $relation = new EntryHasTag();
             $relation->entryId = $this->id;
-            $relation->tagId   = $model->id;
+            $relation->tagId = $model->id;
             $relation->save();
         }
 
@@ -92,8 +90,7 @@ class Entry extends CActiveRecord
     public function beforeValidate()
     {
         // if model a new record set userId
-        if ($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $this->userId = Yii::app()->user->id;
         }
 
@@ -109,8 +106,7 @@ class Entry extends CActiveRecord
     {
         $relations = EntryHasTag::model()->entryId($this->id)->findAll();
 
-        foreach ($relations as $relation)
-        {
+        foreach ($relations as $relation) {
             $relation->delete();
         }
     }
@@ -122,8 +118,7 @@ class Entry extends CActiveRecord
      */
     public function getPassword()
     {
-        if (strlen($this->encryptedPassword) == 0)
-        {
+        if (strlen($this->encryptedPassword) == 0) {
             return '';
         }
 
@@ -137,12 +132,9 @@ class Entry extends CActiveRecord
      */
     public function getIdentifier()
     {
-        if (strlen($this->name) >  0)
-        {
+        if (strlen($this->name) > 0) {
             return $this->name;
-        }
-        else
-        {
+        } else {
             return 'Entry #' . $this->id;
         }
     }
@@ -155,21 +147,16 @@ class Entry extends CActiveRecord
      */
     public function getTagList($asLinks = false)
     {
-        if (count($this->tags) == 0)
-        {
+        if (count($this->tags) == 0) {
             return '';
         }
 
         $text = '';
 
-        foreach ($this->tags as $tag)
-        {
-            if ($asLinks)
-            {
+        foreach ($this->tags as $tag) {
+            if ($asLinks) {
                 $text .= CHtml::link(CHtml::encode($tag->name), array('entry/index', 'Entry[tagList]' => $tag->name)) . ', ';
-            }
-            else
-            {
+            } else {
                 $text .= $tag->name . ', ';
             }
         }
@@ -210,7 +197,7 @@ class Entry extends CActiveRecord
         return array(
             array('comment', 'default', 'value' => NULL),
 
-            array('id', 'safe', 'on'=>'search'),
+            array('id', 'safe', 'on' => 'search'),
 
             array('name', 'default', 'value' => NULL),
             array('name', 'length', 'max' => 255, 'skipOnError' => true),
@@ -245,34 +232,29 @@ class Entry extends CActiveRecord
         $criteria = new CDbCriteria();
 
         // by search term
-        if (Yii::app()->request->getParam('q') != null)
-        {
+        if (Yii::app()->request->getParam('q') != null) {
             $term = Yii::app()->request->getParam('q');
 
             $criteria->distinct = true;
             $criteria->join = 'LEFT JOIN EntryHasTag AS eht ON eht.entryId=t.id '
-                            . 'LEFT JOIN Tag ON Tag.id=eht.tagId';
+                . 'LEFT JOIN Tag ON Tag.id=eht.tagId';
 
             $criteria->compare('t.name', $term, true, 'OR');
             $criteria->compare('t.url', $term, true, 'OR');
             $criteria->compare('t.comment', $term, true, 'OR');
             $criteria->compare('t.username', $term, true, 'OR');
             $criteria->compare('Tag.name', $term, true, 'OR');
-        }
-
-        // by detail search
-        else
-        {
+        } // by detail search
+        else {
             $criteria->compare('t.name', $this->name, true);
             $criteria->compare('t.url', $this->url, true);
             $criteria->compare('t.comment', $this->comment);
             $criteria->compare('t.username', $this->username);
 
-            if (strlen($this->tagList) > 0)
-            {
+            if (strlen($this->tagList) > 0) {
                 $c = new CDbCriteria();
                 $c->join = 'INNER JOIN EntryHasTag AS eht ON eht.entryId=t.id '
-                         . 'INNER JOIN Tag ON Tag.id=eht.tagId';
+                    . 'INNER JOIN Tag ON Tag.id=eht.tagId';
                 $c->compare('Tag.name', $this->tagList);
                 $criteria->mergeWith($c);
             }
@@ -291,12 +273,9 @@ class Entry extends CActiveRecord
      */
     public function setPassword($v)
     {
-        if (strlen($v) > 0)
-        {
+        if (strlen($v) > 0) {
             $this->encryptedPassword = Yii::app()->user->encrypt($v);
-        }
-        else
-        {
+        } else {
             $this->encryptedPassword = '';
         }
     }
@@ -309,18 +288,16 @@ class Entry extends CActiveRecord
      */
     public function setTagList($v)
     {
-        $tags  = array();
+        $tags = array();
         $names = explode(',', $v);
 
-        foreach ($names as $name)
-        {
+        foreach ($names as $name) {
             $name = trim($name);
 
-            if (strlen($name) > 0)
-            {
-                $tag       = new Tag();
+            if (strlen($name) > 0) {
+                $tag = new Tag();
                 $tag->name = $name;
-                $tags[]    = $tag;
+                $tags[] = $tag;
             }
         }
 
