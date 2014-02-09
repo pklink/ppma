@@ -24,31 +24,35 @@ module.exports = function (grunt) {
         },
         clean: {
             release: [
-                'release/vendor/yiisoft/yii/build',
-                'release/vendor/yiisoft/yii/demos',
-                'release/vendor/yiisoft/yii/docs',
-                'release/vendor/yiisoft/yii/requirements',
-                'release/vendor/yiisoft/yii/tests',
-                'release/vendor/yiisoft/yii/.gitignore',
-                'release/vendor/yiisoft/yii/.mailmap',
-                'release/vendor/yiisoft/yii/.travis.yml',
-                'release/vendor/yiisoft/yii/CHANGELOG',
-                'release/vendor/yiisoft/yii/composer.json',
-                'release/vendor/yiisoft/yii/CONTRIBUTING.md',
-                'release/vendor/yiisoft/yii/README',
-                'release/vendor/yiisoft/yii/README.md',
-                'release/vendor/yiisoft/yii/UPGRADE',
-                'release/vendor/composer',
-                'release/vendor/bin',
-                'release/vendor/autoload.php',
-                'release/assets/*',
-                'release/protected/yiic',
-                'release/protected/yiic.bat',
-                'release/protected/yiic.php',
-                'release/protected/commands/',
-                'release/protected/migrations/',
-                'release/protected/runtime/*',
-                'release/protected/tests/'
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/build',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/demos',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/docs',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/requirements',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/tests',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/.gitignore',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/.mailmap',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/.travis.yml',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/CHANGELOG',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/composer.json',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/CONTRIBUTING.md',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/README',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/README.md',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/yiisoft/yii/UPGRADE',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/composer',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/bin',
+                '<%= pkg.name %>-<%= pkg.version %>/vendor/autoload.php',
+                '<%= pkg.name %>-<%= pkg.version %>/assets/*',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/yiic',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/yiic.bat',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/yiic.php',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/commands/',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/messages/',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/migrations/',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/runtime/*',
+                '<%= pkg.name %>-<%= pkg.version %>/protected/tests/'
+            ],
+            cleanup: [
+                '<%= pkg.name %>-<%= pkg.version %>/'
             ]
         },
         compress: {
@@ -57,7 +61,7 @@ module.exports = function (grunt) {
                     archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
                 },
                 expand: true,
-                src: ['release/**'],
+                src: ['<%= pkg.name %>-<%= pkg.version %>/**'],
                 dest: '/'
             },
             tar: {
@@ -65,33 +69,47 @@ module.exports = function (grunt) {
                     archive: '<%= pkg.name %>-<%= pkg.version %>.tar.gz'
                 },
                 expand: true,
-                src: ['release/**'],
+                src: ['<%= pkg.name %>-<%= pkg.version %>/**'],
                 dest: '/'
             }
         },
         copy: {
             release: {
-                files: [{
-                    expand: true,
-                    src: [
-                        'assets/**',
-                        'css/**',
-                        'js/foundation.min.js',
-                        'js/jquery-ui-1.9.2.custom.min.js',
-                        'js/modernizr.foundation.js',
-                        'js/ppma.min.js',
-                        'protected/**',
-                        'vendor/**',
-                        'CHANGELOG',
-                        'favicon.ico',
-                        'index.php',
-                        'LICENSE',
-                        'README.md',
-                        'robots.txt',
-                        'UPGRADE'
-                    ],
-                    dest: 'release/'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        src: [
+                            'assets/**',
+                            'css/**',
+                            'js/foundation.min.js',
+                            'js/jquery-ui-1.9.2.custom.min.js',
+                            'js/modernizr.foundation.js',
+                            'js/ppma.min.js',
+                            'protected/**',
+                            'vendor/**',
+                            'CHANGELOG',
+                            'favicon.ico',
+                            'index.php',
+                            'LICENSE',
+                            'README.md',
+                            'robots.txt',
+                            'UPGRADE'
+                        ],
+                        dest: '<%= pkg.name %>-<%= pkg.version %>/'
+                    }
+                ]
+            }
+        },
+        touch: {
+            options: {
+                force: true,
+                mtime: true
+            },
+            release: {
+                src: [
+                    '<%= pkg.name %>-<%= pkg.version %>/assets/ignore',
+                    '<%= pkg.name %>-<%= pkg.version %>/protected/runtime/ignore'
+                ]
             }
         }
     });
@@ -101,8 +119,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-touch');
 
     // Default task(s).
     grunt.registerTask('default', ['uglify']);
-    grunt.registerTask('release', ['copy:release', 'uglify', 'clean:release', 'compress:zip', 'compress:tar']);
+    grunt.registerTask('release', ['uglify', 'copy:release', 'clean:release', 'touch:release', 'compress:zip', 'compress:tar', 'clean:cleanup']);
 };
