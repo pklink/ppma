@@ -51,10 +51,9 @@ class Entry extends CActiveRecord
 
 
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#afterSave()
+     * @return void
      */
-    public function afterSave()
+    public function resaveTags()
     {
         // delete all tag relations
         $this->deleteTags();
@@ -78,8 +77,6 @@ class Entry extends CActiveRecord
             $relation->tagId = $model->id;
             $relation->save();
         }
-
-        return parent::afterSave();
     }
 
 

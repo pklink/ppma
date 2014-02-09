@@ -20,7 +20,7 @@ class EntryController extends Controller
 
         if ($model === null) {
             throw new CHttpException(404);
-        } else if ($model->userId != Yii::app()->user->id) {
+        } elseif ($model->userId != Yii::app()->user->id) {
             throw new CHttpException(403);
         }
 
@@ -223,6 +223,8 @@ class EntryController extends Controller
 
             // save entry
             if ($model->save() && !Yii::app()->request->isAjaxRequest) {
+                $model->resaveTags();
+
                 // set flash
                 Yii::app()->user->setFlash('success', 'The entry was saved successfully.');
 
