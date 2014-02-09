@@ -10,7 +10,7 @@ class UpgradeController extends Controller
      */
     protected function _is0_2Installed()
     {
-        return !is_null( Tag::model()->tableSchema->getColumn('userId') );
+        return !is_null(Tag::model()->tableSchema->getColumn('userId'));
     }
 
 
@@ -104,18 +104,17 @@ class UpgradeController extends Controller
         return $version >= '350000000';
     }
 
-    
+
     /**
      * @return void
      */
     protected function _upgradeTo0_2()
     {
-        if ($this->_is0_2Installed())
-        {
+        if ($this->_is0_2Installed()) {
             $this->redirect(array('index', 'version' => '0.3.0'));
             Yii::app()->end();
         }
-        
+
         // Add Tag-column
         $cmd = Yii::app()->db->createCommand();
         $cmd->addColumn('Tag', 'userId', 'integer NOT NULL');
@@ -124,26 +123,23 @@ class UpgradeController extends Controller
         // Refresh DB-Schema
         Yii::app()->db->schema->refresh();
         Tag::model()->refreshMetaData();
-        
+
         // Set user-IDs
-        foreach (Tag::model()->findAll() as $model)
-        {
+        foreach (Tag::model()->findAll() as $model) {
             // Collect User-IDs
             $userIds = array();
-            foreach ($model->entries as $entry)
-            {
+            foreach ($model->entries as $entry) {
                 $userIds[$entry->userId] = $entry->userId;
             }
-            
+
             // Save tag with user relation
-            foreach ($userIds as $userId)
-            {
+            foreach ($userIds as $userId) {
                 $tag = new Tag();
                 $tag->name = $model->name;
                 $tag->userId = $userId;
                 $tag->save(false);
             }
-            
+
             // Remove tag
             $model->delete();
         }
@@ -156,8 +152,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_0()
     {
-        if ($this->_is0_3_0Installed())
-        {
+        if ($this->_is0_3_0Installed()) {
             $this->redirect(array('index', 'version' => '0.3.1'));
             Yii::app()->end();
         }
@@ -176,12 +171,11 @@ class UpgradeController extends Controller
 
 
     /**
- * @return void
- */
+     * @return void
+     */
     protected function _upgradeTo0_3_1()
     {
-        if ($this->_is0_3_1Installed())
-        {
+        if ($this->_is0_3_1Installed()) {
             $this->redirect(array('index', 'version' => '0.3.2'));
             Yii::app()->end();
         }
@@ -200,8 +194,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_2()
     {
-        if ($this->_is0_3_2Installed())
-        {
+        if ($this->_is0_3_2Installed()) {
             $this->redirect(array('index', 'version' => '0.3.3'));
             Yii::app()->end();
         }
@@ -221,20 +214,19 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_3()
     {
-        if ($this->_is0_3_3Installed())
-        {
+        if ($this->_is0_3_3Installed()) {
             $this->redirect(array('index', 'version' => '0.3.3.1'));
             Yii::app()->end();
         }
 
         // add settings for recenent-entries-widget
         $model = new Setting();
-        $model->name  = Setting::RECENT_ENTRIES_WIDGET_COUNT;
+        $model->name = Setting::RECENT_ENTRIES_WIDGET_COUNT;
         $model->value = 10;
         $model->save();
 
         $model = new Setting();
-        $model->name  = Setting::RECENT_ENTRIES_WIDGET_ENABLED;
+        $model->name = Setting::RECENT_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
 
@@ -253,8 +245,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_3_1()
     {
-        if ($this->_is0_3_3_1Installed())
-        {
+        if ($this->_is0_3_3_1Installed()) {
             $this->redirect(array('index', 'version' => '0.3.4'));
             Yii::app()->end();
         }
@@ -274,8 +265,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_4()
     {
-        if ($this->_is0_3_4Installed())
-        {
+        if ($this->_is0_3_4Installed()) {
             $this->redirect(array('index', 'version' => '0.3.4.1'));
             Yii::app()->end();
         }
@@ -286,12 +276,12 @@ class UpgradeController extends Controller
 
         // add settings for "Most Viewed" widget
         $model = new Setting();
-        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT;
+        $model->name = Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT;
         $model->value = 10;
         $model->save();
 
         $model = new Setting();
-        $model->name  = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
+        $model->name = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
 
@@ -310,8 +300,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_4_1()
     {
-        if ($this->_is0_3_4_1Installed())
-        {
+        if ($this->_is0_3_4_1Installed()) {
             $this->redirect(array('index', 'version' => '0.3.5'));
             Yii::app()->end();
         }
@@ -331,8 +320,7 @@ class UpgradeController extends Controller
      */
     protected function _upgradeTo0_3_5()
     {
-        if ($this->_is0_3_5Installed())
-        {
+        if ($this->_is0_3_5Installed()) {
             Yii::app()->user->setFlash('failure', true);
             $this->redirect(array('index'));
             Yii::app()->end();
@@ -372,27 +360,23 @@ class UpgradeController extends Controller
     {
         $version = str_replace('.', '_', $version);
 
-        if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure'))
-        {
+        if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure')) {
             $this->{'_upgradeTo' . $version}();
-        }
-        else
-        {
+        } else {
             $this->render('ready');
         }
     }
-    
-    
+
+
     /**
      * @return void
      */
     public function actionSuccess()
     {
-        if (!Yii::app()->user->hasFlash('version'))
-        {
+        if (!Yii::app()->user->hasFlash('version')) {
             $this->redirect(array('index'));
         }
-        
+
         $this->render('success', array('version' => Yii::app()->user->getFlash('version')));
     }
 
