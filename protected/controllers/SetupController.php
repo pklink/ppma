@@ -70,8 +70,12 @@ class SetupController extends Controller
     {
         $form = new CForm('application.views.setup.forms.step2', new CreateConfigForm());
 
+        if (isset($_POST['CreateConfigForm'])) {
+            $form->loadData();
+        }
+
         // form is submitted & valid
-        if ($form->submitted('create') && $form->validate())
+        if (isset($_POST['CreateConfigForm']) && $form->validate())
         {
             $configPath = Yii::getPathOfAlias('application.config.ppma') . '.php';
 
@@ -97,7 +101,7 @@ class SetupController extends Controller
         }
 
         // form is submitted & invalid
-        else if ($form->submitted('create'))
+        else if (isset($_POST['CreateConfigForm']))
         {
             // if connection test failed, show error summary
             if ($form->model->hasErrors('db'))
@@ -132,8 +136,12 @@ class SetupController extends Controller
         // create form
         $form = new CForm('application.views.setup.forms.register', new User());
 
+        if (isset($_POST['User'])) {
+            $form->loadData();
+        }
+
         // form is submitted
-        if ($form->submitted('register'))
+        if (isset($_POST['User']))
         {
             // attach eventhandler for padding password, generating encryption key and salting password
             $form->model->onBeforeValidate[] = array($form->model, 'padPassword');

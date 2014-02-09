@@ -8,6 +8,7 @@ Version 0.3.6
 - New: Added Grunt for the building process
 - Chg: Added Yii via Composer
 - Bug: setup.css is linked in the setup routine, but does not exist
+- Enh: Improved setup routine
 
 Version 0.3.5.2
 ---------------
