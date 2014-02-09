@@ -36,7 +36,7 @@
     <?php echo $form->error($model, 'url'); ?>
 
     <?php echo $form->labelEx($model, 'tagList'); ?>
-    <?php echo $form->textField($model, 'tagList'); ?>
+    <?php echo $form->textField($model, 'tagList', array('placeholder' => 'seperate by commas')); ?>
     <?php echo $form->error($model, 'tagList'); ?>
 
     <?php echo $form->labelEx($model, 'comment'); ?>
