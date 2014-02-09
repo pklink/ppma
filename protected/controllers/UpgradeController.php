@@ -104,6 +104,17 @@ class UpgradeController extends Controller
         return $version >= '350000000';
     }
 
+    /**
+     * @return boolean
+     */
+    protected function _is0_3_6Installed()
+    {
+        $version = str_replace('.', '', Yii::app()->params['version']);
+        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
+
+        return $version >= '360000000';
+    }
+
 
     /**
      * @return void
@@ -111,7 +122,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_2()
     {
         if ($this->_is0_2Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.0'));
+            $this->redirect(array('index', 'version' => '0.3.0', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -153,7 +164,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_0()
     {
         if ($this->_is0_3_0Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.1'));
+            $this->redirect(array('index', 'version' => '0.3.1', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -176,7 +187,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_1()
     {
         if ($this->_is0_3_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.2'));
+            $this->redirect(array('index', 'version' => '0.3.2', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -195,7 +206,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_2()
     {
         if ($this->_is0_3_2Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.3'));
+            $this->redirect(array('index', 'version' => '0.3.3', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -215,7 +226,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_3()
     {
         if ($this->_is0_3_3Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.3.1'));
+            $this->redirect(array('index', 'version' => '0.3.3.1', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -246,7 +257,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_3_1()
     {
         if ($this->_is0_3_3_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.4'));
+            $this->redirect(array('index', 'version' => '0.3.4', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -266,7 +277,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_4()
     {
         if ($this->_is0_3_4Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.4.1'));
+            $this->redirect(array('index', 'version' => '0.3.4.1', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -301,7 +312,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_4_1()
     {
         if ($this->_is0_3_4_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.5'));
+            $this->redirect(array('index', 'version' => '0.3.5', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -321,8 +332,7 @@ class UpgradeController extends Controller
     protected function _upgradeTo0_3_5()
     {
         if ($this->_is0_3_5Installed()) {
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
+            $this->redirect(array('index', 'version' => '0.3.6', 'do' => 'yes'));
             Yii::app()->end();
         }
 
@@ -352,12 +362,39 @@ class UpgradeController extends Controller
         $this->redirect(array('/upgrade/success'));
     }
 
+    /**
+     * @return void
+     */
+    protected function _upgradeTo0_3_6()
+    {
+        if ($this->_is0_3_6Installed()) {
+            Yii::app()->user->setFlash('failure', true);
+            $this->redirect(array('index'));
+            Yii::app()->end();
+        }
+
+        // update config
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+        $config['version'] = '0.3.6';
+        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+        Yii::app()->user->setFlash('version', $config['version']);
+        $this->redirect(array('/upgrade/success'));
+    }
+
 
     /**
      * @param string $version
+     * @param string $do
      */
-    public function actionIndex($version = '0.2')
+    public function actionIndex($version = '0.2', $do = 'no')
     {
+        if ($do != 'yes' && !Yii::app()->user->hasFlash('failure')) {
+            $this->render('warn');
+            Yii::app()->end();
+        }
+
         $version = str_replace('.', '_', $version);
 
         if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure')) {
