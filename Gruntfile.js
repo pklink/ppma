@@ -48,7 +48,7 @@ module.exports = function (grunt) {
                 'release/protected/commands/',
                 'release/protected/migrations/',
                 'release/protected/runtime/*',
-                'release/protected/tests/',
+                'release/protected/tests/'
             ]
         },
         compress: {
