@@ -18,12 +18,9 @@ class EntryController extends Controller
     {
         $model = Entry::model()->findbyPk($id);
 
-        if ($model === null)
-        {
+        if ($model === null) {
             throw new CHttpException(404);
-        }
-        else if ($model->userId != Yii::app()->user->id)
-        {
+        } else if ($model->userId != Yii::app()->user->id) {
             throw new CHttpException(403);
         }
 
@@ -40,11 +37,11 @@ class EntryController extends Controller
             array(
                 'allow',
                 'actions' => array('create', 'delete', 'getData', 'index', 'update', 'searchName'),
-                'users'   => array('@'),
+                'users' => array('@'),
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -66,8 +63,7 @@ class EntryController extends Controller
 
         // save results
         $result = array();
-        foreach (Entry::model()->findAll($c) as $model)
-        {
+        foreach (Entry::model()->findAll($c) as $model) {
             /* @var Entry $model */
             $result[] = $model->name;
         }
@@ -86,13 +82,11 @@ class EntryController extends Controller
         $model = new Entry('create');
 
         // form is submitted
-        if (isset($_POST['Entry']))
-        {
+        if (isset($_POST['Entry'])) {
             $model->attributes = $_POST['Entry'];
 
             // save model & redirect to index
-            if($model->save())
-            {
+            if ($model->save()) {
                 // set flash
                 Yii::app()->user->setFlash('success', 'The entry was created successfully.');
 
@@ -100,7 +94,7 @@ class EntryController extends Controller
                 $this->redirect(array('index'));
             }
         }
-        
+
         // render view
         /*
         if (Yii::app()->request->isAjaxRequest)
@@ -123,8 +117,7 @@ class EntryController extends Controller
     public function actionDelete($id)
     {
         // we only allow deletion via POST request
-        if(!Yii::app()->request->isPostRequest)
-        {
+        if (!Yii::app()->request->isPostRequest) {
             throw new CHttpException(400);
         }
 
@@ -132,8 +125,7 @@ class EntryController extends Controller
         $model = $this->_loadModel($id);
 
         // check if user owns entry
-        if ($model->userId != Yii::app()->user->id)
-        {
+        if ($model->userId != Yii::app()->user->id) {
             throw new CHttpException(403);
         }
 
@@ -141,8 +133,7 @@ class EntryController extends Controller
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if(!isset($_GET['ajax']))
-        {
+        if (!isset($_GET['ajax'])) {
             $this->redirect(array('index'));
         }
     }
@@ -156,8 +147,7 @@ class EntryController extends Controller
     public function actionGetData($id, $withPassword = false)
     {
         // only ajax-request are allowed
-        if (!Yii::app()->request->isAjaxRequest)
-        {
+        if (!Yii::app()->request->isAjaxRequest) {
             throw new CHttpException(400);
         }
 
@@ -168,10 +158,8 @@ class EntryController extends Controller
         $return = array();
 
         // save attributes
-        foreach (array_keys($model->attributeLabels()) as $property)
-        {
-            if ($model->hasAttribute($property) && !is_object($model->$property))
-            {
+        foreach (array_keys($model->attributeLabels()) as $property) {
+            if ($model->hasAttribute($property) && !is_object($model->$property)) {
                 $id = CHtml::activeId($model, $property);
                 $return[$id] = $model->$property;
             }
@@ -182,8 +170,7 @@ class EntryController extends Controller
         $return[$id] = $model->tagList;
 
         // save password if flag is setted
-        if ($withPassword)
-        {
+        if ($withPassword) {
             $id = CHtml::activeId($model, 'password');
             $return[$id] = $model->getPassword();
 
@@ -205,8 +192,7 @@ class EntryController extends Controller
         $model = new Entry('search');
         $model->userId = Yii::app()->user->id;
 
-        if(isset($_GET['Entry']))
-        {
+        if (isset($_GET['Entry'])) {
             $model->attributes = $_GET['Entry'];
         }
 
@@ -232,22 +218,18 @@ class EntryController extends Controller
         $model->scenario = 'update';
 
         // check if form submitted and valid
-        if(isset($_POST['Entry']))
-        {
+        if (isset($_POST['Entry'])) {
             $model->attributes = $_POST['Entry'];
 
             // save entry
-            if($model->save() && !Yii::app()->request->isAjaxRequest)
-            {
+            if ($model->save() && !Yii::app()->request->isAjaxRequest) {
                 // set flash
                 Yii::app()->user->setFlash('success', 'The entry was saved successfully.');
 
                 // redirect to index
                 $this->redirect(array('index'));
             }
-        }
-        else
-        {
+        } else {
             $model->incrementViewCounter();
         }
 
