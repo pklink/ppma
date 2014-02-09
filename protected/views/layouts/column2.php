@@ -2,8 +2,6 @@
 
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/custom-theme/jquery-ui-1.9.2.custom.min.css') ?>
     <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui-1.9.2.custom.min.js') ?>
-    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/typeahead.js') ?>
-    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/sidebar.js') ?>
 
     <nav class="top-bar">
         <ul>
@@ -72,7 +70,6 @@
         </div>
     </footer>
 
-    <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/update-entry.js'); ?>
     <?php $this->beginWidget('ext.EModal.EModal', array('id' => 'entry-form-modal')); ?>
         <h2>Update entry</h2>
         <?php $this->renderPartial('/entry/_form', array('model' => new Entry())); ?>

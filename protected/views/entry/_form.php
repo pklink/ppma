@@ -1,8 +1,6 @@
 <?php
     /* @var Entry $model */
     /* @var CActiveForm $form */
-
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/toggle-password.js')
 ?>
 
 <?php $form = $this->beginWidget('ActiveForm', array(

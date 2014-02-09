@@ -5,6 +5,8 @@ Version 0.3.6
 ---------------
 - Bug: #14: Tags getting erased
 # Enh: Added placeholder to tag list of Entry-form
+# New: Added Grunt for the building process
+# Chg: Added Yii via Composer
 
 Version 0.3.5.2
 ---------------

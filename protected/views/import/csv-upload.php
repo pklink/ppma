@@ -2,8 +2,6 @@
 
 /* @var ImportCsvUploadForm $model */
 
-Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/upload.js')
-
 ?>
 
 <h1>Import CSV</h1>

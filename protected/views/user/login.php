@@ -1,7 +1,5 @@
 <?php /* @var LoginForm $model */ ?>
 
-<?php Yii::app()->clientScript->registerScriptFile('js/login.js') ?>
-
 <?php $form = $this->beginWidget('ActiveForm', array(
     'id'    => 'login-form',
     'focus' => array($model, 'username'),

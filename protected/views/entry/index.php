@@ -4,9 +4,6 @@
         'Entries' => array('index'),
         'Manage',
     );
-
-    // register scripts
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/toggle-search.js');
 ?>
 
 <h1>Manage Entries</h1>
