@@ -1,6 +1,11 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.6
+---------------
+- Bug: #14: Tags getting erased
+# Enh: Added placeholder to tag list of Entry-form
+
 Version 0.3.5.2
 ---------------
 - Bug #9: Improved requirement check in setup routine to prevent "setup loop"
