@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                         'js/toggle-search.js',
                         'js/typeahead.js',
                         'js/update-entry.js',
-                        'js/upload.js',
+                        'js/upload.js'
                     ]
                 }
             }
@@ -43,7 +43,8 @@ module.exports = function(grunt) {
             'vendor/yiisoft/yii/UPGRADE',
             'vendor/composer',
             'vendor/bin',
-            'vendor/autoload.php'
+            'vendor/autoload.php',
+            'assets/*'
         ]
     });
 
