@@ -24,7 +24,7 @@
             <?php echo $form->passwordField($model, 'password'); ?>
         </div>
         <div class="one columns">
-            <a class="postfix button secondary expand show-hide-password"><i class="foundicon-access-eyeball"></i></a>
+            <span class="postfix button secondary expand show-hide-password"><i class="foundicon-access-eyeball"></i></span>
         </div>
     </div>
     <?php echo $form->error($model, 'password'); ?>
