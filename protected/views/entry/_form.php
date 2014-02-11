@@ -11,17 +11,17 @@
     <?php echo $form->hiddenField($model, 'id'); ?>
 
     <?php echo $form->labelEx($model, 'name'); ?>
-    <?php echo $form->textField($model, 'name'); ?>
+    <?php echo $form->textField($model, 'name', array('autocomplete' => 'off')); ?>
     <?php echo $form->error($model, 'name'); ?>
 
     <?php echo $form->labelEx($model, 'username'); ?>
-    <?php echo $form->textField($model, 'username'); ?>
+    <?php echo $form->textField($model, 'username', array('autocomplete' => 'off')); ?>
     <?php echo $form->error($model, 'username'); ?>
 
     <?php echo $form->labelEx($model, 'password'); ?>
     <div class="row collapse">
         <div class="eleven columns">
-            <?php echo $form->passwordField($model, 'password'); ?>
+            <?php echo $form->passwordField($model, 'password', array('autocomplete' => 'off')); ?>
         </div>
         <div class="one columns">
             <span class="postfix button secondary expand show-hide-password"><i class="foundicon-access-eyeball"></i></span>
