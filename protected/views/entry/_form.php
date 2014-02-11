@@ -21,7 +21,7 @@
     <?php echo $form->labelEx($model, 'password'); ?>
     <div class="row collapse">
         <div class="eleven columns">
-            <?php echo $form->passwordField($model, 'password', array('autocomplete' => 'off')); ?>
+            <?php echo $form->passwordField($model, 'password', array('autocomplete' => 'off', 'required' => 'required')); ?>
         </div>
         <div class="one columns">
             <span class="postfix button secondary expand show-hide-password"><i class="foundicon-access-eyeball"></i></span>
