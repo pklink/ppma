@@ -42,7 +42,7 @@ cd ppma/
 php composer.phar install
 npm install
 grunt
-``
+```
 
 ## Upgrading
 
