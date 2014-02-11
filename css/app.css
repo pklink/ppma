@@ -88,8 +88,8 @@ footer {
 
 .panel div.settings {
     position: relative;
-    top: -45px;
-    left: 161px;
+    top: -25px;
+    left: 156px;
     width: 16px;
     cursor: move;
 }
@@ -118,5 +118,9 @@ footer {
 }
 
 .errorSummary  ul {
+    margin-bottom: 0;
+}
+
+aside > div > h5 {
     margin-bottom: 0;
 }
