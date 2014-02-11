@@ -34,7 +34,7 @@ Please report founded bugs on https://github.com/pklink/ppma/issues
 
 ### Building
 
-Is not needed if you download the prebuilt release
+It is not needed if you download the prebuilt release
 
 ```bash
 git clone https://github.com/pklink/ppma.git
