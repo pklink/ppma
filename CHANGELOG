@@ -4,7 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.3.7
 -------------
 - Bug: #14: Safari doesn't let you view password
-- Enh: #14: Added autocomplete="off" to entry form
+- Enh: #14: Added `autocomplete="off"` to entry form
 - Enh: Added `require` attribute to entry form
 - Enh: Added link to main page in navigation
 - Bug: Fixed design of sidebar
