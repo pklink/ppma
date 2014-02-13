@@ -455,14 +455,21 @@ class UpgradeController extends Controller
      */
     public function actionIndex($version = '0.2', $do = 'no')
     {
-        if ($do != 'yes' && !Yii::app()->user->hasFlash('failure')) {
-            $this->render('warn');
-            Yii::app()->end();
-        }
+        // get installed version
+        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        $config = new CConfiguration(require($path));
+
+        // the latest version
+        $latest = '0.3.8';
 
         $version = str_replace('.', '_', $version);
 
-        if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure')) {
+        if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure') && $config['version'] != $latest) {
+            if ($do != 'yes') {
+                $this->render('warn');
+                Yii::app()->end();
+            }
+
             $this->{'_upgradeTo' . $version}();
         } else {
             $this->render('ready');
