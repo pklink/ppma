@@ -1,6 +1,11 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.8
+-------------
+- Bug: #18: Upgrade from 0.3.5.1 to 0.3.7 required two upgrade passes to complete
+- Enh: Improved upgrade routine
+
 Version 0.3.7
 -------------
 - Bug: #14: Safari doesn't let you view password
