@@ -14,7 +14,7 @@ class EntryController extends Controller
      * @return Entry
      * @throws CHttpException
      */
-    protected function _loadModel($id)
+    protected function loadModel($id)
     {
         $model = Entry::model()->findbyPk($id);
 
@@ -87,6 +87,8 @@ class EntryController extends Controller
 
             // save model & redirect to index
             if ($model->save()) {
+                $model->resaveTags();
+
                 // set flash
                 Yii::app()->user->setFlash('success', 'The entry was created successfully.');
 
@@ -95,17 +97,6 @@ class EntryController extends Controller
             }
         }
 
-        // render view
-        /*
-        if (Yii::app()->request->isAjaxRequest)
-        {
-            $this->renderPartial('create', array('form' => $form));
-        }
-        else
-        {
-            $this->render('create', array('model' => $model));
-        }
-        */
         $this->render('create', array('model' => $model));
     }
 
@@ -122,7 +113,7 @@ class EntryController extends Controller
         }
 
         // get model
-        $model = $this->_loadModel($id);
+        $model = $this->loadModel($id);
 
         // check if user owns entry
         if ($model->userId != Yii::app()->user->id) {
@@ -152,7 +143,7 @@ class EntryController extends Controller
         }
 
         // load model
-        $model = $this->_loadModel($id);
+        $model = $this->loadModel($id);
 
         // prepare array for response
         $return = array();
@@ -212,7 +203,7 @@ class EntryController extends Controller
         /* @var Entry $model */
 
         // load form
-        $model = $this->_loadModel($id);
+        $model = $this->loadModel($id);
 
         // set scenario
         $model->scenario = 'update';
