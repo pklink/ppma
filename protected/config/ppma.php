@@ -8,6 +8,6 @@ return array (
     'password' => 'bitnami',
     'name' => 'ppma',
   ),
-  'isInstalled' => true,
+  'isInstalled' => false,
   'version' => '0.3.9',
 );
