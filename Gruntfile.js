@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                         'js/update-entry.js',
                         'js/upload.js',
                         'js/zeroclipboard/ZeroClipboard.min.js',
-                        'js/zeroclipboard/copy-to-clipboard.js'
+                        'js/copy-to-clipboard.js'
                     ]
                 }
             }
