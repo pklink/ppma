@@ -17,7 +17,9 @@ module.exports = function (grunt) {
                         'js/toggle-search.js',
                         'js/typeahead.js',
                         'js/update-entry.js',
-                        'js/upload.js'
+                        'js/upload.js',
+                        'js/zeroclipboard/ZeroClipboard.min.js',
+                        'js/copy-to-clipboard.js'
                     ]
                 }
             }
@@ -74,6 +76,19 @@ module.exports = function (grunt) {
             }
         },
         copy: {
+            bower: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'bower_components/',
+                        src: [
+                            'zeroclipboard/ZeroClipboard.min.js',
+                            'zeroclipboard/ZeroClipboard.swf'
+                        ],
+                        dest: './js/'
+                    }
+                ]
+            },
             release: {
                 files: [
                     {
@@ -122,6 +137,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-touch');
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('default', ['copy:bower', 'uglify']);
     grunt.registerTask('release', ['uglify', 'copy:release', 'clean:release', 'touch:release', 'compress:zip', 'compress:tar', 'clean:cleanup']);
 };
