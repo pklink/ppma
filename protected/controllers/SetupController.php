@@ -57,7 +57,6 @@ class SetupController extends Controller
         }
 
         // check for pdo_mysql
-
         $isPDO_mysqlLoaded = extension_loaded('pdo_mysql');
 
         if (!$isPDO_mysqlLoaded)
