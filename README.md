@@ -68,7 +68,3 @@ grunt
 ## License
 
 This package is licensed under the BSD License. See the LICENSE file for details.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pklink/ppma/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
