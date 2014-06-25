@@ -41,6 +41,7 @@ git clone https://github.com/pklink/ppma.git
 cd ppma/
 php composer.phar install
 npm install
+bower install
 grunt
 ```
 
