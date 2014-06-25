@@ -5,9 +5,9 @@ return array (
   array (
     'server' => '127.0.0.1',
     'username' => 'root',
-    'password' => 'bitnami',
+    'password' => 'password',
     'name' => 'ppma',
   ),
   'isInstalled' => false,
-  'version' => '0.3.9',
+  'version' => '0.3.10',
 );

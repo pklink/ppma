@@ -5,162 +5,32 @@ class UpgradeController extends Controller
 
     public $layout = '//layouts/upgrade';
 
-    /**
-     * @return boolean
-     */
-    protected function _is0_2Installed()
-    {
-        return !is_null(Tag::model()->tableSchema->getColumn('userId'));
-    }
+    private $latestVersion = '0.3.10';
 
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_0Installed()
-    {
-        return Setting::model()->countByAttributes(array('name' => 'registration_enabled')) == 0;
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_1Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '310000000';
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_2Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '320000000';
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_3Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '330000000';
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_3_1Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '331000000';
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_4Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '340000000';
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_4_1Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '341000000';
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_5Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '350000000';
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_6Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '360000000';
-    }
-
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_7Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '370000000';
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_8Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '380000000';
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function _is0_3_9Installed()
-    {
-        $version = str_replace('.', '', Yii::app()->params['version']);
-        $version = str_pad($version, 10, 0, STR_PAD_RIGHT);
-
-        return $version >= '390000000';
-    }
-
+    private $history = array(
+        array('0',       'upgradeTo02'),
+        array('0.2',     'upgradeTo030'),
+        array('0.3.0'),
+        array('0.3.1'),
+        array('0.3.2',   'upgradeTo033'),
+        array('0.3.3'),
+        array('0.3.3.1', 'upgradeTo034'),
+        array('0.3.4'),
+        array('0.3.4.1', 'upgradeTo035'),
+        array('0.3.5'),
+        array('0.3.6'),
+        array('0.3.7'),
+        array('0.3.8'),
+        array('0.3.9'),
+    );
 
     /**
      * @return void
      */
-    protected function _upgradeTo0_2()
+    protected function upgradeTo02()
     {
-        if ($this->_is0_2Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.0', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
         // Add Tag-column
+        /* @var CDbCommand $cmd */
         $cmd = Yii::app()->db->createCommand();
         $cmd->addColumn('Tag', 'userId', 'integer NOT NULL');
         $cmd->addForeignKey('user', 'Tag', 'userId', 'User', 'id', 'CASCADE', 'CASCADE');
@@ -188,82 +58,22 @@ class UpgradeController extends Controller
             // Remove tag
             $model->delete();
         }
-
-        $this->refresh();
     }
 
     /**
      * @return void
      */
-    protected function _upgradeTo0_3_0()
+    protected function upgradeTo030()
     {
-        if ($this->_is0_3_0Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.1', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
         // remove registration-setting
         Setting::model()->deleteAllByAttributes(array('name' => 'registration_enabled'));
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.0';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
-    }
-
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_1()
-    {
-        if ($this->_is0_3_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.2', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.1';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
     }
 
     /**
      * @return void
      */
-    protected function _upgradeTo0_3_2()
+    protected function upgradeTo033()
     {
-        if ($this->_is0_3_2Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.3', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.2';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
-    }
-
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_3()
-    {
-        if ($this->_is0_3_3Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.3.1', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
         // add settings for recenent-entries-widget
         $model = new Setting();
         $model->name = Setting::RECENT_ENTRIES_WIDGET_COUNT;
@@ -274,48 +84,15 @@ class UpgradeController extends Controller
         $model->name = Setting::RECENT_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.3';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
     }
-
 
     /**
      * @return void
      */
-    protected function _upgradeTo0_3_3_1()
+    protected function upgradeTo034()
     {
-        if ($this->_is0_3_3_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.4', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.3.1';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
-    }
-
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_4()
-    {
-        if ($this->_is0_3_4Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.4.1', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
         // add view counter
+        /* @var CDbCommand $cmd */
         $cmd = Yii::app()->db->createCommand();
         $cmd->addColumn('Entry', 'viewCount', 'int NOT NULL DEFAULT 0');
 
@@ -329,47 +106,14 @@ class UpgradeController extends Controller
         $model->name = Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED;
         $model->value = true;
         $model->save();
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.4';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
     }
 
 
     /**
      * @return void
      */
-    protected function _upgradeTo0_3_4_1()
+    protected function upgradeTo035()
     {
-        if ($this->_is0_3_4_1Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.5', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.4.1';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        $this->refresh();
-    }
-
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_5()
-    {
-        if ($this->_is0_3_5Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.6', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
         // create new settings
         $model = new Setting();
         $model->name = Setting::TAG_CLOUD_WIDGET_POSITION;
@@ -385,139 +129,46 @@ class UpgradeController extends Controller
         $model->name = Setting::RECENT_ENTRIES_WIDGET_POSITION;
         $model->value = 2;
         $model->save(false);
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.5';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        Yii::app()->user->setFlash('version', $config['version']);
-        $this->refresh();
     }
 
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_6()
+    public function actionIndex()
     {
-        if ($this->_is0_3_6Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.7', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.6';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        Yii::app()->user->setFlash('version', $config['version']);
-        $this->refresh();
+        $this->render('index');
     }
 
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_7()
+    public function actionRun()
     {
-        if ($this->_is0_3_7Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.8', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.7';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        Yii::app()->user->setFlash('version', $config['version']);
-        $this->refresh();
-    }
-
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_8()
-    {
-        if ($this->_is0_3_8Installed()) {
-            $this->redirect(array('index', 'version' => '0.3.9', 'do' => 'yes'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.8';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        Yii::app()->user->setFlash('version', $config['version']);
-        $this->refresh();
-    }
-
-    /**
-     * @return void
-     */
-    protected function _upgradeTo0_3_9()
-    {
-        if ($this->_is0_3_9Installed()) {
-            Yii::app()->user->setFlash('failure', true);
-            $this->redirect(array('index'));
-            Yii::app()->end();
-        }
-
-        // update config
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-        $config['version'] = '0.3.9';
-        file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-        Yii::app()->user->setFlash('version', $config['version']);
-        $this->redirect(array('/upgrade/success'));
-    }
-
-
-    /**
-     * @param string $version
-     * @param string $do
-     */
-    public function actionIndex($version = '0.2', $do = 'no')
-    {
-        // get installed version
-        $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-        $config = new CConfiguration(require($path));
-
-        // the latest version
-        $latest = '0.3.9';
-
-        $version = str_replace('.', '_', $version);
-
-        if (method_exists($this, '_upgradeTo' . $version) && !Yii::app()->user->hasFlash('failure') && $config['version'] != $latest) {
-            if ($do != 'yes') {
-                $this->render('warn');
-                Yii::app()->end();
+        // get routines to upgrade
+        $installedVersion = Yii::app()->params['version'];
+        $addRoutines = false;
+        $routines = array();
+        foreach ($this->history as $version) {
+            if (!$addRoutines && $version[0] == $installedVersion) {
+                $addRoutines = true;
             }
 
-            $this->{'_upgradeTo' . $version}();
+            if ($addRoutines && isset($version[1])) {
+                $routines[] = $version[1];
+            }
+        }
+
+        // run upgrade routines
+        foreach ($routines as $routine) {
+            $this->{$routine}();
+        }
+
+        // upgrade complete
+        if ($addRoutines) {
+            // write latest version to config
+            $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+            $config = new CConfiguration(require($path));
+            $config['version'] = $this->latestVersion;
+            file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+            $this->render('success', array('version' => $this->latestVersion));
         } else {
-            $this->render('ready');
+            $this->render('isuptodate');
         }
-    }
-
-
-    /**
-     * @return void
-     */
-    public function actionSuccess()
-    {
-        if (!Yii::app()->user->hasFlash('version')) {
-            $this->redirect(array('index'));
-        }
-
-        $this->render('success', array('version' => Yii::app()->user->getFlash('version')));
     }
 
 }

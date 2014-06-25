@@ -1,6 +1,12 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.3.10
+--------------
+- Enh #24: Added "copy to clipboard" function. Thanks to [crossgate9](https://github.com/crossgate9)
+- Enh #27: Improved requirement check in setup routine. Thanks to [IntiGabriel](https://github.com/IntiGabriel)
+- Enh: Improved upgrade routine
+
 Version 0.3.9
 -------------
 - Bug: #19: When creating new passwords with tags they don't get added
