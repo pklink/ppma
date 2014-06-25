@@ -48,6 +48,21 @@ class SetupController extends Controller
             $continue = false;
         }
 
+        // check for PDO
+        $isPDOLoaded = extension_loaded('PDO');
+
+        if (!$isPDOLoaded)
+        {
+            $continue = false;
+        }
+
+        // check for pdo_mysql
+        $isPDO_mysqlLoaded = extension_loaded('pdo_mysql');
+
+        if (!$isPDO_mysqlLoaded)
+        {
+            $continue = false;
+        }
 
         if ($continue)
         {
@@ -55,10 +70,12 @@ class SetupController extends Controller
         }
 
         $this->render('step1', array(
-            'permissions'    => $permissions,
-            'phpVersion'     => $phpVersion,
-            'isMcryptLoaded' => $isMcryptLoaded,
-            'continue'       => $continue,
+            'permissions'       => $permissions,
+            'phpVersion'        => $phpVersion,
+            'isMcryptLoaded'    => $isMcryptLoaded,
+            'isPDOLoaded'       => $isPDOLoaded,
+            'isPDO_mysqlLoaded' => $isPDO_mysqlLoaded,
+            'continue'          => $continue,
         ));
     }
 

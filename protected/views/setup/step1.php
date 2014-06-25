@@ -17,6 +17,16 @@
                 <?php $value = $isMcryptLoaded ? 'true' : 'false'; ?>
                 <td class="<?php echo $value ?>"><?php echo $value ?></td>
             </tr>
+            <tr>
+                <td>php5-pdo</td>
+                <?php $value = $isPDOLoaded ? 'true' : 'false'; ?>
+                <td class="<?php echo $value ?>"><?php echo $value ?></td>
+            </tr>
+            <tr>
+                <td>php5-pdo_mysql</td>
+                <?php $value = $isPDO_mysqlLoaded ? 'true' : 'false'; ?>
+                <td class="<?php echo $value ?>"><?php echo $value ?></td>
+            </tr>
         </table>
 
         <h2>Permissions</h2>
