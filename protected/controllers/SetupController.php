@@ -317,10 +317,15 @@ class SetupController extends Controller
         $model->value = 0;
         $model->save(false);
 
+        $model = new Setting();
+        $model->name = Setting::PAGINATION_PAGE_SIZE_ENTRIES;
+        $model->value = 10;
+        $model->save(false);
 
-
-
-
+        $model = new Setting();
+        $model->name = Setting::PAGINATION_PAGE_SIZE_TAGS;
+        $model->value = 10;
+        $model->save(false);
     }
     
 
