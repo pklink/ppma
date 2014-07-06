@@ -5,7 +5,7 @@ class UpgradeController extends Controller
 
     public $layout = '//layouts/upgrade';
 
-    private $latestVersion = '0.3.10';
+    private $latestVersion = '0.4.0';
 
     private $history = array(
         array('0',       'upgradeTo02'),
@@ -22,6 +22,7 @@ class UpgradeController extends Controller
         array('0.3.7'),
         array('0.3.8'),
         array('0.3.9'),
+        array('0.3.10', 'upgradeTo040'),
     );
 
     /**
@@ -129,6 +130,23 @@ class UpgradeController extends Controller
         $model->name = Setting::RECENT_ENTRIES_WIDGET_POSITION;
         $model->value = 2;
         $model->save(false);
+    }
+
+    /**
+     * @return void
+     */
+    protected function upgradeTo040()
+    {
+        // add settings for "Most Viewed" widget
+        $model = new Setting();
+        $model->name = Setting::PAGINATION_PAGE_SIZE_ENTRIES;
+        $model->value = 10;
+        $model->save();
+
+        $model = new Setting();
+        $model->name = Setting::PAGINATION_PAGE_SIZE_TAGS;
+        $model->value = 10;
+        $model->save();
     }
 
     public function actionIndex()

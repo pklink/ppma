@@ -24,6 +24,10 @@ class Setting extends CActiveRecord
     const MOST_VIEWED_ENTRIES_WIDGET_POSITION   = 'most_viewed_entries_widget_position';
 
     const TAG_CLOUD_WIDGET_POSITION   = 'tag_cloud_widget_position';
+
+    const PAGINATION_PAGE_SIZE_ENTRIES = 'pagination_page_size_entries';
+
+    const PAGINATION_PAGE_SIZE_TAGS = 'pagination_page_size_tags';
     
     
     /**

@@ -31,6 +31,19 @@
     )); ?>
 </div>
 
+<div class="row page-nav" style="padding-bottom: 10px">
+    <div class="ten columns" style="text-align: right; line-height: 2em">
+        Results per page:
+    </div>
+    <div class="two columns" style="line-height: 2em" data-url="<?php echo CHtml::normalizeUrl(array('tag/index')) ?>">
+        <?php echo CHtml::dropDownList(
+            'pageSize',
+            Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find()->value,
+            array(5 => 5, 10 => 10, 25 => 25, 50 => 50, 100 => 100, 250 => 250)
+        ) ?>
+    </div>
+</div>
+
 <?php $this->widget('GridView', array(
     'dataProvider' => $model->search(),
     'cssFile'      => false,

@@ -114,6 +114,20 @@ class TagController extends Controller
         $model = new Tag('search');
         $model->userId = Yii::app()->user->id;
 
+        /* @var CHttpRequest $request */
+        $request = Yii::app()->request;
+
+        if ($request->getQuery('pagesize') != null) {
+            /* @var Setting $setting */
+            $setting = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find();
+            $pageSize = CPropertyValue::ensureInteger($request->getQuery('pagesize'));
+
+            if ($pageSize > 0) {
+                $setting->value = $pageSize;
+                $setting->save();
+            }
+        }
+
         if(isset($_GET['Tag']))
         {
             $model->attributes = $_GET['Tag'];

@@ -10,6 +10,7 @@ module.exports = function (grunt) {
             ppma: {
                 files: {
                     'js/ppma.min.js': [
+                        'js/pagenav.js',
                         'js/import.js',
                         'js/login.js',
                         'js/sidebar.js',

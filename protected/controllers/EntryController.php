@@ -183,6 +183,20 @@ class EntryController extends Controller
         $model = new Entry('search');
         $model->userId = Yii::app()->user->id;
 
+        /* @var CHttpRequest $request */
+        $request = Yii::app()->request;
+
+        if ($request->getQuery('pagesize') != null) {
+            /* @var Setting $setting */
+            $setting = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_ENTRIES)->find();
+            $pageSize = CPropertyValue::ensureInteger($request->getQuery('pagesize'));
+
+            if ($pageSize > 0) {
+                $setting->value = $pageSize;
+                $setting->save();
+            }
+        }
+
         if (isset($_GET['Entry'])) {
             $model->attributes = $_GET['Entry'];
         }

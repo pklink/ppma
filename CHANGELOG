@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.4.0
+-------------
+- Enh: Added a "Results per page"-dropdown to `entry/index` and `tag/index`
+
 Version 0.3.10
 --------------
 - Enh #24: Added "copy to clipboard" function. Thanks to [crossgate9](https://github.com/crossgate9)
