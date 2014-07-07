@@ -5,7 +5,7 @@ class UpgradeController extends Controller
 
     public $layout = '//layouts/upgrade';
 
-    private $latestVersion = '0.4.0';
+    private $latestVersion = '0.4.1';
 
     private $history = array(
         array('0',       'upgradeTo02'),
@@ -23,6 +23,7 @@ class UpgradeController extends Controller
         array('0.3.8'),
         array('0.3.9'),
         array('0.3.10', 'upgradeTo040'),
+        array('0.4.0'),
     );
 
     /**
