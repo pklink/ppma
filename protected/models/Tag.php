@@ -146,6 +146,9 @@ class Tag extends CActiveRecord
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find()->value
+            )
         ));
     }
 
