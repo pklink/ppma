@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.4.1
+-------------
+- Bug #29: Tags overview is locked to 10 entries, regardless of "Results per page" setting
+
 Version 0.4.0
 -------------
 - Enh: Added a "Results per page"-dropdown to `entry/index` and `tag/index`
