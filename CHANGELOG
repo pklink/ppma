@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.4.2
+-------------
+- Bug #33: Updated zeroclipboard to version 2.1.6
+
 Version 0.4.1
 -------------
 - Bug #29: Tags overview is locked to 10 entries, regardless of "Results per page" setting

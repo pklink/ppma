@@ -8,6 +8,7 @@ $(function() {
                 $.each(response, function(key, value) {
                     $('#entry-form-modal #' + key).val(value);
                 });
+                $('.copy-to-clipboard').attr('data-clipboard-text', response.Entry_password);
             }
         });
 

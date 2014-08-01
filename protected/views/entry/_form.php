@@ -19,15 +19,18 @@
     <?php echo $form->error($model, 'username'); ?>
 
     <?php echo $form->labelEx($model, 'password'); ?>
+
     <div class="row collapse">
         <div class="ten columns">
             <?php echo $form->passwordField($model, 'password', array('autocomplete' => 'off', 'required' => 'required')); ?>
         </div>
         <div class="one columns">
-            <span class="postfix button secondary expand copy-to-clipboard" data-clipboard-target="Entry_password" data-clipborad-text="Copy Me!" title="Click to copy me."><i class="foundicon-page"></i></span>
+            <span class="postfix button secondary expand copy-to-clipboard" title="copy password"><i class="foundicon-page"></i></span>
         </div>
         <div class="one columns">
-            <span class="postfix button secondary expand show-hide-password"><i class="foundicon-access-eyeball"></i></span>
+            <span class="postfix button secondary expand show-hide-password">
+                <i class="foundicon-access-eyeball"></i>
+            </span>
         </div>
     </div>
     <?php echo $form->error($model, 'password'); ?>

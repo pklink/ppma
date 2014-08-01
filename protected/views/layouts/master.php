@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foundation.min.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/app.css">
         <?php Yii::app()->clientScript->registerCoreScript('jquery') ?>
+        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/zeroclipboard/dist/ZeroClipboard.min.js'); ?>
         <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/ppma.min.js'); ?>
     	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>

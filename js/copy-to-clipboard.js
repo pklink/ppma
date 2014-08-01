@@ -1,7 +1,5 @@
-(function($) {
-  $(function() {
-    var client = new ZeroClipboard($('.copy-to-clipboard'), {
-      moviePath: './js/zeroclipboard/ZeroClipboard.swf'
+(function ($) {
+    $(function () {
+        var client = new ZeroClipboard($('.copy-to-clipboard'));
     });
-  });
 })(jQuery);

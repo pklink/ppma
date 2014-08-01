@@ -19,7 +19,6 @@ module.exports = function (grunt) {
                         'js/typeahead.js',
                         'js/update-entry.js',
                         'js/upload.js',
-                        'js/zeroclipboard/ZeroClipboard.min.js',
                         'js/copy-to-clipboard.js'
                     ]
                 }
@@ -83,8 +82,9 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'bower_components/',
                         src: [
-                            'zeroclipboard/ZeroClipboard.min.js',
-                            'zeroclipboard/ZeroClipboard.swf'
+                            'zeroclipboard/dist/ZeroClipboard.min.map',
+                            'zeroclipboard/dist/ZeroClipboard.min.js',
+                            'zeroclipboard/dist/ZeroClipboard.swf'
                         ],
                         dest: './js/'
                     }
