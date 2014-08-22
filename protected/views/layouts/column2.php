@@ -44,7 +44,8 @@
             <ul class="right">
 
                 <li class="search">
-                    <form action="<?php echo CHtml::normalizeUrl(array('entry/index')) ?>" method="post">
+                    <form method="get">
+                        <input type="hidden" name="r" value="entry/index" />
                         <input type="search" name="q" value="<?php echo Yii::app()->request->getParam('q') ?>" rel="<?php echo Yii::app()->createAbsoluteUrl('entry/searchName') ?>" />
                     </form>
                 </li>
