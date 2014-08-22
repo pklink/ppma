@@ -19,13 +19,13 @@ class ImportController extends Controller
         return array(
             array(
                 'allow',
-                'actions'    => array('csv'),
-                'users'      => array('@'),
+                'actions' => array('csv'),
+                'users' => array('@'),
                 'expression' => 'Yii::app()->user->isAdmin',
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -40,19 +40,17 @@ class ImportController extends Controller
         $model = new ImportCsvUploadForm();
 
         // upload form (first step) was submitted
-        if (isset($_POST['ImportCsvUploadForm']))
-        {
+        if (isset($_POST['ImportCsvUploadForm'])) {
             $model->attributes = $_POST['ImportCsvUploadForm'];
 
             // validate upload
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $models = array();
 
                 // get file
-                $file        = CUploadedFile::getInstance($model, 'file');
+                $file = CUploadedFile::getInstance($model, 'file');
                 $fileContent = trim(file_get_contents($file->tempName));
-                $fileLines   = explode("\n", $fileContent);
+                $fileLines = explode("\n", $fileContent);
 
                 // relations between CSV and ImportCsvForm
                 $csvToObject = array(
@@ -65,19 +63,16 @@ class ImportController extends Controller
                 );
 
                 // traverse uploaded file per line
-                foreach ($fileLines as $index => $line)
-                {
+                foreach ($fileLines as $index => $line) {
                     // skip first line (header)
-                    if ($index == 0)
-                    {
+                    if ($index == 0) {
                         continue;
                     }
 
                     // parse line to array
                     $csv = str_getcsv($line);
 
-                    if (count($csv) < 1)
-                    {
+                    if (count($csv) < 1) {
                         continue;
                     }
 
@@ -85,10 +80,8 @@ class ImportController extends Controller
                     $tmpModel = new ImportCsvForm();
 
                     // set array values to model
-                    foreach ($csvToObject as $index => $name)
-                    {
-                        if (!isset($csv[$index]))
-                        {
+                    foreach ($csvToObject as $index => $name) {
+                        if (!isset($csv[$index])) {
                             break;
                         }
 
@@ -98,57 +91,44 @@ class ImportController extends Controller
                     $models[] = $tmpModel;
                 }
             }
-        }
-
-        // import
-        else if (isset($_POST['ImportCsvForm']))
-        {
+        } elseif (isset($_POST['ImportCsvForm'])) { // import
             //var_dump($_POST);die();
             $models = array();
-            $valid  = true;
+            $valid = true;
 
-            foreach ($_POST['ImportCsvForm'] as $index => $data)
-            {
+            foreach ($_POST['ImportCsvForm'] as $index => $data) {
                 $model = new ImportCsvForm();
                 $model->attributes = $data;
                 $valid = $model->validate();
 
                 $models[] = $model;
 
-                if (!$valid)
-                {
+                if (!$valid) {
                     Yii::app()->user->setFlash('hasError', true);
                 }
             }
 
-            if ($valid)
-            {
-                foreach ($models as $model)
-                {
+            if ($valid) {
+                foreach ($models as $model) {
                     $entry = new Entry('create');
-                    $entry->name     = $model->name;
-                    $entry->url      = $model->url;
+                    $entry->name = $model->name;
+                    $entry->url = $model->url;
                     $entry->username = $model->username;
                     $entry->password = $model->password;
-                    $entry->tagList  = $model->tags;
-                    $entry->comment  = $model->comment;
+                    $entry->tagList = $model->tags;
+                    $entry->comment = $model->comment;
                     $entry->save();
+                    $entry->resaveTags();
                 }
 
                 Yii::app()->user->setFlash('success', 'Your CSV was successfully imported!');
                 $this->redirect(array('/entry/index'));
             }
         }
-
         // render upload form
-        if (!isset($models))
-        {
+        if (!isset($models)) {
             $this->render('csv-upload', array('model' => $model));
-        }
-
-        // render import form
-        else
-        {
+        } else { // render import form
             $this->render('csv-import', array('models' => $models));
         }
     }
