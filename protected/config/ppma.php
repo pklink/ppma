@@ -9,5 +9,5 @@ return array(
             'name' => 'ppma',
         ),
     'isInstalled' => false,
-    'version' => '0.4.1',
+    'version' => '0.4.2',
 );
