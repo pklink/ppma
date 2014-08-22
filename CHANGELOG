@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.4.2
 -------------
 - Bug #33: Updated zeroclipboard to version 2.1.6
+- Bug #35: Error code 400 on delete request
 
 Version 0.4.1
 -------------
