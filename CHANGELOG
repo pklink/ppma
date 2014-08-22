@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.4.2
 -------------
 - Bug #30: Search results pagination goes to main password list instead
+- Bug #31: CSV import limited to 167 entries: Added hint to import
 - Bug #32: Tags don't get imported from CSV
 - Bug #33: Updated zeroclipboard to version 2.1.6
 - Bug #35: Error code 400 on delete request

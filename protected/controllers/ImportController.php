@@ -80,23 +80,22 @@ class ImportController extends Controller
                     $tmpModel = new ImportCsvForm();
 
                     // set array values to model
-                    foreach ($csvToObject as $index => $name) {
-                        if (!isset($csv[$index])) {
+                    foreach ($csvToObject as $position => $name) {
+                        if (!isset($csv[$position])) {
                             break;
                         }
 
-                        $tmpModel->$csvToObject[$index] = $csv[$index];
+                        $tmpModel->$csvToObject[$position] = $csv[$position];
                     }
 
                     $models[] = $tmpModel;
                 }
             }
         } elseif (isset($_POST['ImportCsvForm'])) { // import
-            //var_dump($_POST);die();
             $models = array();
             $valid = true;
 
-            foreach ($_POST['ImportCsvForm'] as $index => $data) {
+            foreach ($_POST['ImportCsvForm'] as $data) {
                 $model = new ImportCsvForm();
                 $model->attributes = $data;
                 $valid = $model->validate();
@@ -127,7 +126,7 @@ class ImportController extends Controller
         }
         // render upload form
         if (!isset($models)) {
-            $this->render('csv-upload', array('model' => $model));
+            $this->render('csv-upload', array('model' => $model, 'maxImport' => ceil(ini_get('max_input_vars') / 6)));
         } else { // render import form
             $this->render('csv-import', array('models' => $models));
         }
