@@ -107,8 +107,11 @@ class EntryController extends Controller
      */
     public function actionDelete($id)
     {
+        /* @var CHttpRequest $request */
+        $request = Yii::app()->request;
+
         // we only allow deletion via POST request
-        if (!Yii::app()->request->isPostRequest) {
+        if (!Yii::app()->request->isAjaxRequest) {
             throw new CHttpException(400);
         }
 

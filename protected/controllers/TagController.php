@@ -19,12 +19,9 @@ class TagController extends Controller
     {
         $model = Tag::model()->findbyPk($id);
 
-        if ($model === null)
-        {
+        if ($model === null) {
             throw new CHttpException(404);
-        }
-        else if ($model->userId != Yii::app()->user->id)
-        {
+        } else if ($model->userId != Yii::app()->user->id) {
             throw new CHttpException(403);
         }
 
@@ -41,16 +38,16 @@ class TagController extends Controller
             array(
                 'allow',
                 'actions' => array('create', 'delete', 'index', 'update'),
-                'users'   => array('@'),
+                'users' => array('@'),
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
-    
-    
+
+
     /**
      * @return void
      */
@@ -60,13 +57,11 @@ class TagController extends Controller
         $model = new Tag('create');
 
         // form is submitted
-        if(isset($_POST['Tag']))
-        {
+        if (isset($_POST['Tag'])) {
             $model->attributes = $_POST['Tag'];
 
             // save model & redirect to list
-            if($model->save())
-            {
+            if ($model->save()) {
                 // set flash
                 Yii::app()->user->setFlash('success', 'The tag was created successfully.');
 
@@ -78,8 +73,8 @@ class TagController extends Controller
         // render view
         $this->render('create', array('model' => $model));
     }
-    
-    
+
+
     /**
      * @param int $id
      * @throws CHttpException
@@ -87,8 +82,7 @@ class TagController extends Controller
     public function actionDelete($id)
     {
         // we only allow deletion via POST request
-        if(!Yii::app()->request->isPostRequest)
-        {
+        if (!Yii::app()->request->isAjaxRequest) {
             throw new CHttpException(400);
         }
 
@@ -99,13 +93,12 @@ class TagController extends Controller
         $model->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if(!Yii::app()->request->isAjaxRequest)
-        {
+        if (!Yii::app()->request->isAjaxRequest) {
             $this->redirect(array('index'));
         }
     }
-    
-    
+
+
     /**
      * @return void
      */
@@ -128,18 +121,17 @@ class TagController extends Controller
             }
         }
 
-        if(isset($_GET['Tag']))
-        {
+        if (isset($_GET['Tag'])) {
             $model->attributes = $_GET['Tag'];
         }
 
         $this->render('index', array(
             'model' => $model,
         ));
-        
+
     }
 
-    
+
     /**
      * @param int $id
      * @return void
@@ -150,13 +142,11 @@ class TagController extends Controller
         $model = $this->_loadModel($id);
 
         // check if form submitted and valid
-        if(isset($_POST['Tag']))
-        {
+        if (isset($_POST['Tag'])) {
             $model->attributes = $_POST['Tag'];
 
             // save entry
-            if($model->save())
-            {
+            if ($model->save()) {
                 // set flash
                 Yii::app()->user->setFlash('success', 'The tag was updated successfully.');
 
@@ -168,7 +158,7 @@ class TagController extends Controller
         // render view
         $this->render('update', array('model' => $model));
     }
-    
+
 
     /**
      * (non-PHPdoc)

@@ -20,17 +20,17 @@ class SettingsController extends Controller
             array(
                 'allow',
                 'actions' => array('password'),
-                'users'   => array('@'),
+                'users' => array('@'),
             ),
             array(
                 'allow',
-                'actions'    => array('application', 'setSidebarPositions'),
-                'users'      => array('@'),
+                'actions' => array('application', 'setSidebarPositions'),
+                'users' => array('@'),
                 'expression' => 'Yii::app()->user->isAdmin',
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -44,12 +44,10 @@ class SettingsController extends Controller
     {
         $model = new PasswordForm();
 
-        if (isset($_POST['PasswordForm']))
-        {
+        if (isset($_POST['PasswordForm'])) {
             $model->attributes = $_POST['PasswordForm'];
 
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 // get user from db
                 $user = User::model()->findByPk(Yii::app()->user->id);
 
@@ -82,8 +80,7 @@ class SettingsController extends Controller
     public function actionSetSidebarPositions()
     {
         // only ajax-request are allowed
-        if (!Yii::app()->request->isAjaxRequest)
-        {
+        if (!Yii::app()->request->isAjaxRequest) {
             throw new CHttpException(400);
         }
 
@@ -94,17 +91,14 @@ class SettingsController extends Controller
         );
 
         // check if all needed params exist
-        foreach ($neededParams as $paramName)
-        {
-            if (!isset($_POST[$paramName]))
-            {
+        foreach ($neededParams as $paramName) {
+            if (!isset($_POST[$paramName])) {
                 throw new CHttpException(401);
             }
         }
 
         // save settings
-        foreach ($neededParams as $paramName)
-        {
+        foreach ($neededParams as $paramName) {
             /* @var Setting $model */
             $param = CPropertyValue::ensureInteger($_POST[$paramName]);
             $model = Setting::model()->findByAttributes(array('name' => $paramName));
@@ -124,30 +118,28 @@ class SettingsController extends Controller
         $model = new ApplicationSettingsForm();
 
         // form is submitted and valid
-        if (isset($_POST['ApplicationSettingsForm']))
-        {
+        if (isset($_POST['ApplicationSettingsForm'])) {
             $model->attributes = $_POST['ApplicationSettingsForm'];
 
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 // save settings
-                $setting = Setting::model()->name( Setting::FORCE_SSL )->find();
+                $setting = Setting::model()->name(Setting::FORCE_SSL)->find();
                 $setting->value = $model->forceSSL;
                 $setting->save(false);
 
-                $setting = Setting::model()->name( Setting::RECENT_ENTRIES_WIDGET_ENABLED )->find();
+                $setting = Setting::model()->name(Setting::RECENT_ENTRIES_WIDGET_ENABLED)->find();
                 $setting->value = $model->recentEntryWidgetEnabled;
                 $setting->save(false);
 
-                $setting = Setting::model()->name( Setting::RECENT_ENTRIES_WIDGET_COUNT )->find();
+                $setting = Setting::model()->name(Setting::RECENT_ENTRIES_WIDGET_COUNT)->find();
                 $setting->value = $model->recentEntryWidgetCount;
                 $setting->save(false);
 
-                $setting = Setting::model()->name( Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED )->find();
+                $setting = Setting::model()->name(Setting::MOST_VIEWED_ENTRIES_WIDGET_ENABLED)->find();
                 $setting->value = $model->mostViewedEntriesWidgetEnabled;
                 $setting->save(false);
 
-                $setting = Setting::model()->name( Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT )->find();
+                $setting = Setting::model()->name(Setting::MOST_VIEWED_ENTRIES_WIDGET_COUNT)->find();
                 $setting->value = $model->mostViewedEntriesWidgetCount;
                 $setting->save(false);
 
@@ -156,10 +148,10 @@ class SettingsController extends Controller
                 $this->refresh();
             }
         }
-        
+
         $this->render('application', array('model' => $model));
     }
-    
+
 
     /**
      * (non-PHPdoc)

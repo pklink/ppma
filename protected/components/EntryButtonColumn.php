@@ -10,8 +10,8 @@ class EntryButtonColumn extends ButtonColumn
 
     public $buttons = array(
         'website' => array(
-            'label'   => '<i class="foundicon-access-network"></i>',
-            'url'     => '$data->url',
+            'label' => '<i class="foundicon-access-network"></i>',
+            'url' => '$data->url',
             'options' => array('title' => 'Visit Website', 'target' => '_blank'),
         ),
     );
@@ -22,13 +22,13 @@ class EntryButtonColumn extends ButtonColumn
 
         // update-button
         $this->buttons['update'] = array(
-            'label'   => '<i class="foundicon-edit"></i>',
+            'label' => '<i class="foundicon-edit"></i>',
             'options' => array(
-                'title'          => 'Update',
+                'title' => 'Update',
                 'data-reveal-id' => 'entry-form-modal',
-                'class'          => 'update-entry',
+                'class' => 'update-entry',
             ),
-            'url'     => 'array("entry/update", "id" => $data->id)',
+            'url' => 'array("entry/update", "id" => $data->id)',
         );
     }
 
@@ -41,27 +41,24 @@ class EntryButtonColumn extends ButtonColumn
     protected function renderButton($id, $button, $row, $data)
     {
         // add rel-attribute to update-button
-        if ($id == 'update')
-        {
-            $button['options']['rel'] = CHtml::normalizeUrl(array('entry/getData', 'id' => $data->id, 'withPassword' => 1));
+        if ($id == 'update') {
+            $button['options']['rel'] = CHtml::normalizeUrl(
+                array('entry/getData', 'id' => $data->id, 'withPassword' => 1)
+            );
         }
 
         // render website only if url available
-        if ($id != 'website' || strlen($data->url) > 0)
-        {
+        if ($id != 'website' || strlen($data->url) > 0) {
             parent::renderButton($id, $button, $row, $data);
         }
     }
 
     protected function renderDataCellContent($row, $data)
     {
-        if (strlen($data->url) == 0)
-        {
+        if (strlen($data->url) == 0) {
             echo '<div class="placeholder"></div>';
         }
 
         parent::renderDataCellContent($row, $data);
     }
-
-
 }
