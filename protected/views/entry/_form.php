@@ -25,7 +25,7 @@
             <?php echo $form->passwordField($model, 'password', array('autocomplete' => 'off', 'required' => 'required')); ?>
         </div>
         <div class="one columns">
-            <span class="postfix button secondary expand copy-to-clipboard" title="copy password"><i class="foundicon-page"></i></span>
+            <span class="postfix button secondary expand copy-to-clipboard" data-clipboard-text="<?php echo CHtml::value($model, 'password') ?>" title="copy password"><i class="foundicon-page"></i></span>
         </div>
         <div class="one columns">
             <span class="postfix button secondary expand show-hide-password">
