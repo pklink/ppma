@@ -97,6 +97,7 @@ class SetupController extends Controller
             $configPath = Yii::getPathOfAlias('application.config.ppma') . '.php';
 
             // get config
+            /** @noinspection PhpIncludeInspection */
             $config = require($configPath);
 
             // set config
@@ -132,6 +133,7 @@ class SetupController extends Controller
         {
             // get config
             $configPath = Yii::getPathOfAlias('application.config.ppma') . '.php';
+            /** @noinspection PhpIncludeInspection */
             $config = require($configPath);
 
             $form->model->server   = $config['db']['server'];
@@ -193,6 +195,7 @@ class SetupController extends Controller
 
         // Flag app as installed
         $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+        /** @noinspection PhpIncludeInspection */
         $config = require($path);
         $config['isInstalled'] = true;
         $config = new CConfiguration($config);

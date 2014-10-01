@@ -5,6 +5,7 @@ Version 0.5.0
 -------------
 - Bug #40: 400 error when deleting tag
 - Enh: added form that will be shown if the user tried to delete an entry per GET-request
+- Enh: removed short array syntax
 
 Version 0.4.2
 -------------

@@ -8,7 +8,7 @@
 
     <p>Do you really want to delete this entry?</p>
 
-    <a href="<?= CHtml::normalizeUrl(['entry/index']) ?>">
+    <a href="<?= CHtml::normalizeUrl(array('entry/index')) ?>">
         <?php echo CHtml::button('Cancel', array('class' => 'secondary button radius'))?>
     </a>
     <?php echo CHtml::submitButton('Yep, delete this entry', array('class' => 'alert button radius'))?>

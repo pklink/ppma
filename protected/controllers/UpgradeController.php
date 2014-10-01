@@ -182,6 +182,7 @@ class UpgradeController extends Controller
         if ($addRoutines) {
             // write latest version to config
             $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+            /** @noinspection PhpIncludeInspection */
             $config = new CConfiguration(require($path));
             $config['version'] = $this->latestVersion;
             file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');

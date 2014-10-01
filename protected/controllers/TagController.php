@@ -85,7 +85,7 @@ class TagController extends Controller
 
         // if is not a post request => show form
         if (!Yii::app()->request->isPostRequest) {
-            $this->render('delete', ['model' => $model]);
+            $this->render('delete', array('model' => $model));
             Yii::app()->end();
         }
 
