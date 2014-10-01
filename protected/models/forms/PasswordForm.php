@@ -4,70 +4,66 @@ class PasswordForm extends CFormModel
 {
 
     /**
-     *
      * @var string
      */
     public $oldPassword;
 
     /**
-     *
      * @var string
      */
     public $newPassword;
 
     /**
-     *
      * @var string
      */
     public $newPasswordRepeat;
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#rules()
+     * @return array
      */
     public function rules()
     {
         return array(
             array('oldPassword', 'required'),
             array('oldPassword', 'checkPassword', 'skipOnError' => true),
-
             array('newPassword', 'required'),
-
             array('newPasswordRepeat', 'required'),
             array('newPasswordRepeat', 'compare', 'compareAttribute' => 'newPassword', 'skipOnError' => true)
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#attributeLabels()
+     * @return array
      */
     public function attributeLabels()
     {
         return array(
-            'newPassword'       => 'New Password',
+            'newPassword' => 'New Password',
             'newPasswordRepeat' => 'Repeat Password',
-            'oldPassword'       => 'Old Password',
+            'oldPassword' => 'Old Password',
         );
     }
 
-
     /**
-     *
      * @param string $attribute
-     * @param array  $params
+     * @param array $params
      * @return void
      */
     public function checkPassword($attribute, $params)
     {
-        $user = User::model()->findByPk(Yii::app()->user->id);
+        /* @var SecurityManager $securityManager */
+        $securityManager = Yii::app()->securityManager;
 
-        if (!is_object($user) || sha1($user->salt . Yii::app()->securityManager->padUserPassword($this->$attribute, $user)) != $user->password)
-        {
+        /* @var WebUser $webUser */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $webUser = Yii::app()->user;
+
+        /* @var User $user */
+        $user = User::model()->findByPk($webUser->id);
+        $password = sha1($user->salt . $securityManager->padUserPassword($this->$attribute, $user));
+
+        if (!is_object($user) || $password != $user->password) {
             $this->addError($attribute, $this->getAttributeLabel($attribute) . ' is wrong.');
         }
     }
-
 }

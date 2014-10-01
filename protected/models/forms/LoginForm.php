@@ -4,36 +4,29 @@ class LoginForm extends CFormModel
 {
 
     /**
-     *
      * @var string
      */
     public $username;
 
     /**
-     *
      * @var string
      */
     public $password;
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#rules()
+     * @return array
      */
     public function rules()
     {
         return array(
             array('username', 'required'),
-        
             array('password', 'required'),
             array('password', 'authenticate', 'skipOnError' => true),
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#attributeLabels()
+     * @return array
      */
     public function attributeLabels()
     {
@@ -45,20 +38,23 @@ class LoginForm extends CFormModel
 
 
     /**
-     *
      * @param string $attribute
      * @param array  $params
      * @return void
      */
     public function authenticate($attribute, $params)
     {
+        /* @var WebUser $webUser */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $webUser = Yii::app()->user;
+
         $identity = new UserIdentity($this->username, $this->password);
         $identity->authenticate();
 
         switch($identity->errorCode)
         {
             case UserIdentity::ERROR_NONE:
-                Yii::app()->user->login($identity);
+                $webUser->login($identity);
                 break;
             case UserIdentity::ERROR_USERNAME_INVALID:
             case UserIdentity::ERROR_PASSWORD_INVALID:
@@ -67,5 +63,4 @@ class LoginForm extends CFormModel
                 break;
         }
     }
-
 }

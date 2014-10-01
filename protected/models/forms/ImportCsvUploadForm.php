@@ -8,10 +8,8 @@ class ImportCsvUploadForm extends CFormModel
      */
     public $file;
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#rules()
+     * @return array
      */
     public function rules()
     {
@@ -20,10 +18,8 @@ class ImportCsvUploadForm extends CFormModel
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#attributeLabels()
+     * @return array
      */
     public function attributeLabels()
     {
@@ -31,5 +27,4 @@ class ImportCsvUploadForm extends CFormModel
             'file' => 'CSV-File',
         );
     }
-
 }

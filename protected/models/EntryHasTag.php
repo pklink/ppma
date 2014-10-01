@@ -11,36 +11,7 @@ class EntryHasTag extends CActiveRecord
 {
 
     /**
-     * (non-PHPdoc)
-     * @see yii/CModel#attributeLabels()
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'entryId' => 'Entry ID',
-            'tagId'   => 'Tag ID',
-        );
-    }
-
-
-    /**
-     * Scope
-     *
-     * @param integer $v
-     * @return Tag
-     */
-    public function entryId($id)
-    {
-        $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'entryId=:entryId',
-            'params'    => array(':entryId' => $id),
-        ));
-
-        return $this;
-    }
-
-
-    /**
+     * @param string $className
      * @return EntryHasTag
      */
     public static function model($className = __CLASS__)
@@ -48,23 +19,44 @@ class EntryHasTag extends CActiveRecord
         return parent::model($className);
     }
 
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'entryId' => 'Entry ID',
+            'tagId' => 'Tag ID',
+        );
+    }
 
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#relations()
+     * @param int $id
+     * @return Tag
+     */
+    public function entryId($id)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'entryId=:entryId',
+            'params' => array(':entryId' => $id),
+        ));
+
+        return $this;
+    }
+
+    /**
+     * @return array
      */
     public function relations()
     {
         return array(
-            'tag'   => array(self::BELONGS_TO, 'Tag', 'tagId'),
+            'tag' => array(self::BELONGS_TO, 'Tag', 'tagId'),
             'entry' => array(self::BELONGS_TO, 'Entry', 'entryId'),
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/CModel#rules()
+     * @return array
      */
     public function rules()
     {
@@ -74,39 +66,32 @@ class EntryHasTag extends CActiveRecord
         );
     }
 
-
     /**
-     * Scope
-     *
-     * @param integer $id
+     * @param int $id
      * @return Tag
      */
     public function tagId($id)
     {
         $this->getDbCriteria()->mergeWith(array(
             'condition' => 'tagId=:tagId',
-            'params'    => array(':tagId' => $id),
+            'params' => array(':tagId' => $id),
         ));
 
         return $this;
     }
 
-
     /**
-     * Scope
-     *
-     * @param integer $id
+     * @param int $id
      * @return Tag
      */
     public function userId($id)
     {
         $this->getDbCriteria()->mergeWith(array(
-            'join'      => 'INNER JOIN Entry AS e ON e.id=t.entryId',
+            'join' => 'INNER JOIN Entry AS e ON e.id=t.entryId',
             'condition' => 'e.userId=:userId',
-            'params'    => array(':userId' => $id),
+            'params' => array(':userId' => $id),
         ));
 
         return $this;
     }
-
 }

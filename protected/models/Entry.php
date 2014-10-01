@@ -1,7 +1,6 @@
 <?php
 
 /**
- *
  * @property string  $comment
  * @property string  $encryptedPassword
  * @property integer $id
@@ -20,35 +19,52 @@ class Entry extends CActiveRecord
 {
 
     /**
-     * (non-PHPdoc)
-     * @see yii/CModel#attributeLabels()
+     * @param string $className
+     * @return CActiveRecord
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
+     * @return array
      */
     public function attributeLabels()
     {
         return array(
-            'comment'   => 'Comment',
-            'id'        => 'ID',
-            'name'      => 'Name',
-            'password'  => 'Password',
-            'tagList'   => 'Tags',
-            'url'       => 'URL',
-            'userId'    => 'User',
-            'username'  => 'Username',
+            'comment' => 'Comment',
+            'id' => 'ID',
+            'name' => 'Name',
+            'password' => 'Password',
+            'tagList' => 'Tags',
+            'url' => 'URL',
+            'userId' => 'User',
+            'username' => 'Username',
             'viewCount' => 'View Count'
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#afterDelete()
+     * @return void
      */
     public function afterDelete()
     {
         $this->deleteTags();
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
+    /**
+     * @return void
+     */
+    public function deleteTags()
+    {
+        $relations = EntryHasTag::model()->entryId($this->id)->findAll();
+
+        foreach ($relations as $relation) {
+            $relation->delete();
+        }
+    }
 
     /**
      * @return void
@@ -60,8 +76,12 @@ class Entry extends CActiveRecord
 
         // save tags and tag relations
         foreach ($this->tags as $tag) {
+            /* @var WebUser $webUser */
+            /** @noinspection PhpUndefinedFieldInspection */
+            $webUser = Yii::app()->user;
+
             // try to receive tag from db
-            $model = Tag::model()->name($tag->name)->userId(Yii::app()->user->id)->find();
+            $model = Tag::model()->name($tag->name)->userId($webUser->id)->find();
 
             if (!is_object($model)) {
                 $model = $tag;
@@ -79,38 +99,24 @@ class Entry extends CActiveRecord
         }
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#beforeValidate()
+     * @return bool
      */
     public function beforeValidate()
     {
         // if model a new record set userId
         if ($this->isNewRecord) {
-            $this->userId = Yii::app()->user->id;
+            /* @var WebUser $webUser */
+            /** @noinspection PhpUndefinedFieldInspection */
+            $webUser = Yii::app()->user;
+
+            $this->userId = $webUser->id;
         }
 
         return parent::beforeValidate();
     }
 
-
     /**
-     *
-     * @return void
-     */
-    public function deleteTags()
-    {
-        $relations = EntryHasTag::model()->entryId($this->id)->findAll();
-
-        foreach ($relations as $relation) {
-            $relation->delete();
-        }
-    }
-
-
-    /**
-     *
      * @return string
      */
     public function getPassword()
@@ -119,9 +125,12 @@ class Entry extends CActiveRecord
             return '';
         }
 
-        return Yii::app()->user->decrypt($this->encryptedPassword);
-    }
+        /* @var WebUser $webUser */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $webUser = Yii::app()->user;
 
+        return $webUser->decrypt($this->encryptedPassword);
+    }
 
     /**
      *
@@ -136,9 +145,7 @@ class Entry extends CActiveRecord
         }
     }
 
-
     /**
-     *
      * @param boolean $asLinks
      * @return string
      */
@@ -152,7 +159,8 @@ class Entry extends CActiveRecord
 
         foreach ($this->tags as $tag) {
             if ($asLinks) {
-                $text .= CHtml::link(CHtml::encode($tag->name), array('entry/index', 'Entry[tagList]' => $tag->name)) . ', ';
+                $text .= CHtml::link(CHtml::encode($tag->name), array('entry/index', 'Entry[tagList]' => $tag->name));
+                $text .= ', ';
             } else {
                 $text .= $tag->name . ', ';
             }
@@ -161,20 +169,8 @@ class Entry extends CActiveRecord
         return substr(trim($text), 0, -1);
     }
 
-
     /**
-     * @param string $className
-     * @return CActiveRecord
-     */
-    public static function model($className = __CLASS__)
-    {
-        return parent::model($className);
-    }
-
-
-    /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#relations()
+     * @return array
      */
     public function relations()
     {
@@ -184,19 +180,17 @@ class Entry extends CActiveRecord
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/CModel#rules()
+     * @return array
      */
     public function rules()
     {
         return array(
-            array('comment', 'default', 'value' => NULL),
+            array('comment', 'default', 'value' => null),
 
             array('id', 'safe', 'on' => 'search'),
 
-            array('name', 'default', 'value' => NULL),
+            array('name', 'default', 'value' => null),
             array('name', 'length', 'max' => 255, 'skipOnError' => true),
 
             array('password', 'required'),
@@ -204,13 +198,13 @@ class Entry extends CActiveRecord
 
             array('tagList', 'safe'),
 
-            array('url', 'default', 'value' => NULL),
+            array('url', 'default', 'value' => null),
             array('url', 'length', 'max' => 255, 'skipOnError' => true),
 
             array('userId', 'required'),
             array('userId', 'numerical', 'integerOnly' => true, 'skipOnError' => true),
 
-            array('username', 'default', 'value' => NULL),
+            array('username', 'default', 'value' => null),
             array('username', 'length', 'max' => 255, 'skipOnError' => true),
 
             array('viewCount', 'default', 'value' => 0),
@@ -219,9 +213,7 @@ class Entry extends CActiveRecord
         );
     }
 
-
     /**
-     *
      * @return CActiveDataProvider
      */
     public function search()
@@ -241,8 +233,7 @@ class Entry extends CActiveRecord
             $criteria->compare('t.comment', $term, true, 'OR');
             $criteria->compare('t.username', $term, true, 'OR');
             $criteria->compare('Tag.name', $term, true, 'OR');
-        } // by detail search
-        else {
+        } else { // details search
             $criteria->compare('t.name', $this->name, true);
             $criteria->compare('t.url', $this->url, true);
             $criteria->compare('t.comment', $this->comment);
@@ -257,32 +248,35 @@ class Entry extends CActiveRecord
             }
         }
 
+        /* @var Setting $pageSize */
+        $pageSize = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_ENTRIES)->find();
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_ENTRIES)->find()->value
+                'pageSize' => $pageSize->value
             )
         ));
     }
 
-
     /**
-     *
      * @param string $v
      * @return void
      */
     public function setPassword($v)
     {
         if (strlen($v) > 0) {
-            $this->encryptedPassword = Yii::app()->user->encrypt($v);
+            /* @var WebUser $webUser */
+            /** @noinspection PhpUndefinedFieldInspection */
+            $webUser = Yii::app()->user;
+
+            $this->encryptedPassword = $webUser->encrypt($v);
         } else {
             $this->encryptedPassword = '';
         }
     }
 
-
     /**
-     *
      * @param string $v
      * @return void
      */
@@ -304,7 +298,6 @@ class Entry extends CActiveRecord
         $this->tags = $tags;
     }
 
-
     /**
      * @return void
      */
@@ -313,5 +306,4 @@ class Entry extends CActiveRecord
         $this->viewCount++;
         $this->save(true, array('viewCount'));
     }
-
 }

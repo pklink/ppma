@@ -12,48 +12,54 @@ class Tag extends CActiveRecord
 {
 
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#attributeLabels()
+     * @param string $className
+     * @return Tag
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
+     * @return array
      */
     public function attributeLabels()
     {
         return array(
-            'id'     => 'ID',
-            'name'   => 'Name',
+            'id' => 'ID',
+            'name' => 'Name',
             'userId' => 'User ID'
         );
     }
 
-    
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#afterDelete()
+     * @return void
      */
     public function afterDelete()
     {
         // remove Entry relations
         EntryHasTag::model()->deleteAllByAttributes(array('tagId' => $this->id));
-        
-        return parent::afterDelete();
+
+        parent::afterDelete();
     }
-    
 
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#beforeValidate()
+     * @return bool
      */
     public function beforeValidate()
     {
-        $this->name   = trim($this->name);
-        $this->userId = Yii::app()->user->id;
+        /* @var WebUser $webUser */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $webUser = Yii::app()->user;
+
+        $this->name = trim($this->name);
+        $this->userId = $webUser->id;
 
         return parent::beforeValidate();
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#defaultScope()
+     * @return array
      */
     public function defaultScope()
     {
@@ -62,30 +68,15 @@ class Tag extends CActiveRecord
         );
     }
 
-    
     /**
-     * 
      * @return int
      */
     public function getEntryCounter()
     {
         return count($this->entries);
     }
-    
 
     /**
-     *
-     * @return Tag
-     */
-    public static function model($className = __CLASS__)
-    {
-        return parent::model($className);
-    }
-
-
-    /**
-     * Scope
-     *
      * @param string $v
      * @return Tag
      */
@@ -93,22 +84,20 @@ class Tag extends CActiveRecord
     {
         $this->getDbCriteria()->mergeWith(array(
             'condition' => 't.name=:tname',
-            'params'    => array(':tname' => $v),
+            'params' => array(':tname' => $v),
         ));
 
         return $this;
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/CActiveRecord#relations()
+     * @return array
      */
     public function relations()
     {
         return array(
             'entries' => array(self::MANY_MANY, 'Entry', 'EntryHasTag(tagId, entryId)'),
-            'user'    => array(self::BELONGS_TO, 'User', 'userId'),
+            'user' => array(self::BELONGS_TO, 'User', 'userId'),
         );
     }
 
@@ -119,22 +108,22 @@ class Tag extends CActiveRecord
      */
     public function rules()
     {
+        /* @var WebUser $user */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $user = Yii::app()->user;
+
         return array(
             array('name', 'required'),
             array('name', 'length', 'max' => 255, 'skipOnError' => true),
-            array('name', 'unique', 'criteria' => array('condition' => 'userId=' . Yii::app()->user->id), 'skipOnError' => true),
-            
+            array('name', 'unique', 'criteria' => array('condition' => 'userId=' . $user->id), 'skipOnError' => true),
             array('userId', 'required'),
             array('userId', 'exist', 'className' => 'User', 'attributeName' => 'id'),
             array('userId', 'unsafe'),
-
             array('id, name', 'safe', 'on' => 'search'),
         );
     }
 
-
     /**
-     *
      * @return CActiveDataProvider
      */
     public function search()
@@ -144,29 +133,28 @@ class Tag extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('userId', $this->userId, true);
 
+        /* @var Setting $pageSize */
+        $pageSize = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find();
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find()->value
+                'pageSize' => $pageSize->value
             )
         ));
     }
 
-
     /**
-     * Scope
-     *
-     * @param integer $id
+     * @param int $id
      * @return Tag
      */
     public function userId($id)
     {
         $this->getDbCriteria()->mergeWith(array(
             'condition' => 't.userId=:userId',
-            'params'    => array(':userId' => $id),
+            'params' => array(':userId' => $id),
         ));
 
         return $this;
     }
-
 }

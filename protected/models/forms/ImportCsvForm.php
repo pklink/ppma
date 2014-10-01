@@ -33,36 +33,27 @@ class ImportCsvForm extends CFormModel
      */
     public $comment;
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#rules()
+     * @return array
      */
     public function rules()
     {
         return array(
-            array('comment', 'default', 'value' => NULL),
-
-            array('name', 'default', 'value' => NULL),
+            array('comment', 'default', 'value' => null),
+            array('name', 'default', 'value' => null),
             array('name', 'length', 'max' => 255, 'skipOnError' => true),
-
             array('password', 'required'),
             array('password', 'length', 'max' => 255, 'skipOnError' => true),
-
-            array('url', 'default', 'value' => NULL),
+            array('url', 'default', 'value' => null),
             array('url', 'length', 'max' => 255, 'skipOnError' => true),
-
-            array('username', 'default', 'value' => NULL),
+            array('username', 'default', 'value' => null),
             array('username', 'length', 'max' => 255, 'skipOnError' => true),
-
             array('tags', 'safe'),
         );
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/base/CModel#attributeLabels()
+     * @return array
      */
     public function attributeLabels()
     {
@@ -74,5 +65,4 @@ class ImportCsvForm extends CFormModel
             'mostViewedEntriesWidgetCount'   => 'Number of entries in the "Most Viewed" widget',
         );
     }
-
 }
