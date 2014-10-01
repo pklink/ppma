@@ -14,9 +14,9 @@ class UserIdentity extends CUserIdentity
      */
     public function authenticate()
     {
+        $model = User::model()->find('username=:username', array(':username' => $this->username));
         /* @var User $model */
         // get user by username
-        $model = User::model()->find('username=:username', array(':username' => $this->username));
 
         // pad password
         if ($model instanceof User) {
