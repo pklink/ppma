@@ -1,9 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
-Version 0.4.3
+Version 0.5.0
 -------------
-- Bugh #40: 400 error when deleting tag
+- Bug #40: 400 error when deleting tag
+- Enh: added form that will be shown if the user tried to delete an entry per GET-request
 
 Version 0.4.2
 -------------

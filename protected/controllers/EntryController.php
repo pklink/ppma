@@ -110,24 +110,19 @@ class EntryController extends Controller
         /* @var CHttpRequest $request */
         $request = Yii::app()->request;
 
-        // we only allow deletion via POST request
-        if (!Yii::app()->request->isAjaxRequest) {
-            throw new CHttpException(400);
-        }
-
         // get model
         $model = $this->loadModel($id);
 
-        // check if user owns entry
-        if ($model->userId != Yii::app()->user->id) {
-            throw new CHttpException(403);
+        if (!$request->isPostRequest) {
+            $this->render('delete', array('model' => $model));
+            Yii::app()->end();
         }
 
         // delete entry
         $model->delete();
 
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax'])) {
+        // redirect on non-ajax-request
+        if (!$request->isAjaxRequest) {
             $this->redirect(array('index'));
         }
     }
@@ -191,6 +186,7 @@ class EntryController extends Controller
 
         if ($request->getQuery('pagesize') != null) {
             /* @var Setting $setting */
+            /** @noinspection PhpUndefinedMethodInspection */
             $setting = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_ENTRIES)->find();
             $pageSize = CPropertyValue::ensureInteger($request->getQuery('pagesize'));
 
