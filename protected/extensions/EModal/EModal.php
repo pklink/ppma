@@ -34,7 +34,6 @@ class EModal extends CWidget
         ob_start();
     }
 
-
     /**
      * @return void
      */
@@ -52,5 +51,4 @@ class EModal extends CWidget
             EModal::$buffer .= $this->render('modal', array('id' => $this->id, 'content' => $content), true);
         }
     }
-
 }
