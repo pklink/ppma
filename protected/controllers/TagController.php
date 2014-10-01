@@ -77,22 +77,22 @@ class TagController extends Controller
 
     /**
      * @param int $id
-     * @throws CHttpException
      */
     public function actionDelete($id)
     {
-        // we only allow deletion via POST request
-        if (!Yii::app()->request->isAjaxRequest) {
-            throw new CHttpException(400);
-        }
-
         // get model
         $model = $this->_loadModel($id);
+
+        // if is not a post request => show form
+        if (!Yii::app()->request->isPostRequest) {
+            $this->render('delete', ['model' => $model]);
+            Yii::app()->end();
+        }
 
         // delete entry
         $model->delete();
 
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        // redirect if is not a ajax request
         if (!Yii::app()->request->isAjaxRequest) {
             $this->redirect(array('index'));
         }
@@ -112,6 +112,7 @@ class TagController extends Controller
 
         if ($request->getQuery('pagesize') != null) {
             /* @var Setting $setting */
+            /** @noinspection PhpUndefinedMethodInspection */
             $setting = Setting::model()->name(Setting::PAGINATION_PAGE_SIZE_TAGS)->find();
             $pageSize = CPropertyValue::ensureInteger($request->getQuery('pagesize'));
 

@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.4.3
+-------------
+- Bugh #40: 400 error when deleting tag
+
 Version 0.4.2
 -------------
 - Bug #30: Search results pagination goes to main password list instead
