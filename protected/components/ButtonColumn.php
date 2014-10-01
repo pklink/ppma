@@ -67,5 +67,4 @@ class ButtonColumn extends CButtonColumn
      * @var string
      */
     public $viewButtonUrl = 'array("update", "id" => $data->id)';
-
 }

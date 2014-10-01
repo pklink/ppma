@@ -32,5 +32,4 @@ class Controller extends CController
             array('SslFilter')
         ), parent::filters());
     }
-
 }

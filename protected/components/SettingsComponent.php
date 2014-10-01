@@ -2,9 +2,28 @@
 
 class SettingsComponent extends CApplicationComponent
 {
-    
+
     /**
-     * 
+     * @param string $name
+     * @return bool
+     */
+    public function getAsBool($name)
+    {
+        return $this->getAsBoolean($name);
+    }
+
+    /**
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function getAsBoolean($name)
+    {
+        return CPropertyValue::ensureBoolean($this->get($name));
+    }
+
+    /**
+     *
      * @param string $name
      * @return mixed
      */
@@ -12,62 +31,30 @@ class SettingsComponent extends CApplicationComponent
     {
         // try to retrieve model
         $model = Setting::model()->name($name)->find();
-        
+
         // Setting exists -> return value
-        if ($model instanceof Setting)
-        {
+        if ($model instanceof Setting) {
             return $model->value;
-        }
-        
-        // Setting does not extist -> return NULL
-        else
-        {
-            return NULL;
+        } else { // Setting does not extist -> return null
+            return null;
         }
     }
-     
-    
+
     /**
-     * Alias for SettingsComponent#getAsBoolean()
-     * 
-     * @see SettingsComponent#getAsBoolean()
-     */
-    public function getAsBool($name)
-    {
-        return $this->getAsBoolean($name);
-    }
-    
-    
-    /**
-     * 
      * @param string $name
-     * @return boolean
-     */
-    public function getAsBoolean($name)
-    {
-        return CPropertyValue::ensureBoolean( $this->get($name) );
-    }
-    
-    
-    /**
-     * Alias for SettingsComponent#getAsInteger()
-     *
-     * @see SettingsComponent#getAsInteger()
+     * @return int
      */
     public function getAsInt($name)
     {
         return $this->getAsInteger($name);
     }
-    
-    
+
     /**
-     * 
      * @param string $name
      * @return integer
      */
     public function getAsInteger($name)
     {
-        return CPropertyValue::ensureInteger( $this->get($name) );
+        return CPropertyValue::ensureInteger($this->get($name));
     }
-    
 }

@@ -8,7 +8,6 @@ class WebUser extends CWebUser
 {
 
     /**
-     *
      * @param string $text
      * @return string
      */
@@ -17,9 +16,7 @@ class WebUser extends CWebUser
         return Yii::app()->securityManager->decrypt($text, $this->encryptionKey);
     }
 
-
     /**
-     *
      * @param string $text
      * @return string
      */
@@ -28,41 +25,36 @@ class WebUser extends CWebUser
         return Yii::app()->securityManager->encrypt($text, $this->encryptionKey);
     }
 
-
     /**
-     *
      * @return string
+     * @throws CException
      */
     public function getEncryptionKey()
     {
-        if ($this->isGuest)
-        {
+        if ($this->isGuest) {
             throw new CException('Guest has no encryption key');
         }
 
         return $this->getState('__encryptionKey');
     }
-    
-    
+
     /**
-     * 
      * @return boolean
      */
     public function getIsAdmin()
     {
-        return User::model()->findByPk( Yii::app()->user->id )->isAdmin == 1;
+        /* @var User $user */
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        return $user->isAdmin == 1;
     }
 
 
     /**
-     *
      * @param string $value
      * @return void
      */
     public function setEncryptionKey($value)
     {
-        return $this->setState('__encryptionKey', $value);
+        $this->setState('__encryptionKey', $value);
     }
-
-
 }

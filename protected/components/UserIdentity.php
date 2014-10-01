@@ -1,10 +1,5 @@
 <?php
 
-/**
- * UserIdentity represents the data needed to identity a user.
- * It contains the authentication method that checks if the provided
- * data can identity the user.
- */
 class UserIdentity extends CUserIdentity
 {
 
@@ -12,48 +7,46 @@ class UserIdentity extends CUserIdentity
      *
      * @var User
      */
-    protected $_model;
+    protected $model;
 
-
+    /**
+     * @return bool
+     * @throws CException
+     */
     public function authenticate()
     {
         // get user by username
         $model = User::model()->find('username=:username', array(':username' => $this->username));
 
         // pad password
-        if ($model instanceof User)
-        {
+        if ($model instanceof User) {
             $this->password = Yii::app()->securityManager->padUserPassword($this->password, $model);
         }
 
         // check username
         if (is_null($model)) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        }
-
-        // check password
-        else if (sha1($model->salt . $this->password) != $model->password) {
+        } elseif (sha1($model->salt . $this->password) != $model->password) { // check password
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        }
+        } else {
+            // login success
+            $this->model = $model;
 
-        // login success
-        else {
-            $this->_model = $model;
-            Yii::app()->user->encryptionKey = Yii::app()->securityManager->decrypt($model->encryptionKey, $this->password);
+            /* @var SecurityManager $securityManager */
+            $securityManager = Yii::app()->securityManager;
+
+            Yii::app()->user->encryptionKey = $securityManager->decrypt($model->encryptionKey, $this->password);
             $this->errorCode = self::ERROR_NONE;
         }
 
         return !$this->errorCode;
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/auth/CUserIdentity#getId()
+     * @return int|string
      */
     public function getId()
     {
-        return $this->_model->id;
+        return $this->model->id;
     }
-
 }
