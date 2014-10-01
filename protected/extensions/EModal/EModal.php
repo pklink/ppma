@@ -46,12 +46,9 @@ class EModal extends CWidget
         $content = ob_get_contents();
         ob_end_clean();
 
-        if ($this->outputBuffer)
-        {
+        if ($this->outputBuffer) {
             echo EModal::$buffer;
-        }
-        else
-        {
+        } else {
             EModal::$buffer .= $this->render('modal', array('id' => $this->id, 'content' => $content), true);
         }
     }
