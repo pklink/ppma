@@ -14,9 +14,8 @@ class UserIdentity extends CUserIdentity
      */
     public function authenticate()
     {
-        $model = User::model()->find('username=:username', array(':username' => $this->username));
-        /* @var User $model */
         // get user by username
+        $model = User::model()->find('username=:username', array(':username' => $this->username));
 
         // pad password
         if ($model instanceof User) {
@@ -32,13 +31,8 @@ class UserIdentity extends CUserIdentity
             // login success
             $this->model = $model;
 
-            /* @var SecurityManager $securityManager */
             $securityManager = Yii::app()->securityManager;
-
-            /* @var WebUser $webUser */
-            $webUser = Yii::app()->user;
-
-            $webUser->encryptionKey = $securityManager->decrypt($model->encryptionKey, $this->password);
+            Yii::app()->user->encryptionKey = $securityManager->decrypt($model->encryptionKey, $this->password);
             $this->errorCode = self::ERROR_NONE;
         }
 

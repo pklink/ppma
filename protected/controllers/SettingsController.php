@@ -4,14 +4,11 @@ class SettingsController extends Controller
 {
 
     /**
-     *
      * @var string
      */
     public $layout = 'column2';
 
-
     /**
-     *
      * @return array
      */
     public function accessRules()
@@ -35,9 +32,7 @@ class SettingsController extends Controller
         );
     }
 
-
     /**
-     *
      * @return void
      */
     public function actionPassword()
@@ -55,7 +50,8 @@ class SettingsController extends Controller
                 $user->password = Yii::app()->securityManager->padUserPassword($model->newPassword);
 
                 // encrypt encryptionKey with new password
-                $user->encryptionKey = Yii::app()->securityManager->encrypt(Yii::app()->user->encryptionKey, $user->password);
+                $securityManager = Yii::app()->securityManager;
+                $user->encryptionKey = $securityManager->encrypt(Yii::app()->user->encryptionKey, $user->password);
 
                 // salt password
                 $user->saltPassword(new CEvent());
@@ -71,7 +67,6 @@ class SettingsController extends Controller
 
         $this->render('password', array('model' => $model));
     }
-
 
     /**
      * @throws CHttpException
@@ -108,7 +103,6 @@ class SettingsController extends Controller
 
         echo '1';
     }
-
 
     /**
      * @return void
@@ -152,10 +146,8 @@ class SettingsController extends Controller
         $this->render('application', array('model' => $model));
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/CController#filters()
+     * @return array
      */
     public function filters()
     {
@@ -163,5 +155,4 @@ class SettingsController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }

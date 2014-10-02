@@ -14,13 +14,15 @@
  * @property integer $userId
  * @property string  $username
  * @property int     $viewCount
+ * @method Entry find(string $condition = '', array $params = array())
+ * @method Entry findByPk(int $pk, string $condition = '', array $params = array())
  */
 class Entry extends CActiveRecord
 {
 
     /**
      * @param string $className
-     * @return CActiveRecord
+     * @return Entry
      */
     public static function model($className = __CLASS__)
     {

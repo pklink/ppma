@@ -7,6 +7,8 @@
  * @property string  $name
  * @property User    $user
  * @property int     $userId
+ * @method Tag find(string $condition = '', array $params = array())
+ * @method Tag findByPk(int $pk, string $condition = '', array $params = array())
  */
 class Tag extends CActiveRecord
 {

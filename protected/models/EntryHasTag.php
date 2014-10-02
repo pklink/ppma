@@ -6,6 +6,8 @@
  * @property string $entryId
  * @property Tag    $tag
  * @property string $tagId
+ * @method EntryHasTag find(string $condition = '', array $params = array())
+ * @method EntryhasTag findByPk(int $pk, string $condition = '', array $params = array())
  */
 class EntryHasTag extends CActiveRecord
 {

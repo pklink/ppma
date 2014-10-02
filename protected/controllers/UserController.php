@@ -4,8 +4,7 @@ class UserController extends Controller
 {
 
     /**
-     * (non-PHPdoc)
-     * @see yii/CController#accessRules()
+     * @return array
      */
     public function accessRules()
     {
@@ -13,30 +12,27 @@ class UserController extends Controller
             array(
                 'allow',
                 'actions' => array('logout'),
-                'users'   => array('@'),
+                'users' => array('@'),
             ),
             array(
                 'allow',
                 'actions' => array('login'),
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
 
-
     /**
-     *
      * @return void
      */
     public function actionLogin()
     {
         // check if user is logged in
-        if (!Yii::app()->user->isGuest)
-        {
+        if (!Yii::app()->user->isGuest) {
             $this->redirect(array('/entry/index'));
         }
 
@@ -44,12 +40,10 @@ class UserController extends Controller
 
         $model = new LoginForm();
 
-        if(isset($_POST['LoginForm']))
-        {
+        if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
 
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $this->redirect(array('/entry/index'));
             }
         }
@@ -57,9 +51,7 @@ class UserController extends Controller
         $this->render('login', array('model' => $model));
     }
 
-
     /**
-     *
      * @return void
      */
     public function actionLogout()
@@ -68,9 +60,7 @@ class UserController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
 
-
     /**
-     *
      * @return array
      */
     public function filters()
@@ -79,5 +69,4 @@ class UserController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }

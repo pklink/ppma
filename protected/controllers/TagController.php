@@ -4,30 +4,9 @@ class TagController extends Controller
 {
 
     /**
-     *
      * @var string
      */
     public $layout = 'column2';
-
-
-    /**
-     * @param int $id
-     * @return CActiveRecord
-     * @throws CHttpException
-     */
-    protected function _loadModel($id)
-    {
-        $model = Tag::model()->findbyPk($id);
-
-        if ($model === null) {
-            throw new CHttpException(404);
-        } else if ($model->userId != Yii::app()->user->id) {
-            throw new CHttpException(403);
-        }
-
-        return $model;
-    }
-
 
     /**
      * @return array
@@ -46,7 +25,6 @@ class TagController extends Controller
             ),
         );
     }
-
 
     /**
      * @return void
@@ -74,14 +52,13 @@ class TagController extends Controller
         $this->render('create', array('model' => $model));
     }
 
-
     /**
      * @param int $id
      */
     public function actionDelete($id)
     {
         // get model
-        $model = $this->_loadModel($id);
+        $model = $this->loadModel($id);
 
         // if is not a post request => show form
         if (!Yii::app()->request->isPostRequest) {
@@ -98,6 +75,23 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * @param int $id
+     * @return CActiveRecord
+     * @throws CHttpException
+     */
+    protected function loadModel($id)
+    {
+        $model = Tag::model()->findbyPk($id);
+
+        if ($model === null) {
+            throw new CHttpException(404);
+        } elseif ($model->userId != Yii::app()->user->id) {
+            throw new CHttpException(403);
+        }
+
+        return $model;
+    }
 
     /**
      * @return void
@@ -132,7 +126,6 @@ class TagController extends Controller
 
     }
 
-
     /**
      * @param int $id
      * @return void
@@ -140,7 +133,7 @@ class TagController extends Controller
     public function actionUpdate($id)
     {
         // get model
-        $model = $this->_loadModel($id);
+        $model = $this->loadModel($id);
 
         // check if form submitted and valid
         if (isset($_POST['Tag'])) {
@@ -160,10 +153,8 @@ class TagController extends Controller
         $this->render('update', array('model' => $model));
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/CController#filters()
+     * @return array
      */
     public function filters()
     {
@@ -171,5 +162,4 @@ class TagController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }

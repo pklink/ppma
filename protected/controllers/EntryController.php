@@ -8,26 +8,6 @@ class EntryController extends Controller
      */
     public $layout = 'column2';
 
-
-    /**
-     * @param int $id
-     * @return Entry
-     * @throws CHttpException
-     */
-    protected function loadModel($id)
-    {
-        $model = Entry::model()->findbyPk($id);
-
-        if ($model === null) {
-            throw new CHttpException(404);
-        } elseif ($model->userId != Yii::app()->user->id) {
-            throw new CHttpException(403);
-        }
-
-        return $model;
-    }
-
-
     /**
      * @return array
      */
@@ -45,7 +25,6 @@ class EntryController extends Controller
             ),
         );
     }
-
 
     /**
      * @param string $term
@@ -71,7 +50,6 @@ class EntryController extends Controller
         // output result as JSON
         echo CJSON::encode($result);
     }
-
 
     /**
      * @return void
@@ -100,7 +78,6 @@ class EntryController extends Controller
         $this->render('create', array('model' => $model));
     }
 
-
     /**
      * @param int $id
      * @throws CHttpException
@@ -127,6 +104,23 @@ class EntryController extends Controller
         }
     }
 
+    /**
+     * @param int $id
+     * @return Entry
+     * @throws CHttpException
+     */
+    protected function loadModel($id)
+    {
+        $model = Entry::model()->findbyPk($id);
+
+        if ($model === null) {
+            throw new CHttpException(404);
+        } elseif ($model->userId != Yii::app()->user->id) {
+            throw new CHttpException(403);
+        }
+
+        return $model;
+    }
 
     /**
      * @param int $id
@@ -242,10 +236,8 @@ class EntryController extends Controller
         $this->render('update', array('model' => $model));
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/CController#filters()
+     * @return array
      */
     public function filters()
     {
@@ -253,5 +245,4 @@ class EntryController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }

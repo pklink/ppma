@@ -8,11 +8,11 @@ class UpgradeController extends Controller
     private $latestVersion = '0.5.0';
 
     private $history = array(
-        array('0',       'upgradeTo02'),
-        array('0.2',     'upgradeTo030'),
+        array('0', 'upgradeTo02'),
+        array('0.2', 'upgradeTo030'),
         array('0.3.0'),
         array('0.3.1'),
-        array('0.3.2',   'upgradeTo033'),
+        array('0.3.2', 'upgradeTo033'),
         array('0.3.3'),
         array('0.3.3.1', 'upgradeTo034'),
         array('0.3.4'),
@@ -27,6 +27,47 @@ class UpgradeController extends Controller
         array('0.4.1'),
         array('0.4.2'),
     );
+
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
+
+    public function actionRun()
+    {
+        // get routines to upgrade
+        $installedVersion = Yii::app()->params['version'];
+        $addRoutines = false;
+        $routines = array();
+        foreach ($this->history as $version) {
+            if (!$addRoutines && $version[0] == $installedVersion) {
+                $addRoutines = true;
+            }
+
+            if ($addRoutines && isset($version[1])) {
+                $routines[] = $version[1];
+            }
+        }
+
+        // run upgrade routines
+        foreach ($routines as $routine) {
+            $this->{$routine}();
+        }
+
+        // upgrade complete
+        if ($addRoutines) {
+            // write latest version to config
+            $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
+            /** @noinspection PhpIncludeInspection */
+            $config = new CConfiguration(require($path));
+            $config['version'] = $this->latestVersion;
+            file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
+
+            $this->render('success', array('version' => $this->latestVersion));
+        } else {
+            $this->render('isuptodate');
+        }
+    }
 
     /**
      * @return void
@@ -45,6 +86,7 @@ class UpgradeController extends Controller
 
         // Set user-IDs
         foreach (Tag::model()->findAll() as $model) {
+            /* @var Tag $model */
             // Collect User-IDs
             $userIds = array();
             foreach ($model->entries as $entry) {
@@ -112,7 +154,6 @@ class UpgradeController extends Controller
         $model->save();
     }
 
-
     /**
      * @return void
      */
@@ -151,46 +192,4 @@ class UpgradeController extends Controller
         $model->value = 10;
         $model->save();
     }
-
-    public function actionIndex()
-    {
-        $this->render('index');
-    }
-
-    public function actionRun()
-    {
-        // get routines to upgrade
-        $installedVersion = Yii::app()->params['version'];
-        $addRoutines = false;
-        $routines = array();
-        foreach ($this->history as $version) {
-            if (!$addRoutines && $version[0] == $installedVersion) {
-                $addRoutines = true;
-            }
-
-            if ($addRoutines && isset($version[1])) {
-                $routines[] = $version[1];
-            }
-        }
-
-        // run upgrade routines
-        foreach ($routines as $routine) {
-            $this->{$routine}();
-        }
-
-        // upgrade complete
-        if ($addRoutines) {
-            // write latest version to config
-            $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
-            /** @noinspection PhpIncludeInspection */
-            $config = new CConfiguration(require($path));
-            $config['version'] = $this->latestVersion;
-            file_put_contents($path, "<?php\n\nreturn " . $config->saveAsString() . ';');
-
-            $this->render('success', array('version' => $this->latestVersion));
-        } else {
-            $this->render('isuptodate');
-        }
-    }
-
 }

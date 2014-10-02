@@ -5,6 +5,8 @@
  * @property integer $id
  * @property string  $name
  * @property string  $value
+ * @method Setting find(string $condition = '', array $params = array())
+ * @method Setting findByPk(int $pk, string $condition = '', array $params = array())
  */
 class Setting extends CActiveRecord
 {
@@ -53,7 +55,7 @@ class Setting extends CActiveRecord
 
     /**
      * @param string $name
-     * @return Tag
+     * @return Setting
      */
     public function name($name)
     {

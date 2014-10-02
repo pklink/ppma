@@ -7,6 +7,10 @@
  * @property string  $password
  * @property string  $salt
  * @property string  $username
+ *
+ * @property array onBeforeValidate
+ * @method User find(string $condition = '', array $params = array())
+ * @method User findByPk(int $pk, string $condition = '', array $params = array())
  */
 class User extends CActiveRecord
 {

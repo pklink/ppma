@@ -4,14 +4,12 @@ class ImportController extends Controller
 {
 
     /**
-     *
      * @var string
      */
     public $layout = 'column2';
 
 
     /**
-     *
      * @return array
      */
     public function accessRules()
@@ -32,7 +30,6 @@ class ImportController extends Controller
 
 
     /**
-     *
      * @return void
      */
     public function actionCsv()
@@ -132,10 +129,8 @@ class ImportController extends Controller
         }
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/CController#filters()
+     * @return array
      */
     public function filters()
     {
@@ -143,5 +138,4 @@ class ImportController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }

@@ -4,14 +4,11 @@ class ExportController extends Controller
 {
 
     /**
-     *
      * @var string
      */
     public $layout = 'column2';
 
-
     /**
-     *
      * @return array
      */
     public function accessRules()
@@ -19,20 +16,18 @@ class ExportController extends Controller
         return array(
             array(
                 'allow',
-                'actions'    => array('csv'),
-                'users'      => array('@'),
+                'actions' => array('csv'),
+                'users' => array('@'),
                 'expression' => 'Yii::app()->user->isAdmin',
             ),
             array(
                 'deny',
-                'users'   => array('*'),
+                'users' => array('*'),
             ),
         );
     }
 
-
     /**
-     *
      * @return void
      */
     public function actionCsv()
@@ -40,15 +35,14 @@ class ExportController extends Controller
         Yii::import('ext.ECSVExport');
 
         $data = array();
-        foreach (Entry::model()->findAllByAttributes(array('userId' => Yii::app()->user->id)) as $model)
-        {
+        foreach (Entry::model()->findAllByAttributes(array('userId' => Yii::app()->user->id)) as $model) {
             /* @var Entry $model */
 
             $data[] = array(
-                'name'     => $model->name,
-                'url'      => $model->url,
-                'comment'  => $model->comment,
-                'tags'     => $model->tagList,
+                'name' => $model->name,
+                'url' => $model->url,
+                'comment' => $model->comment,
+                'tags' => $model->tagList,
                 'username' => $model->username,
                 'password' => $model->password,
             );
@@ -58,10 +52,8 @@ class ExportController extends Controller
         Yii::app()->request->sendFile(sprintf('ppma-export-%s', date('YmdHis')), $csv->toCSV(), 'text/csv', false);
     }
 
-
     /**
-     * (non-PHPdoc)
-     * @see yii/web/CController#filters()
+     * @return array
      */
     public function filters()
     {
@@ -69,5 +61,4 @@ class ExportController extends Controller
             'accessControl',
         ), parent::filters());
     }
-
 }
