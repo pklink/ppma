@@ -19,7 +19,7 @@
  * $csv->toCSV();
  *
  * @author Kenrick Buchanan
- * @version 0.6.6
+ * @version 0.6.9
  */
 
 class ECSVExport
@@ -104,6 +104,14 @@ class ECSVExport
      * @var boolean
      */
     protected $_appendCsv = false;
+    
+    /**
+     * extra model relations to include in output, cause normally it only
+     * gets the attributes for the current model. ooops
+     * array('buyer'=>'name'... or 'buyer'=>array('rel1','rel2'))
+     * @var array 
+     */
+    protected $_modelRelations = array();
     
     /**
      *
@@ -298,6 +306,25 @@ class ECSVExport
     }
     
     /**
+     * get the set model relations
+     * return array $this->_modelRelations 
+     */
+    public function getModelRelations()
+    {
+        return $this->_modelRelations;
+    }
+    
+    /**
+     * set relations to include on output that will be interpolated via model crap
+     * needs to be array of arrays
+     * @param array $relations 
+     */
+    public function setModelRelations(array $relations)
+    {
+        $this->_modelRelations = $relations;
+    }
+    
+    /**
      * turn off going through whole resultset, taking current page into account
      * @return \ECSVExport 
      */
@@ -384,7 +411,11 @@ class ECSVExport
     protected function _writeData()
     {        
         $firstTimeThrough = true;        
-        if($this->_dataProvider instanceof CActiveDataProvider) {            
+        if($this->_dataProvider instanceof CActiveDataProvider) { 
+            if($this->exportFull) {
+                // set pagination to off
+                $this->_dataProvider->setPagination(false);
+            }
             if($this->convertActiveDataProvider) {
                 $criteria = $this->_dataProvider->getCriteria();
                 $model = $this->_dataProvider->model;
@@ -399,6 +430,8 @@ class ECSVExport
                 $models = $this->_dataProvider->getData();
                 $dataReader = array();
                 $attributes = $this->_dataProvider->model->getMetaData()->columns;
+                
+                
                 // since we are already looping through results, don't bother
                 // passing results to _loopRow, just write it here.
                 foreach ($models as &$model) {
@@ -406,6 +439,21 @@ class ECSVExport
                     
                     foreach ($attributes as $attribute => $col) {
                         $row[$attribute] = $model->{$attribute};
+                    }
+                    
+                    // check model relations
+                    if(count($this->_modelRelations)) {
+                        foreach($this->_modelRelations as $relation=>$value) {
+                            if(is_array($value)) {
+                                foreach($value as $subvalue) {
+                                    if(isset($model->$relation->$subvalue) && $model->$relation->$subvalue)
+                                        $row[$relation.'['.$subvalue.']'] = $model->$relation->$subvalue;
+                                }
+                            } else {
+                                if(isset($model->$relation->$value) && $model->$relation->$value)
+                                    $row[$relation.'['.$value.']'] = $model->$relation->$value;
+                            }
+                        }
                     }
                     
                     if($firstTimeThrough) {
@@ -429,8 +477,8 @@ class ECSVExport
                 $this->setToAppend();
                 for($i=1; $i<=$totalPages; $i++) {                    
                     $_GET[$pageVar] = $i;
-                    $this->_dataProvider->getPagination()->setCurrentPage($i);                                        
-                    $_getData = $this->_dataProvider->getData();
+                    $this->_dataProvider->getPagination()->setCurrentPage($i); 
+                    $_getData = $this->_dataProvider->getData(true);
                     $this->_loopRows($_getData);                    
                     $this->includeColumnHeaders = !(bool) $i;
                 }                
@@ -543,6 +591,8 @@ class ECSVExport
         if($this->stripNewLines) {            
             array_walk($row, array('ECSVExport','lambdaFail'));
         }
+        
+        array_walk($row, array('ECSVExport','stripSlashes'));
                
         if(isset($this->_callback) && $this->_callback) {
             fputcsv($this->_filePointer, call_user_func($this->_callback, $row), $this->_delimiter, $this->_enclosure);                       
@@ -556,4 +606,10 @@ class ECSVExport
 	{
 		$value = str_replace("\r\n"," ", $value);
 	}
+    
+    public static function stripSlashes(&$value, $key)
+    {
+        $value = stripslashes($value);
+        $value = str_replace('\"', '"', $value);
+    }
 }
