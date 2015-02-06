@@ -1,6 +1,6 @@
 {
     "name": "ppma",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-contrib-uglify": "~0.2.2",
