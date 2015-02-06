@@ -26,6 +26,7 @@ class UpgradeController extends Controller
         array('0.4.0'),
         array('0.4.1'),
         array('0.4.2'),
+        array('0.5.0'),
     );
 
     public function actionIndex()
