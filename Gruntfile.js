@@ -94,6 +94,9 @@ module.exports = function (grunt) {
                         src: [
                             'assets/**',
                             'css/**',
+                            'js/zeroclipboard/dist/ZeroClipboard.min.map',
+                            'js/zeroclipboard/dist/ZeroClipboard.min.js',
+                            'js/zeroclipboard/dist/ZeroClipboard.swf',
                             'js/foundation.min.js',
                             'js/jquery-ui-1.9.2.custom.min.js',
                             'js/modernizr.foundation.js',
@@ -136,5 +139,5 @@ module.exports = function (grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['copy:bower', 'uglify']);
-    grunt.registerTask('release', ['uglify', 'copy:release', 'clean:release', 'touch:release', 'compress:zip', 'compress:tar', 'clean:cleanup']);
+    grunt.registerTask('release', ['uglify', 'copy:bower', 'copy:release', 'clean:release', 'touch:release', 'compress:zip', 'compress:tar', 'clean:cleanup']);
 };
