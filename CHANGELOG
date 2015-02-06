@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.5.1
 -------------
 - Bug #44: Can't delete entries or TAGs
+- Bug: Fixed building process for creating release packages
 
 Version 0.5.0
 -------------
