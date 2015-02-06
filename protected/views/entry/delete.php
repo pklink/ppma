@@ -2,7 +2,7 @@
     /* @var Entry $model */
 ?>
 
-<h1>Delete Tag '<i><?= $model->name ?></i>'</h1>
+<h1>Delete Entry '<i><?= $model->name ?></i>'</h1>
 
 <?= CHtml::beginForm() ?>
 
