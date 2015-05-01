@@ -7,6 +7,9 @@
 * PHP 5.2 or higher
 * MySQL 5.0 or higher
 
+## More info / screenshots
+
+You can find more info and screenshots at <http://sourceforge.net/projects/ppma/>
 
 ## Installation
 
