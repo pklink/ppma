@@ -1,6 +1,6 @@
 <html ng-app="ppma">
 <head>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css"  rel="stylesheet" type="text/css">
+    <link href="vendor/semantic/dist/semantic.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body ng-controller="AppController">
@@ -73,11 +73,9 @@
 
 </div>
 
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/semantic/dist/semantic.min.css"></script>
+<script src="vendor/angular/angular.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
