@@ -10,6 +10,8 @@ angular.module('ppma').directive('ppmaCategoryForm', [
 
     link: (scope, el) ->
 
+      console.log(scope.form)
+
       # autofocus first input
       el.find(':input:first').focus()
 

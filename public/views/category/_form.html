@@ -1,7 +1,17 @@
 <form novalidate ng-submit="validate()" name="form">
 
+    <div class="ui icon negative message" ng-show="form.$invalid && form.$submitted">
+        <i class="frown icon"></i>
+        <div class="content">
+            <div class="header">Something went wrong</div>
+            <ul class="list">
+                <li ng-show="form.name.$error.required"><i>Name</i> is required</li>
+            </ul>
+        </div>
+    </div>
+
     <div class="ui form top attached segment">
-        <div class="required field">
+        <div class="required field" ng-class="{error: form.name.$invalid && form.$submitted}">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" ng-model="model.name" required>
         </div>
