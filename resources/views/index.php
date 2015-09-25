@@ -25,7 +25,32 @@
         </div>
     </div>
 
-    <div ng-view></div>
+    <div class="ui grid">
+
+        <div class="three wide column">
+            <div class="ui fluid vertical menu">
+                <div class="header item">Last Entries <i class="rss icon"></i></div>
+                <a class="item">amazon.com</a>
+                <a class="item">github.com</a>
+                <a class="item">coinbase.com</a>
+            </div>
+            <div class="ui fluid vertical menu">
+                <div class="header item">Categories <i class="open folder icon"></i></div>
+                <a class="item">Inbox<div class="ui label">1</div></a>
+                <a class="item">Spam <div class="ui label">51</div></a>
+                <a class="item">Updates <div class="ui label">1</div></a>
+            </div>
+            <div class="ui fluid vertical menu">
+                <div class="header item">Tags <i class="tags icon"></i></div>
+                <a class="item">Inbox<div class="ui label">1</div></a>
+                <a class="item">Spam <div class="ui label">51</div></a>
+                <a class="item">Updates <div class="ui label">1</div></a>
+            </div>
+        </div>
+        <div class="thirteen wide column">
+            <div ng-view></div>
+        </div>
+    </div>
 
 </div>
 
