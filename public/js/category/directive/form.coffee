@@ -8,7 +8,10 @@ angular.module('ppma').directive('ppmaCategoryForm', [
       model: '=ngModel'
       submit: '&'
 
-    link: (scope) ->
+    link: (scope, el) ->
+
+      # autofocus first input
+      el.find(':input:first').focus()
 
       scope.validate = ->
         if scope.form.$valid then scope.submit()
