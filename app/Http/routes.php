@@ -28,3 +28,4 @@ $app->get('api/entries/{id}', 'EntryController@get');
 $app->post('api/categories', 'CategoryController@create');
 $app->get('api/categories', 'CategoryController@index');
 $app->get('api/categories/{id}', 'CategoryController@get');
+$app->put('api/categories/{id}', 'CategoryController@update');
