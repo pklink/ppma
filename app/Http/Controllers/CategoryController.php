@@ -13,14 +13,17 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class CategoryController extends BaseController
 {
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function create(Request $request) {
         /* @var \Illuminate\Validation\Factory $validationFactory */
         $validationFactory = app('validator');
 
         // create validator
         $validator = $validationFactory->make($request->all(), [
-            'label'    => 'required',
-            'password' => 'required'
+            'name' => 'required',
         ]);
 
         // check if validation runs fine
@@ -29,13 +32,12 @@ class CategoryController extends BaseController
         }
 
         // save entry
-        $model = new EntryModel();
-        $model->label = $request->get('label');
-        $model->password = $request->get('password');
+        $model = new CategoryModel();
+        $model->name = $request->get('name');
         $model->save();
 
         // response id
-        $headers = ['Locations' => sprintf('/entries/%d', $model->id)];
+        $headers = ['Locations' => sprintf('/categories/%d', $model->id)];
         return response()->json(['id' => $model->id], 201, $headers);
     }
 

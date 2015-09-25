@@ -1,0 +1,39 @@
+<div class="ui top attached pink segment">
+    <h3 class="ui column header">
+        <i class="folder open icon"></i>
+        <div class="content">
+            Create Category
+        </div>
+    </h3>
+</div>
+
+<div class="ui bottom attached stacked segment">
+
+    <div class="ui secondary  menu">
+        <a href="#/categories" class="item">Overview</a>
+        <a href="#/categories/create" class="active item">Add Category</a>
+    </div>
+
+    <form novalidate ng-submit="save()">
+
+        <div class="ui form top attached segment">
+
+            <div class="required field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" ng-model="model.name" required>
+            </div>
+
+        </div>
+
+        <div class="ui bottom attached secondary right aligned segment ">
+            <a class="ui labeled icon button" href="#/categories">
+                <i class="right remove icon"></i> Cancel
+            </a>
+            <button class="ui labeled positive icon button" type="submit">
+                <i class="right checkmark icon"></i> Save
+            </button>
+        </div>
+
+    </form>
+
+</div>
