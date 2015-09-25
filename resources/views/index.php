@@ -34,12 +34,7 @@
                 <a class="item">github.com</a>
                 <a class="item">coinbase.com</a>
             </div>
-            <div class="ui fluid vertical menu">
-                <div class="header item">Categories <i class="open folder icon"></i></div>
-                <a class="item">Inbox<div class="ui label">1</div></a>
-                <a class="item">Spam <div class="ui label">51</div></a>
-                <a class="item">Updates <div class="ui label">1</div></a>
-            </div>
+            <ppma-category-menu limit="10"></ppma-category-menu>
             <div class="ui fluid vertical menu">
                 <div class="header item">Tags <i class="tags icon"></i></div>
                 <a class="item">Inbox<div class="ui label">1</div></a>
@@ -61,6 +56,7 @@
 <script src="vendor/angular-resource/angular-resource.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/directive/delete-modal.js"></script>
+<script src="js/directive/category-menu.js"></script>
 <script src="js/category/config.js"></script>
 <script src="js/category/dao.js"></script>
 <script src="js/category/create-controller.js"></script>
