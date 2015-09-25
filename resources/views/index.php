@@ -35,6 +35,7 @@
 <script src="vendor/angular-route/angular-route.min.js"></script>
 <script src="vendor/angular-resource/angular-resource.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/directive/delete-modal.js"></script>
 <script src="js/category/config.js"></script>
 <script src="js/category/dao.js"></script>
 <script src="js/category/create-controller.js"></script>

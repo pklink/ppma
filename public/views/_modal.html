@@ -1,0 +1,18 @@
+<a ng-click="show()"><i class="bordered trash icon"></i></a>
+
+<div class="ui modal">
+    <div class="header">
+        <i class="trash icon"></i>
+        {{header}}
+    </div>
+    <div class="content">
+        <p ng-bind-html="trustedMessage"></p>
+    </div>
+    <div class="actions">
+        <div class="ui black button" ng-click="hide()">Nope</div>
+        <div class="ui red right labeled icon button" ng-click="approve()">
+            Yep
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>

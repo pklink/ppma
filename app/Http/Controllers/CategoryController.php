@@ -87,4 +87,21 @@ class CategoryController extends BaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function delete(Request $request, $id) {
+        // find model
+        /* @var CategoryModel $model */
+        $model = CategoryModel::find($id);
+
+        if ($model != null) {
+            $model->delete();
+        }
+
+        return response(null, 204);
+    }
+
 }

@@ -31,10 +31,15 @@
             <td class="right aligned two wide">
                 <a href="#/categories/{{model.id}}"><i class="bordered plus icon"></i></a>
                 <a href="#/categories/{{model.id}}"><i class="bordered write icon"></i></a>
-                <a href="#/categories/{{model.id}}"><i class="bordered trash icon"></i></a>
+                <ppma-delete-modal
+                        header="Delete Category"
+                        message="Do you really want delete the category <i>{{model.name}}</i>?"
+                        delete="delete(model.id)">
+                </ppma-delete-modal>
             </td>
         </tr>
         </tbody>
     </table>
 
 </div>
+
