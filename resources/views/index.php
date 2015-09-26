@@ -63,6 +63,7 @@
 <script src="js/category/update-controller.js"></script>
 <script src="js/category/directive/create-button.js"></script>
 <script src="js/category/directive/delete-button.js"></script>
+<script src="js/category/directive/update-button.js"></script>
 <script src="js/category/directive/form-modal.js"></script>
 <script src="js/dao/service.js"></script>
 </body>

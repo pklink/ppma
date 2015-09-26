@@ -1,0 +1,11 @@
+<a ng-click="showModal = true">
+    <i class="bordered write icon"></i>
+</a>
+
+<ppma-category-form-modal
+        header="Update Category"
+        ng-model="model"
+        is-visible="showModal"
+        on-submit="save()"
+        on-cancel="showModal = false">
+</ppma-category-form-modal>
