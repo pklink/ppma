@@ -6,14 +6,13 @@ angular.module('ppma').directive('ppmaDeleteModal', [
     templateUrl: 'views/_delete-modal.html'
 
     scope:
-      header:  '@'
-      message: '@'
-      delete:  '&'
+      header:    '@'
+      message:   '@'
+      onDeny:    '&'
+      onApprove: '&'
+      isVisible: '='
 
     link: (scope, el) ->
-      # set default values
-      scope.showModal = false
-
       # pass message to scope
       scope.trustedMessage = $sce.trustAsHtml(scope.message)
 
@@ -21,21 +20,16 @@ angular.module('ppma').directive('ppmaDeleteModal', [
       modalEl = el.find('.ui.modal')
       modalEl.modal('setting', 'closable', false)
 
-      # show modal
-      scope.show = ->
-        scope.showModal = true
+      # deny
+      scope.deny = ->
+        scope.onDeny()
 
-      # hide modal
-      scope.hide = ->
-        scope.showModal = false
-
-      # delete model
+      # approve
       scope.approve = ->
-        scope.delete()
-        scope.hide()
+        scope.onApprove()
 
       # watcher for visibility
-      scope.$watch('showModal', (v) ->
+      scope.$watch('isVisible', (v) ->
         if v then modalEl.modal('show')
         else modalEl.modal('hide')
       )

@@ -1,0 +1,9 @@
+<a ng-click="showModal = true"><i class="bordered trash icon"></i></a>
+
+<ppma-delete-modal
+        header="Delete Category"
+        message="Do you really want delete the category <i>{{model.name}}</i>?"
+        is-visible="showModal"
+        on-deny="showModal = false"
+        on-approve="delete(model.id)">
+</ppma-delete-modal>

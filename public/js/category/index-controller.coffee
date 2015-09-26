@@ -1,7 +1,7 @@
 angular.module('ppma').controller('CategoryIndexController', [
 
-  '$scope', '$rootScope', '$location', '$routeParams', '$route', 'DaoService', 'page',
-  ($scope,   $rootScope,  $location,   $routeParams,   $route,   DaoService,   page) ->
+  '$scope', '$location', '$routeParams', '$route', 'page',
+  ($scope,   $location,   $routeParams,   $route,   page) ->
 
     # pass models to scope
     $scope.models = page.data
@@ -11,12 +11,7 @@ angular.module('ppma').controller('CategoryIndexController', [
       direction = if $routeParams.s == param and $routeParams.d != 'desc' then 'desc' else 'asc'
       $location.search(s: param, d: direction)
 
-    $scope.delete = (id) ->
-      DaoService.Category.delete(id: id, ->
-        # send update event
-        $rootScope.$broadcast('CategoriesUpdated')
-
-        $route.reload()
-      )
+    # reload on if categories are updated
+    $scope.$on('CategoriesUpdated', -> $route.reload())
 
 ])
