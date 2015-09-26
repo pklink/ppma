@@ -2,7 +2,10 @@
     <i class="plus icon"></i>
 </a>
 
-<ppma-category-create-modal
+<ppma-category-form-modal
+        header="Create Category"
+        ng-model="model"
         is-visible="showModal"
-        on-cancel="cancel()">
-</ppma-category-create-modal>
+        on-submit="save()"
+        on-cancel="showModal = false">
+</ppma-category-form-modal>

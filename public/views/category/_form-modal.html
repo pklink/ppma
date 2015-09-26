@@ -1,6 +1,6 @@
-<form class="ui form modal" name="form" ng-submit="save()" novalidate>
+<form class="ui form modal" name="form" ng-submit="submit()" novalidate>
     <div class="header">
-        <i class="open folder icon"></i> Create Category
+        <i class="open folder icon"></i> {{header}}
     </div>
     <div class="content">
         <div class="ui icon negative message" ng-show="form.$invalid && form.$submitted">
