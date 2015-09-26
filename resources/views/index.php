@@ -58,9 +58,7 @@
 <script src="js/directive/category-menu.js"></script>
 <script src="js/category/config.js"></script>
 <script src="js/category/dao.js"></script>
-<script src="js/category/create-controller.js"></script>
 <script src="js/category/index-controller.js"></script>
-<script src="js/category/update-controller.js"></script>
 <script src="js/category/directive/create-button.js"></script>
 <script src="js/category/directive/delete-button.js"></script>
 <script src="js/category/directive/update-button.js"></script>
