@@ -3,7 +3,7 @@ angular.module('ppma').directive('ppmaDeleteModal', [
   '$sce'
   ($sce) ->
 
-    templateUrl: 'views/_modal.html'
+    templateUrl: 'views/_delete-modal.html'
 
     scope:
       header:  '@'
