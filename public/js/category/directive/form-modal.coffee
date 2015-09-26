@@ -1,7 +1,6 @@
 angular.module('ppma').directive('ppmaCategoryFormModal', [
 
-  '$rootScope'
-  ($rootScope) ->
+  ->
 
     templateUrl: 'views/category/_form-modal.html'
 
