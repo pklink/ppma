@@ -8,31 +8,13 @@
 
 <div class="ui container">
 
-    <div class="ui secondary pointing menu">
-        <a href="#/" class="item"><i class="tasks icon"></i> Entries</a>
-        <a href="#/categories" class="active item"><i class="folder open icon"></i> Categories</a>
-        <a href="#/" class="item"><i class="tags icon"></i> Tags</a>
-        <a href="#/" class="item"><i class="settings icon"></i> Settings</a>
-        <a href="#/" class="item"><i class="sign out icon"></i> Logout</a>
-
-        <div class="right menu">
-            <div class="item">
-                <div class="ui transparent icon input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="ui grid">
 
         <div class="three wide column">
-            <div class="ui fluid vertical menu">
-                <div class="header item">Last Entries <i class="rss icon"></i></div>
-                <a class="item">amazon.com</a>
-                <a class="item">github.com</a>
-                <a class="item">coinbase.com</a>
+            <div class="ui secondary pointing menu">
+                <div class="item">
+                    PHP Password Manager
+                </div>
             </div>
             <ppma-category-menu limit="10"></ppma-category-menu>
             <div class="ui fluid vertical menu">
@@ -43,6 +25,23 @@
             </div>
         </div>
         <div class="thirteen wide column">
+            <div class="ui secondary pointing menu">
+                <a href="#/" class="item"><i class="tasks icon"></i> Entries</a>
+                <a href="#/categories" class="active item"><i class="folder open icon"></i> Categories</a>
+                <a href="#/" class="item"><i class="tags icon"></i> Tags</a>
+                <a href="#/" class="item"><i class="settings icon"></i> Settings</a>
+                <a href="#/" class="item"><i class="sign out icon"></i> Logout</a>
+
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui transparent icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div ng-view></div>
         </div>
     </div>
