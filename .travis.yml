@@ -1,7 +1,11 @@
 language: php
 php:
   - '7.0'
+services:
+  - mysql
 install:
   - composer install
+  - cp .env.example .env
+  - mysql -e 'create database ppma1;'
 script:
   - vendor/bin/phpunit tests
