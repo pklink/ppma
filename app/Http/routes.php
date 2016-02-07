@@ -23,6 +23,8 @@ $app->get('/swagger/latest', 'SwaggerController@latest');
 $app->post('api/entries', 'EntryController@create');
 $app->get('api/entries', 'EntryController@index');
 $app->get('api/entries/{id}', 'EntryController@get');
+$app->put('api/entries/{id}', 'EntryController@update');
+$app->delete('api/entries/{id}', 'EntryController@delete');
 
 // Categories
 $app->post('api/categories', 'CategoryController@create');

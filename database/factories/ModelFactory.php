@@ -18,3 +18,12 @@ $factory->define(\App\Model\CategoryModel::class, function ($faker) {
         'name' => $faker->unique()->randomElement(['Shop', 'E-Mail', 'Social'])
     ];
 });
+
+$factory->define(\App\Model\EntryModel::class, function ($faker) {
+    /* @var Faker\Generator $faker */
+
+    return [
+        'label'    => $faker->unique()->randomElement(['amazon.com', 'ebay.com', 'netflix.com']),
+        'password' => $faker->unique()->randomElement(['123456', '654321', '123654'])
+    ];
+});
