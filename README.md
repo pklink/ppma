@@ -1,4 +1,4 @@
-# PHP Password Manager (ppma)
+# PHP Password Manager (ppma) [![Build Status](https://travis-ci.org/pklink/ppma.svg?branch=master)](https://travis-ci.org/pklink/ppma)
 
 ## Installation
 
