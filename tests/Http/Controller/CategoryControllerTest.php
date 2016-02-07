@@ -3,12 +3,13 @@
 class CategoryControllerTest extends TestCase
 {
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->artisan('migrate:refresh');
 
-        $this->beforeApplicationDestroyed(function() {
+        $this->beforeApplicationDestroyed(function () {
             $this->artisan('migrate:refresh');
         });
     }
