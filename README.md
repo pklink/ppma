@@ -1,4 +1,4 @@
-# PHP Password Manager (ppma) [![Build Status](https://travis-ci.org/pklink/ppma.svg?branch=master)](https://travis-ci.org/pklink/ppma) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pklink/ppma/badges/quality-score.png?b=1.0.0)](https://scrutinizer-ci.com/g/pklink/ppma/?branch=1.0.0)
+# PHP Password Manager (ppma) [![Build Status](https://travis-ci.org/pklink/ppma.svg?branch=1.0.0)](https://travis-ci.org/pklink/ppma) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pklink/ppma/badges/quality-score.png?b=1.0.0)](https://scrutinizer-ci.com/g/pklink/ppma/?branch=1.0.0)
 
 ## Installation
 
