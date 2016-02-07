@@ -6,7 +6,6 @@
     "test": "tests"
   },
   "dependencies": {
-    "angular": "^1.4.6",
     "bower": "^1.5.3"
   },
   "devDependencies": {},
