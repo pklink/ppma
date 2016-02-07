@@ -1,16 +1,12 @@
 {
   "name": "pklink/ppma",
   "description": "PHP Password Manager",
-  "keywords": [
-    "framework",
-    "laravel",
-    "lumen"
-  ],
+  "keywords": [],
   "license": "MIT",
   "type": "project",
   "require": {
     "php": ">=7.0.0",
-    "laravel/lumen-framework": "5.1.*",
+    "laravel/lumen-framework": "5.2.*",
     "vlucas/phpdotenv": "~1.0"
   },
   "require-dev": {
