@@ -11,6 +11,8 @@
 |
 */
 
+/* @var Illuminate\Database\Eloquent\Factory $factory */
+
 $factory->define(\App\Model\CategoryModel::class, function ($faker) {
     /* @var Faker\Generator $faker */
 
