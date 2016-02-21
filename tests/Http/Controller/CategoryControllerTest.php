@@ -17,11 +17,19 @@ class CategoryControllerTest extends TestCase
     public function testCreate()
     {
         $crawler = $this->post('/api/categories', [
-            'name' => 'Cat-haha-gory'
+            'name' => 'Parent'
         ]);
         $crawler->seeStatusCode(201);
         $crawler->isJson();
-        $crawler->seeJson(['id' => 1]);
+        $crawler->seeJson(['id' => 1, 'name' => 'Parent']);
+
+        $crawler = $this->post('/api/categories', [
+            'name'     => 'Child',
+            'parent_id' => 1
+        ]);
+        $crawler->seeStatusCode(201);
+        $crawler->isJson();
+        $crawler->seeJson(['id' => 2, 'name' => 'Child', 'parent_id' => 1]);
 
         $crawler = $this->post('/api/categories', []);
         $crawler->seeStatusCode(422);
