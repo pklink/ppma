@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.5.2 (unreleased)
+--------------------------
+- Bug #60: Moved DEBUG constants to the top of the `index.php`
+
 Version 0.5.1
 -------------
 - Bug #44: Can't delete entries or TAGs
