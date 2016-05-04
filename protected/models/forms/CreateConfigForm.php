@@ -51,19 +51,19 @@ class CreateConfigForm extends CFormModel
     }
 
     /**
-     * @param string $attribute
-     * @param array $params
      * @return void
      */
-    public function testConnection($attribute, $params)
+    public function testConnection()
     {
         if (!$this->hasErrors()) {
-            $res = @mysql_connect($this->server, $this->username, $this->password);
+            $dsn = sprintf('mysql:dbname=%s;host=%s', $this->name, $this->server);
+            $pdo = null;
 
-            if (!$res) {
-                $this->addError('db', 'Login data are wrong. Error message: ' . mysql_error());
-            } elseif (!mysql_select_db($this->name, $res)) {
-                $this->addError('db', 'Database does not exist.');
+            try {
+                new PDO($dsn, $this->username, $this->password);
+            } catch (PDOException $e) {
+                /* @var PDO $pdo */
+                $this->addError('db', 'Cannot connect to MySQL server. Error message: ' . $e->getMessage());
             }
         }
     }
