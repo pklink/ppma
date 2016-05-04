@@ -1,8 +1,8 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
-Version 0.5.2 (unreleased)
---------------------------
+Version 0.5.2
+-------------
 - Bug #60: Moved DEBUG constants to the top of the `index.php`
 - Bug #66: Removed deprecated `mysql_connect()` function
 - Enh: Added `bower` and `grunt-cli` to `package.json` as local dependency
