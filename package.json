@@ -1,6 +1,12 @@
 {
   "name": "ppma",
-  "version": "0.5.1",
+  "description": "Password Manager for PHP",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pklink/ppma.git"
+  },
+  "license" : "BSD-3-Clause",
   "devDependencies": {
     "bower": "^1.7.9",
     "grunt": "~0.4.2",
