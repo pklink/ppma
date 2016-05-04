@@ -4,6 +4,7 @@ PHP Password Manager (ppma) Change Log
 Version 0.5.2 (unreleased)
 --------------------------
 - Bug #60: Moved DEBUG constants to the top of the `index.php`
+- Bug #66: Removed depracted `mysql_connect()` function
 
 Version 0.5.1
 -------------
