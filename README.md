@@ -42,10 +42,10 @@ It is not needed if you download the prebuilt release
 ```bash
 git clone https://github.com/pklink/ppma.git
 cd ppma/
-php composer.phar install
+composer install
 npm install
-bower install
-grunt
+./node_modules/.bin/bower install
+./node_modules/.bin/grunt
 ```
 
 ## Upgrading
