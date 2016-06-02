@@ -18,8 +18,9 @@ class SetupController extends Controller
         // get step
         $step = Yii::app()->request->getQuery('step', 1);
 
-        if ($step > Yii::app()->user->getState('step', 1)) {
-            $this->redirect(array('setup/index', 'step' => Yii::app()->user->getState('step')));
+        // check if step is valid
+        if (!in_array($step, array(1, 2, 3, 4))) {
+            $step = 1;
         }
 
         switch ($step) {
@@ -77,8 +78,7 @@ class SetupController extends Controller
             // create tables
             $this->createTables();
 
-            // set step in session and redirect
-            Yii::app()->user->setState('step', 3);
+            // redirect to step 3
             $this->redirect(array('/setup/index', 'step' => 3));
         } elseif (isset($_POST['CreateConfigForm'])) { // form is submitted & invalid
             // if connection test failed, show error summary
@@ -259,8 +259,7 @@ class SetupController extends Controller
                 $model->isAdmin = true;
                 $model->save(false);
 
-                // set step in session and redirect
-                Yii::app()->user->setState('step', 4);
+                // redirect to step 4
                 $this->redirect(array('setup/', 'step' => 4));
             }
         }
@@ -274,9 +273,6 @@ class SetupController extends Controller
      */
     protected function actionStep4()
     {
-        // Remove step from session
-        Yii::app()->user->setState('step', 0, 0);
-
         // Flag app as installed
         $path = Yii::getPathOfAlias('application.config.ppma') . '.php';
         /** @noinspection PhpIncludeInspection */
@@ -335,10 +331,6 @@ class SetupController extends Controller
 
         if (!$isPDO_mysqlLoaded) {
             $continue = false;
-        }
-
-        if ($continue) {
-            Yii::app()->user->setState('step', 2);
         }
 
         $this->render('step1', array(
