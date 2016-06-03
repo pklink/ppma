@@ -1,6 +1,10 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
+Version 0.6.0 (unreleased)
+--------------------------
+- Issue #68: Simplified code of setup routine
+
 Version 0.5.2
 -------------
 - Bug #60: Moved DEBUG constants to the top of the `index.php`
