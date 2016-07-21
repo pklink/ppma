@@ -9,6 +9,6 @@ return array (
     'name' => 'ppma',
     'port' => 3306,
   ),
-  'isInstalled' => true,
+  'isInstalled' => false,
   'version' => '0.5.2',
 );
