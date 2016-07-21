@@ -46,6 +46,7 @@
 	'columns'      => array(
 	    array(
 	        'class'  => 'EntryLinkColumn',
+            'name'   => 'name',
             'header' => 'Name'
         ),
         'username',

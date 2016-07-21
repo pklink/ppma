@@ -255,6 +255,11 @@ class Entry extends CActiveRecord
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'sort'     => array(
+                'defaultOrder' => array(
+                    'name' => CSort::SORT_ASC
+                )
+            ),
             'pagination' => array(
                 'pageSize' => $pageSize->value
             )
