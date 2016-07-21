@@ -44,7 +44,10 @@
     'dataProvider' => $model->search(),
     'cssFile'      => false,
 	'columns'      => array(
-        'name',
+	    array(
+	        'class'  => 'EntryLinkColumn',
+            'header' => 'Name'
+        ),
         'username',
         array(
             'name'  => 'tagList',
