@@ -3,9 +3,11 @@ PHP Password Manager (ppma) Change Log
 
 Version 0.6.0 (unreleased)
 --------------------------
+- Issue #70: Added import for PhpPasswordManager
 - Issue #68: Simplified code of setup routine
 - Bug: CSV-Export has no `csv`-extension
 - Bug: CSV-Import doesn't work with PHP7
+- Bug: Import: Remove entries before saving doesn't work
 
 Version 0.5.2
 -------------
