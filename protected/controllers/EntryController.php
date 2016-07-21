@@ -175,6 +175,7 @@ class EntryController extends Controller
         $model = new Entry('search');
         $model->userId = Yii::app()->user->id;
 
+
         /* @var CHttpRequest $request */
         $request = Yii::app()->request;
 
@@ -195,7 +196,8 @@ class EntryController extends Controller
         }
 
         $this->render('index', array(
-            'model' => $model,
+            'model'     => $model,
+            'returnUri' => Yii::app()->request->requestUri
         ));
     }
 
@@ -227,7 +229,7 @@ class EntryController extends Controller
                 Yii::app()->user->setFlash('success', 'The entry was saved successfully.');
 
                 // redirect to index
-                $this->redirect(array('index'));
+                $this->redirect(Yii::app()->request->getPost('returnUrl', array('index')));
             }
         } else {
             $model->incrementViewCounter();

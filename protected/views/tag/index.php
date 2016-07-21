@@ -45,6 +45,7 @@
 </div>
 
 <?php $this->widget('GridView', array(
+    'ajaxUpdate'   => false,
     'dataProvider' => $model->search(),
     'cssFile'      => false,
 	'columns'      => array(
@@ -58,6 +59,9 @@
             'buttons' => array(
                 'view' => array(
                     'url' => 'array("entry/index", "Entry[tagList]" => $data->name)',
+                ),
+                'update' => array(
+                    'url' => 'array("tag/update", "id" => $data->id, "returnUrl" => Yii::app()->request->requestUri)',
                 )
             )
         ),

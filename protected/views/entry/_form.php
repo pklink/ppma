@@ -47,6 +47,7 @@
     <?php echo $form->textArea($model, 'comment', array('rows' => 5)); ?>
     <?php echo $form->error($model, 'comment'); ?>
 
+    <?php echo CHtml::hiddenField('returnUrl', Yii::app()->request->getQuery('returnUrl', Yii::app()->request->requestUri)); ?>
     <?php echo CHtml::submitButton('Save', array('class' => 'button radius'))?>
 
 <?php $this->endWidget(); ?>

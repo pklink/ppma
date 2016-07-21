@@ -15,6 +15,8 @@
     <?php echo $form->textField($model, 'name'); ?>
     <?php echo $form->error($model, 'name'); ?>
 
+
+    <?php echo CHtml::hiddenField('returnUrl', Yii::app()->request->getQuery('returnUrl', CHtml::normalizeUrl(array('index')))); ?>
     <?php echo CHtml::submitButton('Save', array('class' => 'button radius'))?>
 
 <?php $this->endWidget(); ?>

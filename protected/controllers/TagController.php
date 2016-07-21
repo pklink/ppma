@@ -145,7 +145,7 @@ class TagController extends Controller
                 Yii::app()->user->setFlash('success', 'The tag was updated successfully.');
 
                 // redirect to index
-                $this->redirect(array('index'));
+                $this->redirect(Yii::app()->request->getPost('returnUrl', array('index')));
             }
         }
 

@@ -34,7 +34,7 @@ class EntryButtonColumn extends ButtonColumn
                 'data-reveal-id' => 'entry-form-modal',
                 'class' => 'update-entry',
             ),
-            'url' => 'array("entry/update", "id" => $data->id)',
+            'url' => 'array("entry/update", "id" => $data->id, "returnUrl" => Yii::app()->request->requestUri)',
         );
     }
 

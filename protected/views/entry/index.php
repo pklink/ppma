@@ -41,6 +41,7 @@
 </div>
 
 <?php $this->widget('GridView', array(
+    'ajaxUpdate' => false,
     'dataProvider' => $model->search(),
     'cssFile'      => false,
 	'columns'      => array(
