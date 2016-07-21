@@ -1,17 +1,12 @@
 <?php
 
-class ImportCsvForm extends CFormModel
+class ImportPhpPassManagerForm extends CFormModel
 {
 
     /**
      * @var string
      */
     public $name;
-
-    /**
-     * @var string
-     */
-    public $tags;
 
     /**
      * @var string
@@ -26,12 +21,27 @@ class ImportCsvForm extends CFormModel
     /**
      * @var string
      */
+    public $masterPassword;
+
+    /**
+     * @var string
+     */
     public $url;
 
     /**
      * @var string
      */
     public $comment;
+
+    /**
+     * @var string
+     */
+    public $iv;
+
+    /**
+     * @var string
+     */
+    public $hash;
 
     /**
      * @return array
@@ -48,8 +58,21 @@ class ImportCsvForm extends CFormModel
             array('url', 'length', 'max' => 255, 'skipOnError' => true),
             array('username', 'default', 'value' => null),
             array('username', 'length', 'max' => 255, 'skipOnError' => true),
-            array('tags', 'safe'),
+            array('iv', 'required'),
+            array('masterPassword', 'required'),
+            array('masterPassword', 'validateHash', 'skipOnError' => true),
+            array('hash', 'safe'),
         );
+    }
+
+    public function validateHash() {
+        /* @var PhpPassManagerDecryptorComponent $decryptor */
+        /** @noinspection PhpUndefinedFieldInspection */
+        $decryptor = Yii::app()->phpPassManagerDecryptor;
+        $password = $decryptor->decrypt(base64_decode($this->password), $this->masterPassword, base64_decode($this->iv));
+        if (md5($password) != $this->hash) {
+            $this->addError('masterPassword', 'Incorrect master password');
+        }
     }
 
 }

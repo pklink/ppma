@@ -49,7 +49,7 @@ class ExportController extends Controller
         }
 
         $csv = new ECSVExport($data);
-        Yii::app()->request->sendFile(sprintf('ppma-export-%s', date('YmdHis')), $csv->toCSV(), 'text/csv', false);
+        Yii::app()->request->sendFile(sprintf('ppma-export-%s.csv', date('YmdHis')), $csv->toCSV(), 'text/csv', false);
     }
 
     /**
