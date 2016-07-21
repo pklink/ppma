@@ -1,6 +1,6 @@
 <?php
 
-class EntryLinkColumn extends CLinkColumn
+class EntryLinkColumn extends CDataColumn
 {
 
 
