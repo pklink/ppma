@@ -5,6 +5,7 @@ Version 0.6.0 (unreleased)
 --------------------------
 - Issue #70: Added import for PhpPasswordManager
 - Issue #68: Simplified code of setup routine
+- Issue #46: Added support for alternate database host port
 - Bug: CSV-Export has no `csv`-extension
 - Bug: CSV-Import doesn't work with PHP7
 - Bug: Import: Remove entries before saving doesn't work

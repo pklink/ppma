@@ -5,7 +5,7 @@ class UpgradeController extends Controller
 
     public $layout = '//layouts/upgrade';
 
-    private $latestVersion = '0.5.2';
+    private $latestVersion = '0.6.0';
 
     private $history = array(
         array('0', 'upgradeTo02'),
@@ -28,6 +28,8 @@ class UpgradeController extends Controller
         array('0.4.2'),
         array('0.5.0'),
         array('0.5.1'),
+        array('0.5.2'),
+        array('0.6.0', 'upgradeTo060'),
     );
 
     public function actionIndex()
@@ -193,5 +195,24 @@ class UpgradeController extends Controller
         $model->name = Setting::PAGINATION_PAGE_SIZE_TAGS;
         $model->value = 10;
         $model->save();
+    }
+
+    /**
+     * @return void
+     */
+    protected function upgradeTo060()
+    {
+        $configPath = Yii::getPathOfAlias('application.config.ppma') . '.php';
+
+        // get config
+        /** @noinspection PhpIncludeInspection */
+        $config = require($configPath);
+
+        // set config
+        $config['db']['port'] = 3306;
+
+        // save config
+        $config = new CConfiguration($config);
+        file_put_contents($configPath, "<?php\n\nreturn " . $config->saveAsString() . ';');
     }
 }

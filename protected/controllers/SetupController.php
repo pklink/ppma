@@ -67,6 +67,7 @@ class SetupController extends Controller
 
             // set config
             $config['db']['server'] = $model->server;
+            $config['db']['port'] = $model->port;
             $config['db']['username'] = $model->username;
             $config['db']['password'] = $model->password;
             $config['db']['name'] = $model->name;

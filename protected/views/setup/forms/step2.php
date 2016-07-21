@@ -6,6 +6,10 @@ return array(
             'type'  => 'text',
             'size'  => '60',
         ),
+        'port' => array(
+            'type'  => 'number',
+            'size'  => '5',
+        ),
         'username' => array(
             'type'  => 'text',
             'size'  => '60',
