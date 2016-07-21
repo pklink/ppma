@@ -15,8 +15,10 @@
                         <li><?php echo CHtml::link('Overview', array('entry/index')) ?></li>
                         <li><?php echo CHtml::link('Create', array('entry/create')) ?></li>
                         <li class="divider"></li>
-                        <li><?php echo CHtml::link('Export to CSV', array('export/csv')) ?></li>
                         <li><?php echo CHtml::link('Import from CSV', array('import/csv')) ?></li>
+                        <li><?php echo CHtml::link('Import from phpPasswordManager', array('import/phppassmanager')) ?></li>
+                        <li class="divider"></li>
+                        <li><?php echo CHtml::link('Export to CSV', array('export/csv')) ?></li>
                     </ul>
                 </li>
                 <li class="has-dropdown">
@@ -55,6 +57,7 @@
 
     <div class="row">
         <div class="nine columns" role="content" id="content">
+            <?php /* @var string $content */ ?>
             <?php echo $content; ?>
         </div>
 

@@ -60,6 +60,11 @@ return array(
             ),
         ),
 
+        'phpPassManagerDecryptor' => array(
+            'class' => 'PhpPassManagerDecryptorComponent'
+        ),
+
+
         'securityManager' => array(
             'class' => 'SecurityManager',
         ),

@@ -17,8 +17,8 @@ class ImportController extends Controller
         return array(
             array(
                 'allow',
-                'actions' => array('csv'),
-                'users' => array('@'),
+                'actions'    => array('csv', 'phppassmanager'),
+                'users'      => array('@'),
                 'expression' => 'Yii::app()->user->isAdmin',
             ),
             array(
@@ -35,7 +35,8 @@ class ImportController extends Controller
     public function actions()
     {
         return array(
-            'csv' => 'application.controllers.import.CSVAction',
+            'csv'            => 'application.controllers.import.CSVAction',
+            'phppassmanager' => 'application.controllers.import.PHPPassManagerAction',
         );
     }
 
