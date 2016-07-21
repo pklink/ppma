@@ -238,24 +238,27 @@ class SetupController extends Controller
      */
     protected function actionStep3()
     {
-        /* @var User $model */
         // create form
-        $form = new CForm('application.views.setup.forms.register', new User());
-        $model = $form->model;
-
-        if (isset($_POST['User'])) {
-            $form->loadData();
-        }
+        $form = new CForm('application.views.setup.forms.register', new UserForm());
 
         // form is submitted
-        if (isset($_POST['User'])) {
-            // attach eventhandler for padding password, generating encryption key and salting password
-            $model->onBeforeValidate[] = array($form->model, 'padPassword');
-            $model->onBeforeValidate[] = array($form->model, 'generateEncryptionKey');
-            $model->onBeforeValidate[] = array($form->model, 'saltPassword');
+        if (isset($_POST['UserForm'])) {
+            $form->loadData();
 
-            // validate form
             if ($form->validate()) {
+                /** @noinspection PhpUndefinedClassInspection */
+                $model = new User();
+
+                /** @noinspection PhpUndefinedFieldInspection */
+                $model->username = $form->model->username;
+                /** @noinspection PhpUndefinedFieldInspection */
+                $model->password = $form->model->password;
+
+                // attach eventhandler for padding password, generating encryption key and salting password
+                $model->onBeforeSave[] = array($model, 'padPassword');
+                $model->onBeforeSave[] = array($model, 'generateEncryptionKey');
+                $model->onBeforeSave[] = array($model, 'saltPassword');
+
                 // save user
                 $model->isAdmin = true;
                 $model->save(false);

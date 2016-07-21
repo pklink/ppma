@@ -11,6 +11,11 @@ return array(
             'maxlength' => 32,
             'value'     => '',
         ),
+        'passwordRepeat' => array(
+            'type'      => 'password',
+            'maxlength' => 32,
+            'value'     => '',
+        ),
     ),
 
     'buttons'=>array(
