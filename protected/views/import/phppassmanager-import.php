@@ -60,12 +60,12 @@
                 <?php echo $form->passwordField($model, sprintf('[%d]masterPassword', $index)); ?>
             </div>
             <div class="one columns import-button-column">
-                <a><i class="foundicon-remove"></i></a>
+                <?php echo $form->hiddenField($model, sprintf('[%d]password', $index)); ?>
+                <?php echo $form->hiddenField($model, sprintf('[%d]hash', $index)); ?>
+                <?php echo $form->hiddenField($model, sprintf('[%d]iv', $index)); ?>
+                <i class="large foundicon-remove"></i>
             </div>
         </div>
-        <?php echo $form->hiddenField($model, sprintf('[%d]password', $index)); ?>
-        <?php echo $form->hiddenField($model, sprintf('[%d]hash', $index)); ?>
-        <?php echo $form->hiddenField($model, sprintf('[%d]iv', $index)); ?>
     <?php endforeach; ?>
 
     <?php echo CHtml::submitButton('Import', array('class' => 'button radius'))?>

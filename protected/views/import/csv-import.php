@@ -45,6 +45,7 @@
         </div>
     </div><br />
 
+    <?php /* @var ImportCsvForm[] $models */ ?>
     <?php foreach ($models as $index => $model) : ?>
         <div class="row">
             <div class="two columns">
@@ -66,7 +67,7 @@
                 <?php echo $form->textArea($model, sprintf('[%d]comment', $index), array('rows' => 1)); ?>
             </div>
             <div class="one columns import-button-column">
-                <a><i class="foundicon-remove"></i></a>
+                <i class="foundicon-remove"></i>
             </div>
         </div>
     <?php endforeach; ?>
