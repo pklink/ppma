@@ -33,6 +33,8 @@ Version 0.4.2
 Version 0.4.1
 -------------
 - Bug #29: Tags overview is locked to 10 entries, regardless of "Results per page" setting
+- Bug: CSV-Export has no `csv`-extension
+- Bug: CSV-Import doesn't work with PHP7
 
 Version 0.4.0
 -------------

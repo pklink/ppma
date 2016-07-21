@@ -45,9 +45,9 @@ class ImportController extends Controller
                 $models = array();
 
                 // get file
-                $file = CUploadedFile::getInstance($model, 'file');
+                $file        = CUploadedFile::getInstance($model, 'file');
                 $fileContent = trim(file_get_contents($file->tempName));
-                $fileLines = explode("\n", $fileContent);
+                $fileLines   = explode("\n", $fileContent);
 
                 // relations between CSV and ImportCsvForm
                 $csvToObject = array(
@@ -82,7 +82,7 @@ class ImportController extends Controller
                             break;
                         }
 
-                        $tmpModel->$csvToObject[$position] = $csv[$position];
+                        $tmpModel->{$csvToObject[$position]} = $csv[$position];
                     }
 
                     $models[] = $tmpModel;
