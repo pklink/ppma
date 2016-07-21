@@ -41,7 +41,7 @@ return array(
         ),
 
         'db' => array(
-            'connectionString' => 'mysql:host=' . $ppma['db']['server'] . ';dbname=' . $ppma['db']['name'],
+            'connectionString' => sprintf('mysql:host=%s;port=%d;dbname=%s;', $ppma['db']['server'], $ppma['db']['port'], $ppma['db']['name']),
             'username'         => $ppma['db']['username'],
             'password'         => $ppma['db']['password'],
         ),
@@ -63,7 +63,6 @@ return array(
         'phpPassManagerDecryptor' => array(
             'class' => 'PhpPassManagerDecryptorComponent'
         ),
-
 
         'securityManager' => array(
             'class' => 'SecurityManager',

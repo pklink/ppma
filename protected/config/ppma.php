@@ -7,6 +7,7 @@ return array (
     'username' => 'root',
     'password' => 'password',
     'name' => 'ppma',
+    'port' => 3306,
   ),
   'isInstalled' => false,
   'version' => '0.5.2',

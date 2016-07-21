@@ -9,6 +9,11 @@ class CreateConfigForm extends CFormModel
     public $server;
 
     /**
+     * @var int
+     */
+    public $port = 3306;
+
+    /**
      * @var string
      */
     public $username;
@@ -30,6 +35,8 @@ class CreateConfigForm extends CFormModel
     {
         return array(
             array('name', 'required'),
+            array('port', 'required'),
+            array('port', 'numerical'),
             array('password', 'safe'),
             array('server', 'required'),
             array('username', 'required'),
@@ -45,6 +52,7 @@ class CreateConfigForm extends CFormModel
         return array(
             'name' => 'Database',
             'password' => 'Password',
+            'port' => 'Port',
             'server' => 'Server',
             'username' => 'Username',
         );
