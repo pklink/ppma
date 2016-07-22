@@ -3,6 +3,7 @@
 <?php $form = $this->beginWidget('ActiveForm', array(
     'id'    => 'login-form',
     'focus' => array($model, 'username'),
+    'htmlOptions' => array('class' => 'custom'),
 )); ?>
 
     <?php echo $form->labelEx($model, 'username'); ?>
@@ -19,5 +20,10 @@
         </div>
     </div>
     <?php echo $form->error($model, 'password'); ?>
+
+    <label for="<?php echo CHtml::activeId($model, 'rememberMe') ?>">
+        <?php echo $form->checkBox($model, 'rememberMe', array('class' => 'hide')); ?>
+        <span class="custom checkbox <?php echo ($model->rememberMe ? 'checked' : '') ?>"></span> Remember me on this computer
+    </label>
 
 <?php $this->endWidget(); ?>

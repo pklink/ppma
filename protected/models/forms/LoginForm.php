@@ -14,6 +14,11 @@ class LoginForm extends CFormModel
     public $password;
 
     /**
+     * @var boolean
+     */
+    public $rememberMe;
+
+    /**
      * @return array
      */
     public function rules()
@@ -22,6 +27,7 @@ class LoginForm extends CFormModel
             array('username', 'required'),
             array('password', 'required'),
             array('password', 'authenticate', 'skipOnError' => true),
+            array('rememberMe', 'safe'),
         );
     }
 
@@ -31,8 +37,9 @@ class LoginForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'password' => 'Password',
-            'username' => 'Username',
+            'password'   => 'Password',
+            'username'   => 'Username',
+            'rememberMe' => 'Remember Login',
         );
     }
 
@@ -54,7 +61,11 @@ class LoginForm extends CFormModel
         switch($identity->errorCode)
         {
             case UserIdentity::ERROR_NONE:
-                $webUser->login($identity);
+                if ($this->rememberMe) {
+                    $webUser->login($identity, 3600*24*7);
+                } else {
+                    $webUser->login($identity);
+                }
                 break;
             case UserIdentity::ERROR_USERNAME_INVALID:
             case UserIdentity::ERROR_PASSWORD_INVALID:
