@@ -49,6 +49,11 @@ footer {
     float: none !important;
 }
 
+#entries .button-column {
+    width: 135px;
+    float: none !important;
+}
+
 .button-column a {
     display: block;
     float: left;

@@ -6,7 +6,7 @@ class EntryButtonColumn extends ButtonColumn
     /**
      * @var string
      */
-    public $template = '{website}{update}{delete}';
+    public $template = '{website}{copyUsername}{copyPassword}{update}{delete}';
 
     /**
      * @var array
@@ -17,6 +17,23 @@ class EntryButtonColumn extends ButtonColumn
             'url' => '$data->url',
             'options' => array('title' => 'Visit Website', 'target' => '_blank'),
         ),
+        'copyUsername' => array(
+            'label' => '<i class="foundicon-address-book"></i>',
+            'options' => array(
+                'title' => 'Copy Username',
+                'class' => 'copy-to-clipboard',
+                'data-clipboard-text' => ''
+            ),
+        ),
+        'copyPassword' => array(
+            'label' => '<i class="foundicon-page"></i>',
+            'options' => array(
+                'title' => 'Copy Password',
+                'class' => 'copy-to-clipboard',
+                'data-clipboard-text' => ''
+            ),
+        ),
+
     );
 
     /**
@@ -51,6 +68,16 @@ class EntryButtonColumn extends ButtonColumn
             $button['options']['rel'] = CHtml::normalizeUrl(
                 array('entry/getData', 'id' => $data->id, 'withPassword' => 1)
             );
+        }
+
+        // add username to copy button
+        if ($id == 'copyUsername') {
+            $button['options']['data-clipboard-text'] = $data->username;
+        }
+
+        // add password to copy button
+        if ($id == 'copyPassword') {
+            $button['options']['data-clipboard-text'] = $data->password;
         }
 
         // render website only if url available
