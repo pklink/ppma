@@ -1,8 +1,8 @@
 PHP Password Manager (ppma) Change Log
 ======================================
 
-Version 0.6.0 (unreleased)
---------------------------
+Version 0.6.0
+-------------
 - Issue #70: Added import for PhpPasswordManager
 - Issue #68: Simplified code of setup routine
 - Issue #56: Added `returnUrl`-param to `entry/update` and `tag/update`
