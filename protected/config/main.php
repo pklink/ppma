@@ -3,6 +3,11 @@
 // include ppma-config
 $ppma = include dirname(__FILE__) . '/ppma.php';
 
+// set default port if is needed
+if (!isset($ppma['db']['port'])) {
+    $ppma['db']['port'] = 3306;
+}
+
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
