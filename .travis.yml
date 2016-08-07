@@ -4,6 +4,7 @@ php:
 services:
   - mysql
 install:
+  - cp config.sample.php config.php
   - composer install
   - mysql -e 'create database ppma1;'
   - php -S localhost:8080 -t ./public/ &
