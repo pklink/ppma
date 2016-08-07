@@ -7,12 +7,12 @@
 class_name: AcceptanceTester
 modules:
 modules:
-    config:
-        Db:
-            dsn: 'mysql:host=localhost;dbname=ppma'
-            user: 'root'
-            password:
-            dump: tests/_data/dump.sql
+  config:
+    Db:
+      dsn: 'mysql:host=localhost;dbname=ppma'
+      user: 'root'
+      password: 'password'
+      dump: tests/_data/dump.sql
   enabled:
     - REST:
         depends: PhpBrowser
