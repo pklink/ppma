@@ -6,5 +6,6 @@ services:
 install:
   - composer install
   - mysql -e 'create database ppma1;'
+  - php -S localhost:8080 -t ./public/
 script:
   - vendor/bin/codecept run
