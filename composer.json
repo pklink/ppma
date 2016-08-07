@@ -1,0 +1,24 @@
+{
+    "name": "slim/slim-skeleton",
+    "description": "A Slim Framework skeleton application for rapid development",
+    "keywords": ["microframework","rest","router", "psr7"],
+    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierre Klink",
+            "email": "dev@klink.xyz",
+            "homepage": "https://klink.xyz/"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "ppma\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "slim/slim": "~3.5",
+        "illuminate/database": "~5.2"
+    }
+}
