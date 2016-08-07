@@ -19,7 +19,7 @@ class IndexAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        $table = $this->db->table('Setting');
+        $table = $this->db->table('Setting')->select('name', 'value');
         return $response->withJson($table->get());
     }
 
