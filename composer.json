@@ -1,24 +1,35 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework","rest","router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Pierre Klink",
-            "email": "dev@klink.xyz",
-            "homepage": "https://klink.xyz/"
-        }
-    ],
-    "autoload": {
-        "psr-0": {
-            "ppma\\": "src/"
-        }
-    },
-    "require": {
-        "php": ">=7.0.0",
-        "slim/slim": "~3.5",
-        "illuminate/database": "~5.2"
+  "name": "pklink/ppma",
+  "description": "Password Manager for your browser",
+  "keywords": [
+    "password",
+    "security",
+    "privacy",
+    "selfhosted"
+  ],
+  "homepage": "http://www.ppma.pw",
+  "license": "MIT",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Pierre Klink",
+      "email": "dev@klink.xyz",
+      "homepage": "https://klink.xyz/"
     }
+  ],
+  "autoload": {
+    "psr-0": {
+      "ppma\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "slim/slim": "~3.5",
+    "illuminate/database": "~5.2",
+    "psr/log": "^1.0"
+  },
+  "requireDev": {
+    "codeception/codeception": "^2.2",
+    "flow/jsonpath": "^0.3.1"
+  }
 }
