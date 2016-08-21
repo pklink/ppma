@@ -1,13 +1,8 @@
 class_name: AcceptanceTester
 modules:
-  config:
-    Db:
-      dsn: 'mysql:host=localhost;dbname=ppma1'
-      user: 'root'
-      password: 'password'
-      dump: tests/_data/dump.sql
   enabled:
+    - Db
+    - \Helper\Acceptance
     - REST:
         depends: PhpBrowser
         url: 'http://localhost:8080'
-    - \Helper\Acceptance
