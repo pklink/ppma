@@ -9,7 +9,7 @@ modules:
 modules:
   config:
     Db:
-      dsn: 'mysql:host=localhost;dbname=ppma'
+      dsn: 'mysql:host=localhost;dbname=ppma1'
       user: 'root'
       password: 'password'
       dump: tests/_data/dump.sql

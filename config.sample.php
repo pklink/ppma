@@ -6,7 +6,7 @@ return [
         'db' => [
             'driver'    => 'mysql',
             'host'      => '127.0.0.1',
-            'database'  => 'ppma',
+            'database'  => 'ppma1',
             'username'  => 'root',
             'password'  => '',
             'charset'   => 'utf8',
