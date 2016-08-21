@@ -5,8 +5,7 @@ services:
   - mysql
 install:
   - cp config.sample.php config.php
-  - sed -i "s/'password'/''/g" tests/acceptance.suite.yml
-  - cat tests/acceptance.suite.yml
+  - sed -i "s/'password'/''/g" codeception.yml
   - composer install
   - mysql -e 'create database ppma1;'
   - php -S localhost:8080 -t ./public/ &
