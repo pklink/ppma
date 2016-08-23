@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => true, // set to false in production
         'db' => [
             'driver'    => 'mysql',
             'host'      => '127.0.0.1',
@@ -12,6 +12,11 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
+        ],
+        'logs' => [
+            'pathes' => [
+                'error' => __DIR__ . '/logs/error.log'
+            ]
         ]
     ],
 ];

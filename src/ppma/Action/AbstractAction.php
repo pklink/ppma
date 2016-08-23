@@ -5,6 +5,7 @@ namespace ppma\Action;
 
 
 use Illuminate\Database\Capsule\Manager;
+use Monolog\Logger;
 use ppma\Action;
 use Slim\Container;
 
@@ -16,6 +17,11 @@ abstract class AbstractAction implements Action
      */
     protected $db;
 
+    /**
+     * @var Logger
+     */
+    protected $logger;
+
 
     /**
      * AbstractAction constructor
@@ -24,7 +30,8 @@ abstract class AbstractAction implements Action
      */
     public function __construct(Container $container)
     {
-        $this->db = $container->get('db');
+        $this->db     = $container->get('db');
+        $this->logger = $container->get('logger');
     }
 
 

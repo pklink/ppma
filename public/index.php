@@ -23,6 +23,21 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
+// add add monolog service
+$container['logger'] = function($container) {
+    // create logger
+    $logger = new \Monolog\Logger('ppma');
+
+    // create handler
+    $path        = $container['settings']['logs']['pathes']['error'];
+    $fileHandler = new \Monolog\Handler\StreamHandler($path, \Monolog\Logger::ERROR);
+
+    // add handler to logger
+    $logger->pushHandler($fileHandler);
+
+    return $logger;
+};
+
 
 // register routes
 $app->get('/entries', \ppma\Action\Entry\IndexAction::class);
