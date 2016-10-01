@@ -30,7 +30,8 @@
     "monolog/monolog": "^1.21.0",
     "tuupola/slim-jwt-auth": "^2.3.0",
     "ircmaxell/password-compat": "^1.0",
-    "respect/validation": "^1.1"
+    "respect/validation": "^1.1",
+    "robmorgan/phinx": "^0.6.4"
   },
   "require-dev": {
     "codeception/codeception": "~2.2.3",

@@ -6,6 +6,8 @@
 cp config.sample.php config.php
 vim config.php
 composer install
+./vendor/bin/phinx migrate
+./vendor/bin/phinx seed:run
 php -S localhost:8080 -t ./public/
 ```
 
