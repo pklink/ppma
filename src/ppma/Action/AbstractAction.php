@@ -22,6 +22,11 @@ abstract class AbstractAction implements Action
      */
     protected $logger;
 
+    /**
+     * @var array
+     */
+    protected $settings;
+
 
     /**
      * AbstractAction constructor
@@ -30,8 +35,9 @@ abstract class AbstractAction implements Action
      */
     public function __construct(Container $container)
     {
-        $this->db     = $container->get('db');
-        $this->logger = $container->get('logger');
+        $this->db       = $container->get('db');
+        $this->logger   = $container->get('logger');
+        $this->settings = $container->get('settings');
     }
 
 

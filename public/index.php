@@ -30,7 +30,7 @@ $container['logger'] = function($container) {
 
     // create handler
     $path        = $container['settings']['logs']['pathes']['error'];
-    $fileHandler = new \Monolog\Handler\StreamHandler($path, \Monolog\Logger::ERROR);
+    $fileHandler = new \Monolog\Handler\StreamHandler($path, \Monolog\Logger::DEBUG);
 
     // add handler to logger
     $logger->pushHandler($fileHandler);
@@ -38,10 +38,18 @@ $container['logger'] = function($container) {
     return $logger;
 };
 
+// add jwt-service
+$app->add(new \Slim\Middleware\JwtAuthentication([
+    'secret'      => $container['settings']['secret'],
+    'path'        => '/',
+    'passthrough' => ['/login'],
+    'logger'      => $container['logger']
+]));
 
 // register routes
 $app->get('/entries', \ppma\Action\Entry\IndexAction::class);
 $app->get('/settings', \ppma\Action\Setting\IndexAction::class);
+$app->post('/login', \ppma\Action\Login\IndexAction::class);
 
 // run app
 $app->run();

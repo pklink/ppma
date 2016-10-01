@@ -3,6 +3,7 @@
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
+        'secret' => 'CHANGE_ME',
         'db' => [
             'driver'    => 'mysql',
             'host'      => '127.0.0.1',
