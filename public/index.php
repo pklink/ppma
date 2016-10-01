@@ -50,6 +50,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 $app->get('/entries', \ppma\Action\Entry\IndexAction::class);
 $app->get('/settings', \ppma\Action\Setting\IndexAction::class);
 $app->post('/login', \ppma\Action\Login\IndexAction::class);
+$app->post('/users', \ppma\Action\Entry\CreateAction::class);
 
 // run app
 $app->run();
