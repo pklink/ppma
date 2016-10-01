@@ -31,3 +31,15 @@ CREATE TABLE `entries` (
 INSERT INTO `entries` (`id`, `name`, `username`, `password`)
 VALUES
   (1, 'github.com', 'pklink', '123456');
+
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(60) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`id`, `username`, `password`)
+VALUES
+  (1, 'pierre', '$2y$10$DmDAfMQvhPJdxZu6xOOWgegz1WMtbJkJLZZ/vI36gqdzQU4zkmyja');
+
