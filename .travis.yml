@@ -5,9 +5,10 @@ services:
   - mysql
 install:
   - cp config.sample.php config.php
+  - sed -i "s/'ppma1'/'ppma1test'/g" codeception.yml
   - sed -i "s/'password'/''/g" codeception.yml
   - composer install
-  - mysql -e 'create database ppma1;'
+  - mysql -e 'create database ppma1test;'
   - php -S localhost:8080 -t ./public/ &
 script:
   - vendor/bin/codecept run --debug
