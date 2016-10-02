@@ -6,6 +6,8 @@ namespace ppma\Action\Login;
 
 use Firebase\JWT\JWT;
 use ppma\Action\AbstractAction;
+use ppma\Model\Permission;
+use ppma\Model\User;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -24,7 +26,7 @@ class IndexAction extends AbstractAction
         }
 
         // get user from database
-        $user = $this->db->table('users')->where('username', $username)->first();
+        $user = User::where('username', $username)->first();
 
         // user does not exist
         if ($user === null) {
@@ -41,8 +43,12 @@ class IndexAction extends AbstractAction
             'iat'  => (new \DateTime())->getTimestamp(),
             'exp'  => (new \DateTime('now +5 minutes'))->getTimestamp(),
             'user' => [
-                'id'       => $user->id,
-                'username' => $user->username
+                'id'          => $user->id,
+                'username'    => $user->username,
+                'role'        => $user->role->name,
+                'permissions' => $user->role->permissions->map(function(Permission $permission) {
+                    return $permission->id;
+                })
             ]
         ];
 

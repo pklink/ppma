@@ -1,13 +1,14 @@
 <?php
 
-namespace ppma\Action\Entry;
+namespace ppma\Action\Role;
 
 use ppma\Action\AbstractAction;
+use ppma\Model\Role;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class IndexAction extends AbstractAction
+class GetAction extends AbstractAction
 {
 
     /**
@@ -19,8 +20,15 @@ class IndexAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        $table = $this->db->table('entries');
-        return $response->withJson($table->get());
+        // retrieve model
+        $model = Role::find($args['id']);
+
+        // model does not exist
+        if ($model == null) {
+            return $response->withStatus(404);
+        }
+
+        return $response->withJson($model);
     }
 
 }

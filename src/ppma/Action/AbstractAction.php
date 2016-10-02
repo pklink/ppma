@@ -40,5 +40,4 @@ abstract class AbstractAction implements Action
         $this->settings = $container->get('settings');
     }
 
-
 }
