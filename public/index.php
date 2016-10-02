@@ -47,10 +47,10 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 ]));
 
 // register routes
-$app->get('/entries', \ppma\Action\Entry\IndexAction::class);
+$app->get('/entries', \ppma\Action\User\IndexAction::class);
 $app->get('/settings', \ppma\Action\Setting\IndexAction::class);
 $app->post('/login', \ppma\Action\Login\IndexAction::class);
-$app->post('/users', \ppma\Action\Entry\CreateAction::class);
+$app->post('/users', \ppma\Action\User\CreateAction::class);
 
 // run app
 $app->run();

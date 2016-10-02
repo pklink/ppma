@@ -1,6 +1,6 @@
 <?php
 
-namespace ppma\Action\Entry;
+namespace ppma\Action\User;
 
 use ppma\Action\AbstractAction;
 use Psr\Http\Message\ResponseInterface;
