@@ -30,6 +30,7 @@ class CreateAction extends AbstractAction
         $validator = v::create();
         $validator->key('username', v::stringType()->notEmpty());
         $validator->key('password', v::stringType()->length(8));
+        $validator->key('role_id', v::intType()->notEmpty());
 
         // validate & save
         try {
@@ -39,6 +40,7 @@ class CreateAction extends AbstractAction
             $user = new User();
             $user->username = $request->getParsedBodyParam('username');
             $user->password = password_hash($request->getParsedBodyParam('password'), PASSWORD_BCRYPT);
+            $user->role_id  = $request->getParsedBodyParam('role_id');
             $user->save();
 
             return $response
@@ -49,7 +51,7 @@ class CreateAction extends AbstractAction
             /* @var array $errors */
 
             // get errors
-            $errors = $exception->findMessages(['username', 'password']);
+            $errors = $exception->findMessages(['username', 'password', 'role_id']);
 
             // remove empty errors
             $errors = array_filter($errors, 'strlen');
