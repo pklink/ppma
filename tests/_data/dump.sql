@@ -163,7 +163,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `username`, `password`, `role_id`, `created_at`, `updated_at`)
 VALUES
-  (1,'pierre','$2y$10$aDTkMiY8zwkHcRC9V04LBel5yJ.0GZ8rjHE1gSQZwmXKA3QN4TEyq',1,'2016-10-02 17:04:22','2016-10-02 17:04:22');
+  (1, 'pierre', '$2y$10$aDTkMiY8zwkHcRC9V04LBel5yJ.0GZ8rjHE1gSQZwmXKA3QN4TEyq', 1, '2016-10-02 20:34:55', '2016-10-02 20:34:55'),
+  (2, 'peterchen', '$2y$10$aDTkMiY8zwkHcRC9V04LBel5yJ.0GZ8rjHE1gSQZwmXKA3QN4TEyq', 2, '2016-10-02 20:34:55', '2016-10-02 20:34:55');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
