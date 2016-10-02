@@ -47,14 +47,20 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 ]));
 
 // register routes
-$app->get('/entries', \ppma\Action\Entry\IndexAction::class);
-$app->get('/settings', \ppma\Action\Setting\IndexAction::class);
 $app->post('/login', \ppma\Action\Login\IndexAction::class);
-$app->get('/roles/{id}', \ppma\Action\User\GetAction::class);
-$app->get('/users', \ppma\Action\User\IndexAction::class);
-$app->get('/users/{id}', \ppma\Action\User\GetAction::class);
-$app->post('/users', \ppma\Action\User\CreateAction::class);
-$app->get('/users/{id}/role', \ppma\Action\User\Role\IndexAction::class);
+$app->group('/entries', function () use ($app)  {
+    $app->get('', \ppma\Action\Entry\IndexAction::class);
+});
+$app->group('/roles', function () use ($app)  {
+    $app->get('/{id}', \ppma\Action\User\GetAction::class);
+});
+$app->group('/users', function () use ($app)  {
+    $app->get('', \ppma\Action\User\IndexAction::class);
+    $app->post('', \ppma\Action\User\CreateAction::class);
+    $app->get('/{id}', \ppma\Action\User\GetAction::class);
+    $app->get('/{id}/role', \ppma\Action\User\Role\IndexAction::class);
+});
+
 
 // run app
 $app->run();
