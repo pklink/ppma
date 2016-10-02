@@ -22,9 +22,7 @@ class CreateAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        if (!$this->hasAccessTo('users.create')) {
-            return $response->withStatus(401);
-        }
+        $this->hasAccessTo('users.create');
 
         // create validator
         $validator = v::create();

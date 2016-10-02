@@ -7,6 +7,7 @@ namespace ppma\Action;
 use Illuminate\Database\Capsule\Manager;
 use Monolog\Logger;
 use ppma\Action;
+use ppma\Exception\ForbiddenException;
 use Slim\Container;
 
 abstract class AbstractAction implements Action
@@ -48,10 +49,12 @@ abstract class AbstractAction implements Action
 
     /**
      * @param string $neededPermission
-     * @return bool
+     * @throws ForbiddenException
      */
     protected function hasAccessTo(string $neededPermission) {
-        return in_array($neededPermission, $this->user->permissions);
+        if (!in_array($neededPermission, $this->user->permissions)) {
+            throw new ForbiddenException();
+        }
     }
 
 }
