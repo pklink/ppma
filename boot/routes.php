@@ -6,6 +6,7 @@ $app->post('/login', \ppma\Action\Login\IndexAction::class);
 // entries
 $app->group('/entries', function () use ($app)  {
     $app->get('', \ppma\Action\Entry\IndexAction::class);
+    $app->get('/{id}', \ppma\Action\Entry\GetAction::class);
 });
 
 // roles
