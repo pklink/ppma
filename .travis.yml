@@ -1,6 +1,14 @@
 language: php
 php:
   - '7.0'
+dist: trusty
+sudo: required
+addons:
+  apt:
+    packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6
 services:
   - mysql
 install:
@@ -8,7 +16,7 @@ install:
   - sed -i "s/'ppma1'/'ppma1test'/g" codeception.yml
   - sed -i "s/'password'/''/g" codeception.yml
   - composer install
-  - mysql -e 'create database ppma1test;'
+  - mysql -u root -e 'create database ppma1test;'
   - php -S localhost:8080 -t ./public/ &
 script:
   - vendor/bin/codecept run --debug
