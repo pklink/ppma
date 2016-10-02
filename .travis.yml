@@ -13,6 +13,8 @@ services:
   - mysql
 install:
   - cp config.sample.php config.php
+  - sed -i "s/'ppma1'/'ppma1test'/g" config.php
+  - sed -i "s/'CHANGE_ME'/'43bd4f2FPtHTzetjt2q3kVyy5tpC2e4e'/g" config.php
   - sed -i "s/'ppma1'/'ppma1test'/g" codeception.yml
   - sed -i "s/'password'/''/g" codeception.yml
   - composer install
