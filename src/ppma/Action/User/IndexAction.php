@@ -20,6 +20,10 @@ class IndexAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
+        if (!$this->hasAccessTo($request, 'users.read')) {
+            return $response->withStatus(401);
+        }
+
         return $response->withJson(User::with('role')->get());
     }
 

@@ -19,6 +19,10 @@ class IndexAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
+        if (!$this->hasAccessTo($request, 'entries.read')) {
+            return $response->withStatus(401);
+        }
+
         $table = $this->db->table('entries');
         return $response->withJson($table->get());
     }

@@ -20,6 +20,10 @@ class GetAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
+        if (!$this->hasAccessTo($request, 'roles.read')) {
+            return $response->withStatus(401);
+        }
+
         // retrieve model
         $model = Role::find($args['id']);
 
