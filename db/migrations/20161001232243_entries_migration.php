@@ -16,7 +16,6 @@ class EntriesMigration extends AbstractMigration
             ->addIndex(['name'])
             ->addIndex(['username'])
             ->create();
-
     }
 
 }

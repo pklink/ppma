@@ -11,10 +11,6 @@ class RolesMigration extends AbstractMigration
             ->addColumn('name', 'string')
             ->addIndex(['name'], ['unique' => true])
             ->create();
-
-        $this->table('users')
-            ->addColumn('role_id', 'integer')
-            ->update();
     }
 
 }

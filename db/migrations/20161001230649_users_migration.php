@@ -10,6 +10,7 @@ class UsersMigration extends AbstractMigration
         $this->table('users')
             ->addColumn('username', 'string')
             ->addColumn('password', 'string', ['limit' => 60])
+            ->addColumn('role_id', 'integer')
             ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'update' => 'CURRENT_TIMESTAMP'])
             ->addIndex(['username'], ['unique' => true])
