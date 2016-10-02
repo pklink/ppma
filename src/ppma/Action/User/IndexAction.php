@@ -20,7 +20,7 @@ class IndexAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        return $response->withJson(User::all());
+        return $response->withJson(User::with('role')->get());
     }
 
 }

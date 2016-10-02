@@ -21,7 +21,7 @@ class GetAction extends AbstractAction
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
         // retrieve model
-        $model = User::find($args['id']);
+        $model = User::with('role')->find($args['id']);
 
         // model does not exist
         if ($model == null) {

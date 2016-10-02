@@ -58,7 +58,6 @@ $app->group('/users', function () use ($app)  {
     $app->get('', \ppma\Action\User\IndexAction::class);
     $app->post('', \ppma\Action\User\CreateAction::class);
     $app->get('/{id}', \ppma\Action\User\GetAction::class);
-    $app->get('/{id}/role', \ppma\Action\User\Role\IndexAction::class);
 });
 
 
