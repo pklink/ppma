@@ -20,7 +20,7 @@ class GetAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        if (!$this->hasAccessTo($request, 'roles.read')) {
+        if (!$this->hasAccessTo('roles.read')) {
             return $response->withStatus(401);
         }
 

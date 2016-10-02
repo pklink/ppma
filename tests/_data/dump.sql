@@ -32,14 +32,18 @@ CREATE TABLE `entries` (
   `password` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
-  KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `username` (`username`),
+  KEY `owner_id` (`owner_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO `entries` (`id`, `name`, `username`, `password`, `created_at`, `updated_at`)
+INSERT INTO `entries` (`id`, `name`, `username`, `password`, `created_at`, `updated_at`, `owner_id`)
 VALUES
-  (1, 'github.com', 'pklink', '123456', '2016-10-02 19:20:53', '2016-10-02 19:20:53');
+  (1, 'github.com', 'pklink', '123456', '2016-10-02 20:34:55', '2016-10-02 20:34:55', 1),
+  (2, 'domain.com', 'peterchen', '123456', '2016-10-02 20:34:55', '2016-10-02 20:34:55', 2);
+
 
 
 # Export von Tabelle permissions

@@ -3,10 +3,10 @@
 /* @var \Codeception\Scenario $scenario */
 
 $I = new AcceptanceTester($scenario);
-$I->wantTo('perform GET request on /entries and see result');
+$I->wantTo('perform GET request on /entries and see own entries only');
 
 // send
-$I->amBearerAuthenticated('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGllcnJlIiwiaWQiOiIxIiwicGVybWlzc2lvbnMiOlsiZW50cmllcy5jcmVhdGUiLCJlbnRyaWVzLnJlYWQiLCJlbnRyaWVzLnVwZGF0ZSIsImVudHJpZXMuZGVsZXRlIiwicm9sZXMuY3JlYXRlIiwicm9sZXMucmVhZCIsInJvbGVzLnVwZGF0ZSIsInJvbGVzLmRlbGV0ZSIsInVzZXJzLmNyZWF0ZSIsInVzZXJzLnJlYWQiLCJ1c2Vycy51cGRhdGUiLCJ1c2Vycy5kZWxldGUiXSwicm9sZSI6IkFkbWluIn19.ipZsmPbB1HVmo8umX-hS5o3kXf9Y2XLKhDaWdrethkM');
+$I->amBearerAuthenticated(ADMIN_TOKEN);
 $I->sendGET('/entries');
 
 // asserts
@@ -17,6 +17,8 @@ $I->seeResponseContainsJson([[
     'name'     => 'github.com',
     'username' => 'pklink',
     'password' => '123456',
+    'owner_id' => 1,
 ]]);
-$I->seeResponseJsonMatchesJsonPath('$[*].created_at');
-$I->seeResponseJsonMatchesJsonPath('$[*].updated_at');
+$I->seeResponseJsonMatchesJsonPath('$[0].created_at');
+$I->seeResponseJsonMatchesJsonPath('$[0].updated_at');
+$I->dontSeeResponseJsonMatchesJsonPath('$[1]');

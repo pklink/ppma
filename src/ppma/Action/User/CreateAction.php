@@ -22,7 +22,7 @@ class CreateAction extends AbstractAction
      */
     function __invoke(Request $request, Response $response, array $args) : ResponseInterface
     {
-        if (!$this->hasAccessTo($request, 'users.create')) {
+        if (!$this->hasAccessTo('users.create')) {
             return $response->withStatus(401);
         }
 
