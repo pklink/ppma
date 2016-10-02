@@ -14,7 +14,6 @@ class RolesMigration extends AbstractMigration
 
         $this->table('users')
             ->addColumn('role_id', 'integer')
-            ->addForeignKey('role_id', 'roles', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->update();
     }
 
