@@ -1,5 +1,6 @@
-# PHP Password Manager // ppma
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
+# PHP Password Manager // ppma
 
 ## Requirements
 
